@@ -1,15 +1,21 @@
-export default function PlaceCard(): JSX.Element {
+type PlaceCardProps = {
+  isFavoritesCard?: boolean;
+  isCitiesCard?: boolean;
+  isNearPlacesCard?: boolean;
+}
+
+export default function PlaceCard({ isFavoritesCard, isCitiesCard, isNearPlacesCard }: PlaceCardProps): JSX.Element {
   return (
-    <article className="cities__card place-card">
+    <article className={`place-card ${isFavoritesCard && 'favorites__card'} ${isCitiesCard && 'cities__card'} ${isNearPlacesCard && 'near-places__card'}`}>
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`place-card__image-wrapper ${isFavoritesCard && 'favorites__image-wrapper'} ${isCitiesCard && 'cities__image-wrapper'} ${isNearPlacesCard && 'near-places__image-wrapper'}`}>
         <a href="#">
           <img className="place-card__image" src="img/apartment-01.jpg" width={260} height={200} alt="Place image" />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={`place-card__info ${isFavoritesCard && 'favorites__card-info'}`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;120</b>

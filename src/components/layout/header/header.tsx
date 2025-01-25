@@ -11,9 +11,7 @@ export default function Header({ isNavActive, isLogin }: HeaderProps): JSX.Eleme
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <a className="header__logo-link" href="main.html">
-              <Logo className="header__logo" width={81} height={41} />
-            </a>
+            <Logo blockName="header" width={81} height={41} />
           </div>
           {isNavActive ?
             <nav className="header__nav">

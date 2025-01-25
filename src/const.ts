@@ -10,3 +10,17 @@ export const SixCities = {
   Hamburg: 'Hamburg',
   Dusseldorf: 'Dusseldorf'
 } as const;
+
+export const AppRoute = {
+  Root: '/',
+  Favorites: 'favorites',
+  Offer: 'offer',
+  Login: 'login',
+  ID: 'id'
+} as const;
+
+export const AuthorizationStatus = {
+  Auth: 'AUTH',
+  NoAuth: 'NO_AUTH',
+  Unknown: 'UNKNOWN',
+} as const;

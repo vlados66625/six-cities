@@ -6,16 +6,16 @@ type PlaceCardProps = {
 
 export default function PlaceCard({ isFavoritesCard, isCitiesCard, isNearPlacesCard }: PlaceCardProps): JSX.Element {
   return (
-    <article className={`place-card ${isFavoritesCard && 'favorites__card'} ${isCitiesCard && 'cities__card'} ${isNearPlacesCard && 'near-places__card'}`}>
+    <article className={`${isFavoritesCard ? 'favorites__card' : ''} ${isCitiesCard ? 'cities__card' : ''} ${isNearPlacesCard ? 'near-places__card' : ''} place-card`}>
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
-      <div className={`place-card__image-wrapper ${isFavoritesCard && 'favorites__image-wrapper'} ${isCitiesCard && 'cities__image-wrapper'} ${isNearPlacesCard && 'near-places__image-wrapper'}`}>
+      <div className={`${isFavoritesCard ? 'favorites__image-wrapper' : ''} ${isCitiesCard ? 'cities__image-wrapper' : ''} ${isNearPlacesCard ? 'near-places__image-wrapper' : ''} place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src="img/apartment-01.jpg" width={260} height={200} alt="Place image" />
+          <img className="place-card__image" src="img/apartment-01.jpg" width={isFavoritesCard ? 150 : 260} height={isFavoritesCard ? 110 : 200} alt="Place image" />
         </a>
       </div>
-      <div className={`place-card__info ${isFavoritesCard && 'favorites__card-info'}`}>
+      <div className={`${isFavoritesCard ? 'favorites__card-info' : ''} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;120</b>

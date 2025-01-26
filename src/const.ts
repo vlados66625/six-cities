@@ -11,16 +11,15 @@ export const SixCities = {
   Dusseldorf: 'Dusseldorf'
 } as const;
 
-export const AppRoute = {
-  Root: '/',
-  Favorites: 'favorites',
-  Offer: 'offer',
-  Login: 'login',
-  ID: 'id'
-} as const;
+export enum AppRoute {
+  Root = '/',
+  Favorites = '/favorites',
+  Offer = '/offer/:id',
+  Login = '/login'
+}
 
-export const AuthorizationStatus = {
-  Auth: 'AUTH',
-  NoAuth: 'NO_AUTH',
-  Unknown: 'UNKNOWN',
-} as const;
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}

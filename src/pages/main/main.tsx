@@ -3,12 +3,10 @@ import { SixCities } from '../../const';
 import { Helmet } from 'react-helmet-async';
 
 type MainProps = {
-  dataMain: {
-    RentalOffers: number;
-  };
+  rentalOffer: number;
 }
 
-export default function Main({ dataMain }: MainProps): JSX.Element {
+export default function Main({ rentalOffer }: MainProps): JSX.Element {
   return (
     <>
       <Helmet>
@@ -20,10 +18,10 @@ export default function Main({ dataMain }: MainProps): JSX.Element {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {Object.values(SixCities).map((cities) => (
-                <li className="locations__item" key={cities}>
+              {Object.values(SixCities).map((city) => (
+                <li className="locations__item" key={city}>
                   <a className="locations__item-link tabs__item" href="#">
-                    <span>{cities}</span>
+                    <span>{city}</span>
                   </a>
                 </li>
               ))}
@@ -34,7 +32,7 @@ export default function Main({ dataMain }: MainProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{dataMain.RentalOffers} places to stay in Amsterdam</b>
+              <b className="places__found">{rentalOffer} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>

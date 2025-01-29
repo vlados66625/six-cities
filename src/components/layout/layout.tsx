@@ -13,7 +13,7 @@ export default function Layout(): JSX.Element {
             <div className="header__left">
               <Logo isActive={isLogoActive} blockName="header" width={81} height={41} />
             </div>
-            {shouldRenderNav ?
+            {shouldRenderNav &&
               <nav className="header__nav">
                 <ul className="header__nav-list">
 
@@ -36,8 +36,7 @@ export default function Layout(): JSX.Element {
                       </a>
                     </li>}
                 </ul>
-              </nav> :
-              ''}
+              </nav>}
           </div>
         </div>
       </header>

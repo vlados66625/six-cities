@@ -1,20 +1,15 @@
 import { useLocation } from 'react-router-dom';
-import getAuthorizationStatus from '../../mock/get-authorization-status';
-import { AuthorizationStatus, AppRoute } from '../../const';
+import { AppRoute } from '../../const';
+import { getIsAuth } from '../../util';
 
 export function useLayoutState() {
-  const authorizationStatus = getAuthorizationStatus();
   const { pathname } = useLocation();
 
   let pageBlockClassName = '';
   let shouldRenderNav = true;
   let shouldRenderFooter = false;
-  let isAuth = false;
+  const isAuth = getIsAuth();
   let isLogoActive = false;
-
-  if (authorizationStatus === AuthorizationStatus.Auth) {
-    isAuth = true;
-  }
 
   switch (pathname) {
     case AppRoute.Root:

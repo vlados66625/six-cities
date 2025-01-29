@@ -1,6 +1,4 @@
-export const DataMain = {
-  RentalOffers: 312,
-} as const;
+export const RENTAL_OFFER = 312;
 
 export const SixCities = {
   Paris: 'Paris',

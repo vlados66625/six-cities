@@ -1,13 +1,6 @@
 export const RENTAL_OFFER = 312;
 
-export const SixCities = {
-  Paris: 'Paris',
-  Cologne: 'Cologne',
-  Brussels: 'Brussels',
-  Amsterdam: 'Amsterdam',
-  Hamburg: 'Hamburg',
-  Dusseldorf: 'Dusseldorf'
-} as const;
+export const SixCities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
 
 export enum AppRoute {
   Root = '/',

@@ -1,12 +1,14 @@
-import PlaceCard from '../../components/place-card/place-card';
 import { SixCities } from '../../const';
 import { Helmet } from 'react-helmet-async';
+import { Offers } from '../../mock/offers';
+import PlaceCards from '../../components/place-cards/place-cards';
 
 type MainProps = {
+  offers: Offers;
   rentalOffer: number;
 }
 
-export default function Main({ rentalOffer }: MainProps): JSX.Element {
+export default function Main({ offers, rentalOffer }: MainProps): JSX.Element {
   return (
     <>
       <Helmet>
@@ -49,7 +51,7 @@ export default function Main({ rentalOffer }: MainProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCard isCitiesCard />
+                <PlaceCards isCitiesBlock offers={offers} />
               </div>
             </section>
             <div className="cities__right-section">

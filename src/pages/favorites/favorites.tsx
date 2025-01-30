@@ -22,8 +22,8 @@ export default function Offer(): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <PlaceCard isFavoritesCard />
-                  <PlaceCard isFavoritesCard />
+                  <PlaceCard isFavoritesBlock />
+                  <PlaceCard isFavoritesBlock />
                 </div>
               </li>
               <li className="favorites__locations-items">
@@ -35,7 +35,7 @@ export default function Offer(): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <PlaceCard isFavoritesCard />
+                  <PlaceCard isFavoritesBlock />
                 </div>
               </li>
             </ul>

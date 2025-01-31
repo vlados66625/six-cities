@@ -6,7 +6,7 @@ export default function Layout(): JSX.Element {
   const { pageBlockClassName, shouldRenderNav, shouldRenderFooter, isAuth, isLogoActive } = useLayoutState();
 
   return (
-    <div className={`page ${pageBlockClassName}`}>
+    <div className={`page${pageBlockClassName}`}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

@@ -13,15 +13,15 @@ export function useLayoutState() {
 
   switch (pathname) {
     case AppRoute.Root:
-      pageBlockClassName = 'page--gray page--main';
+      pageBlockClassName = ' page--gray page--main';
       isLogoActive = true;
       break;
     case AppRoute.Login:
       shouldRenderNav = false;
-      pageBlockClassName = 'page--gray page--login';
+      pageBlockClassName = ' page--gray page--login';
       break;
     case AppRoute.Offer:
-      pageBlockClassName = 'page--gray page--login';
+      pageBlockClassName = '';
       break;
     case AppRoute.Favorites:
       pageBlockClassName = '';

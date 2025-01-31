@@ -3,6 +3,7 @@ import { Offer } from '../../mock/offers';
 
 type PlaceCardProps = {
   offer: Offer;
+  handleHoverCard?: (idFocusCard: string | null) => void;
   isFavoritesBlock?: boolean;
   isCitiesBlock?: boolean;
   isNearPlacesBlock?: boolean;
@@ -10,11 +11,17 @@ type PlaceCardProps = {
 
 export default function PlaceCard({ ...props }: PlaceCardProps): JSX.Element {
   const { articleClassName, imageWrapperClassname, infoClassName, imageWidth, imageHeight } = getDataPlaceCard(props);
-  const { offer } = props;
+  const { offer, handleHoverCard } = props;
   const maxRating = 5;
 
   return (
-    <article className={`${articleClassName}place-card`}>
+    <article
+      {...(handleHoverCard && {
+        onMouseEnter: () => handleHoverCard(offer.id),
+        onMouseLeave: () => handleHoverCard(null),
+      })}
+      className={`${articleClassName}place-card`}
+    >
       {offer.isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>

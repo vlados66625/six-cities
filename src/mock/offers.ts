@@ -20,9 +20,9 @@ export type Offer = {
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
-}
+};
 
-export type Offers = Offer[]
+export type Offers = Offer[];
 
 export const offers: Offers = [{
   id: 'a1ae1618-0958-4e8b-a934-3bbcaf6a9570',
@@ -75,7 +75,7 @@ export const offers: Offers = [{
   price: 444,
   previewImage: 'https://15.design.htmlacademy.pro/static/hotel/9.jpg',
   city: {
-    name: 'Paris',
+    name: 'Cologne',
     location: {
       latitude: 48.85661,
       longitude: 2.351499,
@@ -87,7 +87,7 @@ export const offers: Offers = [{
     longitude: 2.335499,
     zoom: 16
   },
-  isFavorite: false,
+  isFavorite: true,
   isPremium: true,
   rating: 2.8
 }, {
@@ -97,7 +97,7 @@ export const offers: Offers = [{
   price: 716,
   previewImage: 'https://15.design.htmlacademy.pro/static/hotel/20.jpg',
   city: {
-    name: 'Paris',
+    name: 'Amsterdam',
     location: {
       latitude: 48.85661,
       longitude: 2.351499,

@@ -3,6 +3,7 @@ import { Offers } from '../../mock/offers';
 
 type PlaceCardsProps = {
   offers: Offers;
+  handleHoverCard?: (idFocusCard: string | null) => void;
   isFavoritesBlock?: boolean;
   isCitiesBlock?: boolean;
   isNearPlacesBlock?: boolean;

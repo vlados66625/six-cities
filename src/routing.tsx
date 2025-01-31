@@ -24,13 +24,13 @@ export default function Routing({ offers, reviewsOffer, rentalOffer }: RoutingPr
         <Routes>
           <Route path={AppRoute.Root} element={<Layout />}>
             <Route index element={<Main rentalOffer={rentalOffer} offers={offers} />} />
-            <Route path={AppRoute.Favorites} offers={offers} element={
+            <Route path={AppRoute.Favorites} element={
               <PrivateRoute >
-                <Favorites />
+                <Favorites offers={offers} />
               </PrivateRoute>
             }
             />
-            <Route path={AppRoute.Offer} reviewsOffer={reviewsOffer} element={<Offer />} />
+            <Route path={AppRoute.Offer} element={<Offer reviewsOffer={reviewsOffer} />} />
             <Route path={AppRoute.Login} element={
               <PrivateRoute isLoginPage >
                 <Login />

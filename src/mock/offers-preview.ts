@@ -1,4 +1,4 @@
-export type Offer = {
+export type OfferPreview = {
   id: string;
   title: string;
   type: string;
@@ -22,9 +22,9 @@ export type Offer = {
   rating: number;
 };
 
-export type Offers = Offer[];
+export type OffersPreview = OfferPreview[];
 
-export const offers: Offers = [{
+export const offersPreview: OffersPreview = [{
   id: 'a1ae1618-0958-4e8b-a934-3bbcaf6a9570',
   title: 'Canal View Prinsengracht',
   type: 'house',

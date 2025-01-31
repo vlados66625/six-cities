@@ -1,8 +1,15 @@
-import PlaceCard from '../../components/place-card/place-card';
 import ReviewsItem from './components/reviews-item';
 import { Helmet } from 'react-helmet-async';
+import { OfferDetailed } from '../../mock/offer-detailed';
+import { ReviewsOffer } from '../../mock/reviews';
 
-export default function Offer(): JSX.Element {
+type OfferProps = {
+  offerDetailed: OfferDetailed;
+  reviewsOffer: ReviewsOffer;
+}
+
+export default function Offer({ offerDetailed, reviewsOffer }: OfferProps): JSX.Element {
+
   return (
     <>
       <Helmet>
@@ -184,9 +191,8 @@ export default function Offer(): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <PlaceCard isNearPlacesBlock />
-              <PlaceCard isNearPlacesBlock />
-              <PlaceCard isNearPlacesBlock />
+
+
             </div>
           </section>
         </div>

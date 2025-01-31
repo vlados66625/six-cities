@@ -8,9 +8,9 @@ export type ReviewOffer = {
     avatarUrl: string;
     isPro: boolean;
   };
-}
+};
 
-export type ReviewsOffer = ReviewOffer[]
+export type ReviewsOffer = ReviewOffer[];
 
 export const reviewsOffer: ReviewsOffer = [{
   id: 'c9050790-fb89-48f9-9a07-1148040d9359',

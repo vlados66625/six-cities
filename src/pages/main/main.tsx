@@ -1,28 +1,28 @@
 import { sixCities } from '../../const';
 import { Helmet } from 'react-helmet-async';
-import { Offers } from '../../mock/offers';
+import { OffersPreview } from '../../mock/offers-preview';
 import PlaceCards from '../../components/place-cards/place-cards';
 import { useState } from 'react';
 
 type MainProps = {
-  offers: Offers;
+  offersPreview: OffersPreview;
   rentalOffer: number;
 }
 
-export default function Main({ offers, rentalOffer }: MainProps): JSX.Element {
+export default function Main({ offersPreview, rentalOffer }: MainProps): JSX.Element {
   const [idFocusCard, setIdFocusCard] = useState<string | null>(null);
-  const focusCard = idFocusCard;
+
   return (
     <>
       <Helmet>
         <title>6 cities</title>
       </Helmet>
 
-      <main className="page__main page__main--index" key={focusCard}>
+      <main className="page__main page__main--index" key={idFocusCard}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
+            <ul className="locations__list tabuls__list">
               {Object.values(sixCities).map((city) => (
                 <li className="locations__item" key={city}>
                   <a className="locations__item-link tabs__item" href="#">
@@ -54,7 +54,7 @@ export default function Main({ offers, rentalOffer }: MainProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCards handleHoverCard={setIdFocusCard} isCitiesBlock offers={offers} />
+                <PlaceCards handleHoverCard={setIdFocusCard} isCitiesBlock offersPreview={offersPreview} />
               </div>
             </section>
             <div className="cities__right-section">

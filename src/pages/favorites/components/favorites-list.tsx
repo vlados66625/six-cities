@@ -1,10 +1,10 @@
 import FavoritesItems from './favorites-items';
 import { sixCities } from '../../../const';
 import { getFilteredByCityOffers } from '../../../util';
-import { Offers } from '../../../mock/offers';
+import { OffersPreview } from '../../../mock/offers-preview';
 
 type FavoritesListProps = {
-  favoritesOffers: Offers;
+  favoritesOffers: OffersPreview;
 }
 
 export default function FavoritesList({ favoritesOffers }: FavoritesListProps): JSX.Element {

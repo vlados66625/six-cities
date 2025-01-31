@@ -1,14 +1,14 @@
 import { Helmet } from 'react-helmet-async';
-import { Offers } from '../../mock/offers';
+import { OffersPreview } from '../../mock/offers-preview';
 import { getFavoritesOffers } from './util';
 import FavoritesList from './components/favorites-list';
 
 type FavoritesProps = {
-  offers: Offers;
+  offersPreview: OffersPreview;
 }
 
-export default function Favorites({ offers }: FavoritesProps): JSX.Element {
-  const favoritesOffers = getFavoritesOffers(offers);
+export default function Favorites({ offersPreview }: FavoritesProps): JSX.Element {
+  const favoritesOffers = getFavoritesOffers(offersPreview);
 
   return (
     <>

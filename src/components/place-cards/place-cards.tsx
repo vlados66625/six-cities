@@ -1,8 +1,8 @@
 import PlaceCard from '../place-card/place-card';
-import { Offers } from '../../mock/offers';
+import { OffersPreview } from '../../mock/offers-preview';
 
 type PlaceCardsProps = {
-  offers: Offers;
+  offersPreview: OffersPreview;
   handleHoverCard?: (idFocusCard: string | null) => void;
   isFavoritesBlock?: boolean;
   isCitiesBlock?: boolean;
@@ -10,6 +10,6 @@ type PlaceCardsProps = {
 }
 
 export default function PlaceCards(props: PlaceCardsProps) {
-  const { offers } = props;
-  return offers.map((offer) => <PlaceCard {...props} key={offer.id} offer={offer} />);
+  const { offersPreview } = props;
+  return offersPreview.map((offerPreview) => <PlaceCard {...props} key={offerPreview.id} offerPreview={offerPreview} />);
 }

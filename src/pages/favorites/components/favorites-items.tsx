@@ -1,10 +1,10 @@
-import { Offers } from '../../../mock/offers';
+import { OffersPreview } from '../../../mock/offers-preview';
 import { SixCities } from '../../../const';
 import PlaceCards from '../../../components/place-cards/place-cards';
 
 type FavoritesItemsProps = {
   city: SixCities;
-  filteredByCityOffers: Offers;
+  filteredByCityOffers: OffersPreview;
 }
 
 export default function FavoritesItems({ city, filteredByCityOffers }: FavoritesItemsProps): JSX.Element {
@@ -18,7 +18,7 @@ export default function FavoritesItems({ city, filteredByCityOffers }: Favorites
         </div>
       </div>
       <div className="favorites__places">
-        <PlaceCards offers={filteredByCityOffers} isFavoritesBlock />
+        <PlaceCards offersPreview={filteredByCityOffers} isFavoritesBlock />
       </div>
     </li>
   );

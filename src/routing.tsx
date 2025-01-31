@@ -8,29 +8,31 @@ import PrivateRoute from './components/private-router/private-router';
 import { AppRoute } from './const';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { Offers } from './mock/offers';
+import { OffersPreview } from './mock/offers-preview';
+import { OfferDetailed } from './mock/offer-detailed';
 import { ReviewsOffer } from './mock/reviews';
 
 type RoutingProps = {
-  offers: Offers;
+  offersPreview: OffersPreview;
+  offerDetailed: OfferDetailed;
   reviewsOffer: ReviewsOffer;
   rentalOffer: number;
 }
 
-export default function Routing({ offers, reviewsOffer, rentalOffer }: RoutingProps): JSX.Element {
+export default function Routing({ offersPreview, reviewsOffer, rentalOffer, offerDetailed }: RoutingProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Root} element={<Layout />}>
-            <Route index element={<Main rentalOffer={rentalOffer} offers={offers} />} />
+            <Route index element={<Main rentalOffer={rentalOffer} offersPreview={offersPreview} />} />
             <Route path={AppRoute.Favorites} element={
               <PrivateRoute >
-                <Favorites offers={offers} />
+                <Favorites offersPreview={offersPreview} />
               </PrivateRoute>
             }
             />
-            <Route path={AppRoute.Offer} element={<Offer reviewsOffer={reviewsOffer} />} />
+            <Route path={AppRoute.Offer} element={<Offer offerDetailed={offerDetailed} reviewsOffer={reviewsOffer} />} />
             <Route path={AppRoute.Login} element={
               <PrivateRoute isLoginPage >
                 <Login />

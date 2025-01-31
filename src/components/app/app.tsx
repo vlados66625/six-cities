@@ -1,9 +1,11 @@
 import Routing from '../../routing';
-import { Offers } from '../../mock/offers';
+import { OffersPreview } from '../../mock/offers-preview';
+import { OfferDetailed } from '../../mock/offer-detailed';
 import { ReviewsOffer } from '../../mock/reviews';
 
 type AppProps = {
-  offers: Offers;
+  offersPreview: OffersPreview;
+  offerDetailed: OfferDetailed;
   reviewsOffer: ReviewsOffer;
   rentalOffer: number;
 }

@@ -1,13 +1,11 @@
 import { getDataPlaceCard } from './util';
 
 type PlaceCardProps = {
-  isFavoritesCard?: boolean;
-  isCitiesCard?: boolean;
-  isNearPlacesCard?: boolean;
-}
+  variant?: 'favorites' | 'cities' | 'near-places';
+};
 
-export default function PlaceCard({ ...props }: PlaceCardProps): JSX.Element {
-  const { articleClassName, imageWrapperClassname, infoClassName, imageWidth, imageHeight } = getDataPlaceCard(props);
+export default function PlaceCard({ variant }: PlaceCardProps): JSX.Element {
+  const { articleClassName, imageWrapperClassname, infoClassName, imageWidth, imageHeight } = getDataPlaceCard(variant);
 
   return (
     <article className={`${articleClassName}place-card`}>

@@ -3,7 +3,6 @@ import Favorites from '../../pages/favorites/favorites';
 import Offer from '../../pages/offer/offer';
 import Login from '../../pages/login/login';
 import Error404 from '../../pages/error-404/error-404';
-import Layout from '../../components/layout/layout';
 import PrivateRoute from '../../components/private-routers/private-router';
 import { AppRoute } from '../../const';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -17,7 +16,7 @@ export default function App({ rentalOffer }: AppProps): JSX.Element {
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route path={AppRoute.Root} element={<Layout />}>
+          <Route path={AppRoute.Root}>
             <Route index element={<Main rentalOffer={rentalOffer} />} />
             <Route path={AppRoute.Favorites} element={
               <PrivateRoute requireAuth >

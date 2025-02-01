@@ -1,15 +1,23 @@
-export default function PlaceCard(): JSX.Element {
+import { getDataPlaceCard } from './util';
+
+type PlaceCardProps = {
+  variant?: 'favorites' | 'cities' | 'near-places';
+};
+
+export default function PlaceCard({ variant }: PlaceCardProps): JSX.Element {
+  const { articleClassName, imageWrapperClassname, infoClassName, imageWidth, imageHeight } = getDataPlaceCard(variant);
+
   return (
-    <article className="cities__card place-card">
+    <article className={`${articleClassName}place-card`}>
       <div className="place-card__mark">
         <span>Premium</span>
       </div>
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${imageWrapperClassname}place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src="img/apartment-01.jpg" width={260} height={200} alt="Place image" />
+          <img className="place-card__image" src="img/apartment-01.jpg" width={imageWidth} height={imageHeight} alt="Place image" />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={`${infoClassName}place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;120</b>

@@ -4,18 +4,20 @@ import { getIsAuth } from '../../util';
 
 type PrivateRouteProps = {
   children: JSX.Element;
-  isLoginPage?: boolean;
+  requireAuth: boolean;
 }
 
-export default function PrivateRoute({ children, isLoginPage }: PrivateRouteProps): JSX.Element {
-  let shouldRenderChildren = getIsAuth();
-  if (isLoginPage) {
-    shouldRenderChildren = !shouldRenderChildren;
+export default function PrivateRoute({ children, requireAuth }: PrivateRouteProps): JSX.Element {
+
+  const isAuth = getIsAuth();
+
+  if (requireAuth && !isAuth) {
+    return <Navigate to={AppRoute.Login} />;
   }
 
-  return (
-    shouldRenderChildren ?
-      children :
-      <Navigate to={isLoginPage ? AppRoute.Root : AppRoute.Login} />
-  );
+  if (!requireAuth && isAuth) {
+    return <Navigate to={AppRoute.Root} />;
+  }
+
+  return children;
 }

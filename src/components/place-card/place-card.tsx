@@ -6,14 +6,11 @@ import { MAX_RATING } from '../../const';
 type PlaceCardProps = {
   offerPreview: OfferPreview;
   handleHoverCard?: (idFocusCard: string | null) => void;
-  isFavoritesBlock?: boolean;
-  isCitiesBlock?: boolean;
-  isNearPlacesBlock?: boolean;
-}
+  variant?: 'favorites' | 'cities' | 'near-places';
+};
 
-export default function PlaceCard({ ...props }: PlaceCardProps): JSX.Element {
-  const { articleClassName, imageWrapperClassname, infoClassName, imageWidth, imageHeight } = getDataPlaceCard(props);
-  const { offerPreview, handleHoverCard } = props;
+export default function PlaceCard({ offerPreview, handleHoverCard, variant }: PlaceCardProps): JSX.Element {
+  const { articleClassName, imageWrapperClassname, infoClassName, imageWidth, imageHeight } = getDataPlaceCard(variant);
 
   return (
     <article

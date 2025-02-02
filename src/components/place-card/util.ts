@@ -1,10 +1,8 @@
-type getDataPlaceCardProps = {
-  isFavoritesBlock?: boolean;
-  isCitiesBlock?: boolean;
-  isNearPlacesBlock?: boolean;
-}
 
-export function getDataPlaceCard({ isFavoritesBlock, isCitiesBlock, isNearPlacesBlock }: getDataPlaceCardProps) {
+type getDataPlaceCardProps = 'favorites' | 'cities' | 'near-places' | undefined
+
+export function getDataPlaceCard(variant: getDataPlaceCardProps) {
+
   const dataPlaceCard = {
     articleClassName: '',
     imageWrapperClassname: '',
@@ -13,25 +11,22 @@ export function getDataPlaceCard({ isFavoritesBlock, isCitiesBlock, isNearPlaces
     imageHeight: 200,
   };
 
-  if (isFavoritesBlock) {
-    dataPlaceCard.articleClassName = 'favorites__card ';
-    dataPlaceCard.imageWrapperClassname = 'favorites__image-wrapper ';
-    dataPlaceCard.infoClassName = 'favorites__card-info ';
-    dataPlaceCard.imageWidth = 150;
-    dataPlaceCard.imageHeight = 110;
-    return dataPlaceCard;
-  }
-
-  if (isCitiesBlock) {
-    dataPlaceCard.articleClassName = 'cities__card ';
-    dataPlaceCard.imageWrapperClassname = 'cities__image-wrapper ';
-    return dataPlaceCard;
-  }
-
-  if (isNearPlacesBlock) {
-    dataPlaceCard.articleClassName = 'near-places__card ';
-    dataPlaceCard.imageWrapperClassname = 'near-places__image-wrapper ';
-    return dataPlaceCard;
+  switch (variant) {
+    case 'favorites':
+      dataPlaceCard.articleClassName = 'favorites__card ';
+      dataPlaceCard.imageWrapperClassname = 'favorites__image-wrapper ';
+      dataPlaceCard.infoClassName = 'favorites__card-info ';
+      dataPlaceCard.imageWidth = 150;
+      dataPlaceCard.imageHeight = 110;
+      break;
+    case 'cities':
+      dataPlaceCard.articleClassName = 'cities__card ';
+      dataPlaceCard.imageWrapperClassname = 'cities__image-wrapper ';
+      break;
+    case 'near-places':
+      dataPlaceCard.articleClassName = 'near-places__card ';
+      dataPlaceCard.imageWrapperClassname = 'near-places__image-wrapper ';
+      break;
   }
 
   return dataPlaceCard;

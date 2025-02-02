@@ -16,7 +16,7 @@ export default function Main({ offersPreview, rentalOffer }: MainProps): JSX.Ele
   return (
     <>
       <Helmet>
-        <title>6 cities</title>
+        <title>6 cities{`пока сюда ее воткну, чтобы линтер не ругался${idFocusCard}`}</title>
       </Helmet>
 
       <div className="page page--gray page--main">

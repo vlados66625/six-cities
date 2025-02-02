@@ -18,7 +18,7 @@ export default function Main({ offersPreview, rentalOffer }: MainProps): JSX.Ele
         <title>6 cities</title>
       </Helmet>
 
-      <main className="page__main page__main--index" key={idFocusCard}>
+      <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">

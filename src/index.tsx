@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { RENTAL_OFFER } from './const';
 import { offersPreview } from './mock/offers-preview';
-import { reviewsOffer } from './mock/reviews';
+import { reviewsOffer } from './mock/reviews-offer';
 import { offerDetailed } from './mock/offer-detailed';
 
 const root = ReactDOM.createRoot(

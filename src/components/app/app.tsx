@@ -1,7 +1,7 @@
 import Routing from '../../routing';
 import { OffersPreview } from '../../mock/offers-preview';
 import { OfferDetailed } from '../../mock/offer-detailed';
-import { ReviewsOffer } from '../../mock/reviews';
+import { ReviewsOffer } from '../../mock/reviews-offer';
 
 type AppProps = {
   offersPreview: OffersPreview;

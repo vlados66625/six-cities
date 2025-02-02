@@ -15,3 +15,9 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export const MAX_RATING = 5;
+
+export const formatFullMonthFullYear = 'MMMM YYYY';
+
+export const formatFullYearMonthDay = 'YYYY-MM-DD';

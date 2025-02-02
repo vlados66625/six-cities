@@ -26,7 +26,7 @@ export const reviewsOffer: ReviewsOffer = [{
   id: '053d3e2f-b7fe-49bf-a821-a425ec502292',
   comment: 'Bathed in the nature. Completely unplugged. Unforgettable.',
   date: '2025-01-04T21:00:00.745Z',
-  rating: 5,
+  rating: 3.5,
   user: {
     name: 'Emely',
     avatarUrl: 'https://15.design.htmlacademy.pro/static/avatar/2.jpg',
@@ -35,7 +35,7 @@ export const reviewsOffer: ReviewsOffer = [{
 }, {
   id: '7c8bfeb1-47ea-44e4-be2a-dd9f25bd0292',
   comment: 'The house is very good, very happy, hygienic and simple living conditions around it are also very good. I hope to have the opportunity to come back. Thank you.',
-  date: '2025-01-02T21:00:00.745Z',
+  date: '2025-02-02T21:00:00.745Z',
   rating: 1,
   user: {
     name: 'Kendall',

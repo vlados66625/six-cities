@@ -2,6 +2,7 @@ import getAuthorizationStatus from './mock/get-authorization-status';
 import { AuthorizationStatus } from './const';
 import { OffersPreview } from './mock/offers-preview';
 import { SixCities } from './const';
+import dayjs from 'dayjs';
 
 export function getIsAuth() {
   return getAuthorizationStatus() === AuthorizationStatus.Auth;
@@ -9,4 +10,8 @@ export function getIsAuth() {
 
 export function getFilteredByCityOffers(offers: OffersPreview, city: SixCities): OffersPreview {
   return offers.filter((offer) => offer.city.name === city);
+}
+
+export function getFormatedDate(date: string, format: string): string {
+  return dayjs(date).format(format);
 }

@@ -1,6 +1,7 @@
 import { getDataPlaceCard } from './util';
 import { OfferPreview } from '../../mock/offers-preview';
 import { Link } from 'react-router-dom';
+import { MAX_RATING } from '../../const';
 
 type PlaceCardProps = {
   offerPreview: OfferPreview;
@@ -13,7 +14,6 @@ type PlaceCardProps = {
 export default function PlaceCard({ ...props }: PlaceCardProps): JSX.Element {
   const { articleClassName, imageWrapperClassname, infoClassName, imageWidth, imageHeight } = getDataPlaceCard(props);
   const { offerPreview, handleHoverCard } = props;
-  const MAX_RATING = 5;
 
   return (
     <article

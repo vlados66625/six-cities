@@ -10,7 +10,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { OffersPreview } from './mock/offers-preview';
 import { OfferDetailed } from './mock/offer-detailed';
-import { ReviewsOffer } from './mock/reviews';
+import { ReviewsOffer } from './mock/reviews-offer';
 
 type RoutingProps = {
   offersPreview: OffersPreview;
@@ -32,7 +32,7 @@ export default function Routing({ offersPreview, reviewsOffer, rentalOffer, offe
               </PrivateRoute>
             }
             />
-            <Route path={AppRoute.Offer} element={<Offer offerDetailed={offerDetailed} reviewsOffer={reviewsOffer} />} />
+            <Route path={AppRoute.Offer} element={<Offer offerDetailed={offerDetailed} offersPreview={offersPreview} reviewsOffer={reviewsOffer} />} />
             <Route path={AppRoute.Login} element={
               <PrivateRoute isLoginPage >
                 <Login />

@@ -57,7 +57,7 @@ export default function Main({ offersPreview, rentalOffer }: MainProps): JSX.Ele
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  <PlaceCards handleHoverCard={setIdFocusCard} isCitiesBlock offersPreview={offersPreview} />
+                  <PlaceCards handleHoverCard={setIdFocusCard} variant='cities' offersPreview={offersPreview} />
                 </div>
               </section>
               <div className="cities__right-section">

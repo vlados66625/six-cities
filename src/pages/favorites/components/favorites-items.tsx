@@ -18,7 +18,7 @@ export default function FavoritesItems({ city, filteredByCityOffers }: Favorites
         </div>
       </div>
       <div className="favorites__places">
-        <PlaceCards offersPreview={filteredByCityOffers} isFavoritesBlock />
+        <PlaceCards offersPreview={filteredByCityOffers} variant='favorites' />
       </div>
     </li>
   );

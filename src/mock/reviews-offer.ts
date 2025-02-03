@@ -10,7 +10,7 @@ export type ReviewOffer = {
   };
 };
 
-export type ReviewsOffer = ReviewOffer[];
+export type ReviewsOffer = readonly ReviewOffer[];
 
 export const reviewsOffer: ReviewsOffer = [{
   id: 'c9050790-fb89-48f9-9a07-1148040d9359',

@@ -12,6 +12,7 @@ import Advantages from './components/advantages';
 import ReviewsForm from './components/reviews-form';
 import Header from '../../components/layout/header/header';
 import { MAX_PLACES_LIST_NEARBY } from '../../const';
+import { getIsAuth } from '../../util';
 
 type OfferProps = {
   offerDetailed: OfferDetailed;
@@ -20,6 +21,7 @@ type OfferProps = {
 }
 
 export default function Offer({ offerDetailed, offersPreview, reviewsOffer }: OfferProps): JSX.Element {
+  const isAuth = getIsAuth();
   const [comment, setComment] = useState('');
   function handleReviewsTextOnChange(value: string): void {
     setComment(value);
@@ -100,7 +102,7 @@ export default function Offer({ offerDetailed, offersPreview, reviewsOffer }: Of
                       <Review reviewOffer={reviewOffer} key={reviewOffer.id} />
                     ))}
                   </ul>
-                  <ReviewsForm comment={comment} handleReviewsTextOnChange={handleReviewsTextOnChange} />
+                  {isAuth && <ReviewsForm comment={comment} handleReviewsTextOnChange={handleReviewsTextOnChange} />}
                 </section>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
-import classNames from 'classnames';
-import { OffersPreview } from '../../mock/offers-preview';
+import cn from 'classnames';
+import { OffersPreview } from '../../types/offer-types';
 import { getFavoritesOffers } from './util';
 import FavoritesList from './components/favorites-list';
 import Header from '../../components/layout/header/header';
@@ -21,11 +21,11 @@ export default function Favorites({ offersPreview }: FavoritesProps): JSX.Elemen
         <title>`6 cities: favorites${isEmpty ? ' empty' : ''}`</title>
       </Helmet>
 
-      <div className={classNames('page',
+      <div className={cn('page',
         { 'page--favorites-empty': isEmpty })}
       >
         <Header />
-        <main className={classNames('page__main page__main--favorites',
+        <main className={cn('page__main page__main--favorites',
           { 'page__main--favorites-empty': isEmpty })}
         >
           <div className="page__favorites-container container">

@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { Link } from 'react-router-dom';
 
 type LogoProps = {
@@ -9,8 +10,11 @@ type LogoProps = {
 
 export default function Logo({ blockName, width, height, isActive }: LogoProps): JSX.Element {
   return (
-    <Link className={`${blockName}__logo-link ${isActive ? `${blockName}__logo-link--active` : ''}`} to='/'>
+    <Link to='/' className={cn(
+      `${blockName}__logo-link`,
+      { [`${blockName}__logo-link--active`]: isActive })}
+    >
       <img className={`${blockName}__logo`} src="img/logo.svg" alt="6 cities logo" width={width} height={height} />
-    </Link>
+    </Link >
   );
 }

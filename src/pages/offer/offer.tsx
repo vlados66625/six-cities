@@ -1,8 +1,9 @@
+import cn from 'classnames';
 import { Helmet } from 'react-helmet-async';
 import { useState } from 'react';
-import { OfferDetailed } from '../../mock/offer-detailed';
-import { OffersPreview } from '../../mock/offers-preview';
-import { ReviewsOffer } from '../../mock/reviews-offer';
+import { DetailedOffer } from '../../types/offer-types';
+import { OffersPreview } from '../../types/offer-types';
+import { ReviewsOffer } from '../../types/review-offer';
 import { MAX_RATING } from '../../const';
 import PlaceCards from '../../components/place-cards/place-cards';
 import Review from './components/review';
@@ -12,15 +13,15 @@ import Advantages from './components/advantages';
 import ReviewsForm from './components/reviews-form';
 import Header from '../../components/layout/header/header';
 import { MAX_PLACES_LIST_NEARBY } from '../../const';
-import { getIsAuth } from '../../util';
+import { getIsAuth, getPluralForm } from '../../util';
 
 type OfferProps = {
-  offerDetailed: OfferDetailed;
+  detailedOffer: DetailedOffer;
   offersPreview: OffersPreview;
   reviewsOffer: ReviewsOffer;
 }
 
-export default function Offer({ offerDetailed, offersPreview, reviewsOffer }: OfferProps): JSX.Element {
+export default function Offer({ detailedOffer, offersPreview, reviewsOffer }: OfferProps): JSX.Element {
   const isAuth = getIsAuth();
   const [comment, setComment] = useState('');
   function handleReviewsTextOnChange(value: string): void {
@@ -37,15 +38,19 @@ export default function Offer({ offerDetailed, offersPreview, reviewsOffer }: Of
         <Header />
         <main className="page__main page__main--offer">
           <section className="offer">
-            <Gallery images={offerDetailed.images} />
+            <Gallery images={detailedOffer.images} />
             <div className="offer__container container">
               <div className="offer__wrapper">
-                <PremiumMark isPremium={offerDetailed.isPremium} />
+                <PremiumMark isPremium={detailedOffer.isPremium} />
                 <div className="offer__name-wrapper">
                   <h1 className="offer__name">
-                    {offerDetailed.title}
+                    {detailedOffer.title}
                   </h1>
-                  <button className={`offer__bookmark-button ${offerDetailed.isFavorite ? 'offer__bookmark-button--active' : ''} button`} type="button">
+                  <button type="button" className={cn(
+                    'offer__bookmark-button',
+                    { 'offer__bookmark-button--active': detailedOffer.isFavorite },
+                    'button')}
+                  >
                     <svg className="offer__bookmark-icon" width={31} height={33}>
                       <use xlinkHref="#icon-bookmark" />
                     </svg>
@@ -54,49 +59,49 @@ export default function Offer({ offerDetailed, offersPreview, reviewsOffer }: Of
                 </div>
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">
-                    <span style={{ width: `${offerDetailed.rating / MAX_RATING * 100}%` }} />
+                    <span style={{ width: `${detailedOffer.rating / MAX_RATING * 100}%` }} />
                     <span className="visually-hidden">Rating</span>
                   </div>
-                  <span className="offer__rating-value rating__value">{offerDetailed.rating}</span>
+                  <span className="offer__rating-value rating__value">{detailedOffer.rating}</span>
                 </div>
                 <ul className="offer__features">
                   <li className="offer__feature offer__feature--entire">
-                    {offerDetailed.type}
+                    {detailedOffer.type}
                   </li>
                   <li className="offer__feature offer__feature--bedrooms">
-                    {offerDetailed.bedrooms} Bedroom{offerDetailed.bedrooms === 1 ? '' : 's'}
+                    {detailedOffer.bedrooms} {getPluralForm('Bedroom', detailedOffer.bedrooms)}
                   </li>
                   <li className="offer__feature offer__feature--adults">
-                    Max {offerDetailed.maxAdults} adult{offerDetailed.maxAdults === 1 ? '' : 's'}
+                    Max {detailedOffer.maxAdults} {getPluralForm('adult', detailedOffer.maxAdults)}
                   </li>
                 </ul>
                 <div className="offer__price">
-                  <b className="offer__price-value">€{offerDetailed.price}</b>
+                  <b className="offer__price-value">€{detailedOffer.price}</b>
                   <span className="offer__price-text">&nbsp;night</span>
                 </div>
-                <Advantages advantages={offerDetailed.goods} />
+                <Advantages advantages={detailedOffer.goods} />
                 <div className="offer__host">
                   <h2 className="offer__host-title">Meet the host</h2>
                   <div className="offer__host-user user">
-                    <div className={`offer__avatar-wrapper${offerDetailed.host.isPro ? ' offer__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
-                      <img className="offer__avatar user__avatar" src={offerDetailed.host.avatarUrl} width={74} height={74} alt="Host avatar" />
+                    <div className={`offer__avatar-wrapper${detailedOffer.host.isPro ? ' offer__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
+                      <img className="offer__avatar user__avatar" src={detailedOffer.host.avatarUrl} width={74} height={74} alt="Host avatar" />
                     </div>
                     <span className="offer__user-name">
-                      {offerDetailed.host.name}
+                      {detailedOffer.host.name}
                     </span>
-                    {offerDetailed.host.isPro &&
+                    {detailedOffer.host.isPro &&
                       <span className="offer__user-status">
                         Pro
                       </span>}
                   </div>
                   <div className="offer__description">
                     <p className="offer__text">
-                      {offerDetailed.description}
+                      {detailedOffer.description}
                     </p>
                   </div>
                 </div>
                 <section className="offer__reviews reviews">
-                  <h2 className="reviews__title">Review{reviewsOffer.length > 1 ? 's' : ''} · <span className="reviews__amount">{reviewsOffer.length}</span></h2>
+                  <h2 className="reviews__title">{getPluralForm('Review', reviewsOffer.length)} · <span className="reviews__amount">{reviewsOffer.length}</span></h2>
                   <ul className="reviews__list">
                     {reviewsOffer.map((reviewOffer) => (
                       <Review reviewOffer={reviewOffer} key={reviewOffer.id} />

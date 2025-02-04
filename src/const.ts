@@ -19,5 +19,7 @@ export enum AuthorizationStatus {
 export const MAX_RATING = 5;
 export const MAX_PLACES_LIST_NEARBY = 3;
 
-export const formatFullMonthFullYear = 'MMMM YYYY';
-export const formatFullYearMonthDay = 'YYYY-MM-DD';
+export enum DateFormat {
+  FullMonthFullYear = 'MMMM YYYY',
+  FullYearMonthDay = 'YYYY-MM-DD'
+}

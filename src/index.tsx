@@ -4,7 +4,7 @@ import App from './components/app/app';
 import { RENTAL_OFFER } from './const';
 import { offersPreview } from './mock/offers-preview';
 import { reviewsOffer } from './mock/reviews-offer';
-import { offerDetailed } from './mock/offer-detailed';
+import { detailedOffer } from './mock/detailed-offer';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -14,7 +14,7 @@ root.render(
   <React.StrictMode>
     <App
       offersPreview={offersPreview}
-      offerDetailed={offerDetailed}
+      detailedOffer={detailedOffer}
       reviewsOffer={reviewsOffer}
       rentalOffer={RENTAL_OFFER}
     />

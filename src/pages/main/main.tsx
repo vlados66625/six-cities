@@ -1,7 +1,7 @@
-import classNames from 'classnames';
+import cn from 'classnames';
 import { Helmet } from 'react-helmet-async';
 import { useState } from 'react';
-import { OffersPreview } from '../../mock/offers-preview';
+import { OffersPreview } from '../../types/offer-types';
 import PlaceCards from '../../components/place-cards/place-cards';
 import NoPlaces from './components/no-places';
 import PlacesSorting from './components/places-sorting';
@@ -25,7 +25,7 @@ export default function Main({ offersPreview, rentalOffer }: MainProps): JSX.Ele
 
       <div className="page page--gray page--main">
         <Header isLogoActive />
-        <main className={classNames('page__main page__main--index',
+        <main className={cn('page__main page__main--index',
           { 'page__main--index-empty': isEmpty })}
         >
           <h1 className="visually-hidden">Cities</h1>
@@ -43,7 +43,7 @@ export default function Main({ offersPreview, rentalOffer }: MainProps): JSX.Ele
             </section>
           </div>
           <div className="cities">
-            <div className={classNames(
+            <div className={cn(
               'cities__places-container',
               { 'cities__places-container--empty': isEmpty, },
               'container')}

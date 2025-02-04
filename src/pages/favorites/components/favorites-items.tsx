@@ -1,4 +1,4 @@
-import { OffersPreview } from '../../../mock/offers-preview';
+import { OffersPreview } from '../../../types/offer-types';
 import { SixCities } from '../../../const';
 import PlaceCards from '../../../components/place-cards/place-cards';
 

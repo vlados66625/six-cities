@@ -1,6 +1,5 @@
 import PlaceCard from '../place-card/place-card';
-import { OffersPreview } from '../../mock/offers-preview';
-
+import { OffersPreview } from '../../types/offer-types';
 type PlaceCardsProps = {
   offersPreview: OffersPreview;
   handleHoverCard?: (idFocusCard: string | null) => void;

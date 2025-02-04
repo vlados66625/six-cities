@@ -1,7 +1,7 @@
-import { ReviewOffer } from '../../../mock/reviews-offer';
+import { ReviewOffer } from '../../../types/review-offer';
 import { MAX_RATING } from '../../../const';
 import { getFormatedDate } from '../../../util';
-import { formatFullMonthFullYear, formatFullYearMonthDay } from '../../../const';
+import { DateFormat } from '../../../const';
 
 type ReviewProps = {
   reviewOffer: ReviewOffer;
@@ -28,7 +28,7 @@ export default function Review({ reviewOffer }: ReviewProps): JSX.Element {
         <p className="reviews__text">
           {reviewOffer.comment}
         </p>
-        <time className="reviews__time" dateTime={getFormatedDate(reviewOffer.date, formatFullYearMonthDay)}>{getFormatedDate(reviewOffer.date, formatFullMonthFullYear)}</time>
+        <time className="reviews__time" dateTime={getFormatedDate(reviewOffer.date, DateFormat.FullYearMonthDay)}>{getFormatedDate(reviewOffer.date, DateFormat.FullMonthFullYear)}</time>
       </div>
     </li>
   );

@@ -1,28 +1,4 @@
-export type OfferPreview = {
-  id: string;
-  title: string;
-  type: string;
-  price: number;
-  previewImage: string;
-  city: {
-    name: string;
-    location: {
-      latitude: number;
-      longitude: number;
-      zoom: number;
-    };
-  };
-  location: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-  };
-  isFavorite: boolean;
-  isPremium: boolean;
-  rating: number;
-};
-
-export type OffersPreview = readonly OfferPreview[];
+import { OffersPreview } from '../types/offer-types';
 
 export const offersPreview: OffersPreview = [
   {

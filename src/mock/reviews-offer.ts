@@ -1,16 +1,4 @@
-export type ReviewOffer = {
-  id: string;
-  comment: string;
-  date: string;
-  rating: number;
-  user: {
-    name: string;
-    avatarUrl: string;
-    isPro: boolean;
-  };
-};
-
-export type ReviewsOffer = readonly ReviewOffer[];
+import { ReviewsOffer } from '../types/review-offer';
 
 export const reviewsOffer: ReviewsOffer = [{
   id: 'c9050790-fb89-48f9-9a07-1148040d9359',

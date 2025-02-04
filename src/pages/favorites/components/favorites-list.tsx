@@ -1,8 +1,7 @@
 import FavoritesItems from './favorites-items';
 import { sixCities } from '../../../const';
 import { getFilteredByCityOffers } from '../../../util';
-import { OffersPreview } from '../../../mock/offers-preview';
-
+import { OffersPreview } from '../../../types/offer-types';
 type FavoritesListProps = {
   favoritesOffers: OffersPreview;
 }

@@ -1,6 +1,6 @@
 import getAuthorizationStatus from './mock/get-authorization-status';
 import { AuthorizationStatus } from './const';
-import { OffersPreview } from './mock/offers-preview';
+import { OffersPreview } from './types/offer-types';
 import { SixCities } from './const';
 import dayjs from 'dayjs';
 
@@ -14,4 +14,11 @@ export function getFilteredByCityOffers(offers: OffersPreview, city: SixCities):
 
 export function getFormatedDate(date: string, format: string): string {
   return dayjs(date).format(format);
+}
+
+export function getPluralForm(word: string, count: number): string {
+  if (count === 1) {
+    return word;
+  }
+  return `${word}s`;
 }

@@ -5,10 +5,9 @@ import { PlaceCardContainerProps } from '../place-card/type-props-place-card-con
 type PlaceCardsProps = {
   offersPreview: OffersPreview;
   handleHoverCard?: (idFocusCard: string | null) => void;
-  placeCard: ComponentType<PlaceCardContainerProps>;
+  PlaceCard: ComponentType<PlaceCardContainerProps>;
 }
 
-export default function PlaceCards({ offersPreview, handleHoverCard, placeCard }: PlaceCardsProps) {
-  const PlaceCard = placeCard;
+export default function PlaceCards({ offersPreview, handleHoverCard, PlaceCard }: PlaceCardsProps) {
   return offersPreview.map((offerPreview) => <PlaceCard key={offerPreview.id} handleHoverCard={handleHoverCard} offerPreview={offerPreview} />);
 }

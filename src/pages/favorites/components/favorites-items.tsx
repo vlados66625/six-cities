@@ -19,7 +19,7 @@ export default function FavoritesItems({ city, filteredByCityOffers }: Favorites
         </div>
       </div>
       <div className="favorites__places">
-        <PlaceCards placeCard={PlaceCardFavorites} offersPreview={filteredByCityOffers} />
+        <PlaceCards PlaceCard={PlaceCardFavorites} offersPreview={filteredByCityOffers} />
       </div>
     </li>
   );

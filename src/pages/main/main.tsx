@@ -57,7 +57,7 @@ export default function Main({ offersPreview, rentalOffer }: MainProps): JSX.Ele
                   <b className="places__found">{rentalOffer} places to stay in Amsterdam</b>
                   <PlacesSorting />
                   <div className="cities__places-list places__list tabs__content">
-                    <PlaceCards placeCard={PlaceCardCities} handleHoverCard={setIdFocusCard} offersPreview={offersPreview} />
+                    <PlaceCards PlaceCard={PlaceCardCities} handleHoverCard={setIdFocusCard} offersPreview={offersPreview} />
                   </div>
                 </section>}
               <div className="cities__right-section">

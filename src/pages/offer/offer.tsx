@@ -120,7 +120,7 @@ export default function Offer({ detailedOffer, offersPreview, reviewsOffer }: Of
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <PlaceCards placeCard={PlaceCardNearPlaces} offersPreview={offersPreview.slice(0, MAX_PLACES_LIST_NEARBY)} />
+                <PlaceCards PlaceCard={PlaceCardNearPlaces} offersPreview={offersPreview.slice(0, MAX_PLACES_LIST_NEARBY)} />
               </div>
             </section>
           </div>

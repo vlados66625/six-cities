@@ -1,13 +1,8 @@
-import { OfferPreview } from '../../types/offer-types';
+import { PlaceCardContainerProps } from './type-props-place-card-container';
 import { Link } from 'react-router-dom';
 import PlaceCardContent from './place-card-content/place-card-content';
 
-type PlaceCardFavoritesProps = {
-  offerPreview: OfferPreview;
-  handleHoverCard?: (idFocusCard: string | null) => void;
-};
-
-export default function PlaceCardFavorites({ offerPreview, handleHoverCard }: PlaceCardFavoritesProps): JSX.Element {
+export default function PlaceCardFavorites({ offerPreview, handleHoverCard }: PlaceCardContainerProps): JSX.Element {
 
   return (
     <article

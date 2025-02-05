@@ -1,13 +1,8 @@
-import { OfferPreview } from '../../types/offer-types';
+import { PlaceCardContainerProps } from './type-props-place-card-container';
 import { Link } from 'react-router-dom';
 import PlaceCardContent from './place-card-content/place-card-content';
 
-type PlaceCardCitiesProps = {
-  offerPreview: OfferPreview;
-  handleHoverCard?: (idFocusCard: string | null) => void;
-};
-
-export default function PlaceCardCities({ offerPreview, handleHoverCard }: PlaceCardCitiesProps): JSX.Element {
+export default function PlaceCardCities({ offerPreview, handleHoverCard }: PlaceCardContainerProps): JSX.Element {
 
   return (
     <article

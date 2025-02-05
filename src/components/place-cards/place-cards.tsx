@@ -1,10 +1,11 @@
 import { OffersPreview } from '../../types/offer-types';
-import { ElementType } from 'react';
+import { ComponentType } from 'react';
+import { PlaceCardContainerProps } from '../place-card/type-props-place-card-container';
 
 type PlaceCardsProps = {
   offersPreview: OffersPreview;
   handleHoverCard?: (idFocusCard: string | null) => void;
-  placeCard: ElementType;
+  placeCard: ComponentType<PlaceCardContainerProps>;
 }
 
 export default function PlaceCards({ offersPreview, handleHoverCard, placeCard }: PlaceCardsProps) {

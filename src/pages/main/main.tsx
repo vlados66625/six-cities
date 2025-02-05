@@ -7,6 +7,7 @@ import NoPlaces from './components/no-places';
 import PlacesSorting from './components/places-sorting';
 import Header from '../../components/layout/header/header';
 import { sixCities } from '../../const';
+import PlaceCardCities from '../../components/place-card/place-card-cities';
 
 type MainProps = {
   offersPreview: OffersPreview;
@@ -56,7 +57,7 @@ export default function Main({ offersPreview, rentalOffer }: MainProps): JSX.Ele
                   <b className="places__found">{rentalOffer} places to stay in Amsterdam</b>
                   <PlacesSorting />
                   <div className="cities__places-list places__list tabs__content">
-                    <PlaceCards handleHoverCard={setIdFocusCard} variant='cities' offersPreview={offersPreview} />
+                    <PlaceCards placeCard={PlaceCardCities} handleHoverCard={setIdFocusCard} offersPreview={offersPreview} />
                   </div>
                 </section>}
               <div className="cities__right-section">

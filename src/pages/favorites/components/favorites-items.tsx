@@ -1,6 +1,7 @@
 import { OffersPreview } from '../../../types/offer-types';
 import { SixCities } from '../../../const';
 import PlaceCards from '../../../components/place-cards/place-cards';
+import PlaceCardFavorites from '../../../components/place-card/place-card-favorites';
 
 type FavoritesItemsProps = {
   city: SixCities;
@@ -18,7 +19,7 @@ export default function FavoritesItems({ city, filteredByCityOffers }: Favorites
         </div>
       </div>
       <div className="favorites__places">
-        <PlaceCards offersPreview={filteredByCityOffers} variant='favorites' />
+        <PlaceCards placeCard={PlaceCardFavorites} offersPreview={filteredByCityOffers} />
       </div>
     </li>
   );

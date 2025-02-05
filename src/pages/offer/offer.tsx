@@ -14,6 +14,7 @@ import ReviewsForm from './components/reviews-form';
 import Header from '../../components/layout/header/header';
 import { MAX_PLACES_LIST_NEARBY } from '../../const';
 import { getIsAuth, getPluralForm } from '../../util';
+import PlaceCardNearPlaces from '../../components/place-card/place-card-near-places';
 
 type OfferProps = {
   detailedOffer: DetailedOffer;
@@ -117,7 +118,7 @@ export default function Offer({ detailedOffer, offersPreview, reviewsOffer }: Of
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <PlaceCards offersPreview={offersPreview.slice(0, MAX_PLACES_LIST_NEARBY)} variant='near-places' />
+                <PlaceCards placeCard={PlaceCardNearPlaces} offersPreview={offersPreview.slice(0, MAX_PLACES_LIST_NEARBY)} />
               </div>
             </section>
           </div>

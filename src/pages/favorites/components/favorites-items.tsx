@@ -1,10 +1,10 @@
 import { OffersPreview } from '../../../types/offer-types';
-import { SixCities } from '../../../const';
+import { CytyName } from '../../../const';
 import PlaceCards from '../../../components/place-cards/place-cards';
 import PlaceCardFavorites from '../../../components/place-card/place-card-favorites';
 
 type FavoritesItemsProps = {
-  city: SixCities;
+  city: CytyName;
   filteredByCityOffers: OffersPreview;
 }
 

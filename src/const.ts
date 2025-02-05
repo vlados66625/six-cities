@@ -1,7 +1,7 @@
 export const RENTAL_OFFER = 312;
 
 export const sixCities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
-export type SixCities = typeof sixCities[number];
+export type CytyName = typeof sixCities[number];
 
 export enum AppRoute {
   Root = '/',
@@ -23,3 +23,11 @@ export enum DateFormat {
   FullMonthFullYear = 'MMMM YYYY',
   FullYearMonthDay = 'YYYY-MM-DD'
 }
+
+export const rating = [
+  { value: 5, label: 'perfect' },
+  { value: 4, label: 'good' },
+  { value: 3, label: 'not bad' },
+  { value: 2, label: 'badly' },
+  { value: 1, label: 'terribly' },
+] as const;

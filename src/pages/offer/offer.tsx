@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Helmet } from 'react-helmet-async';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { DetailedOffer } from '../../types/offer-types';
 import { OffersPreview } from '../../types/offer-types';
 import { ReviewsOffer } from '../../types/review-offer';
@@ -24,9 +24,11 @@ type OfferProps = {
 
 export default function Offer({ detailedOffer, offersPreview, reviewsOffer }: OfferProps): JSX.Element {
   const isAuth = getIsAuth();
-  const [comment, setComment] = useState('');
-  function handleReviewsTextOnChange(value: string): void {
-    setComment(value);
+  const [review, setReview] = useState({ rating: 0, review: '' });
+
+  function handleChange(evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
+    const { name, value } = evt.currentTarget;
+    setReview({ ...review, [name]: value });
   }
 
   return (
@@ -108,7 +110,7 @@ export default function Offer({ detailedOffer, offersPreview, reviewsOffer }: Of
                       <Review reviewOffer={reviewOffer} key={reviewOffer.id} />
                     ))}
                   </ul>
-                  {isAuth && <ReviewsForm comment={comment} handleReviewsTextOnChange={handleReviewsTextOnChange} />}
+                  {isAuth && <ReviewsForm review={review} handleChange={handleChange} />}
                 </section>
               </div>
             </div>

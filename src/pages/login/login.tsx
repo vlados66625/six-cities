@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/layout/header/header';
 
-export default function Offer(): JSX.Element {
+export default function Login(): JSX.Element {
   return (
     <>
       <Helmet>

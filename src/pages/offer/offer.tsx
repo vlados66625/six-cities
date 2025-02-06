@@ -1,9 +1,36 @@
-import PlaceCard from '../../components/place-card/place-card';
-import ReviewsItem from './components/reviews-item';
+import cn from 'classnames';
 import { Helmet } from 'react-helmet-async';
+import { ChangeEvent, useState } from 'react';
+import { DetailedOffer } from '../../types/offer-types';
+import { OffersPreview } from '../../types/offer-types';
+import { ReviewsOffer } from '../../types/review-offer';
+import { MAX_RATING } from '../../const';
+import PlaceCards from '../../components/place-cards/place-cards';
+import Review from './components/review';
+import Gallery from './components/gallery';
+import PremiumMark from './components/premium-mark';
+import Advantages from './components/advantages';
+import ReviewsForm from './components/reviews-form';
 import Header from '../../components/layout/header/header';
+import { MAX_PLACES_LIST_NEARBY } from '../../const';
+import { getIsAuth, getPluralForm } from '../../util';
+import PlaceCardNearPlaces from '../../components/place-card/place-card-near-places';
 
-export default function Offer(): JSX.Element {
+type OfferProps = {
+  detailedOffer: DetailedOffer;
+  offersPreview: OffersPreview;
+  reviewsOffer: ReviewsOffer;
+}
+
+export default function Offer({ detailedOffer, offersPreview, reviewsOffer }: OfferProps): JSX.Element {
+  const isAuth = getIsAuth();
+  const [review, setReview] = useState({ rating: 0, review: '' });
+
+  function handleChange(evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
+    const { name, value } = evt.currentTarget;
+    setReview({ ...review, [name]: value });
+  }
+
   return (
     <>
       <Helmet>
@@ -14,38 +41,19 @@ export default function Offer(): JSX.Element {
         <Header />
         <main className="page__main page__main--offer">
           <section className="offer">
-            <div className="offer__gallery-container container">
-              <div className="offer__gallery">
-                <div className="offer__image-wrapper">
-                  <img className="offer__image" src="img/room.jpg" alt="Photo studio" />
-                </div>
-                <div className="offer__image-wrapper">
-                  <img className="offer__image" src="img/apartment-01.jpg" alt="Photo studio" />
-                </div>
-                <div className="offer__image-wrapper">
-                  <img className="offer__image" src="img/apartment-02.jpg" alt="Photo studio" />
-                </div>
-                <div className="offer__image-wrapper">
-                  <img className="offer__image" src="img/apartment-03.jpg" alt="Photo studio" />
-                </div>
-                <div className="offer__image-wrapper">
-                  <img className="offer__image" src="img/studio-01.jpg" alt="Photo studio" />
-                </div>
-                <div className="offer__image-wrapper">
-                  <img className="offer__image" src="img/apartment-01.jpg" alt="Photo studio" />
-                </div>
-              </div>
-            </div>
+            <Gallery images={detailedOffer.images} />
             <div className="offer__container container">
               <div className="offer__wrapper">
-                <div className="offer__mark">
-                  <span>Premium</span>
-                </div>
+                <PremiumMark isPremium={detailedOffer.isPremium} />
                 <div className="offer__name-wrapper">
                   <h1 className="offer__name">
-                    Beautiful &amp; luxurious studio at great location
+                    {detailedOffer.title}
                   </h1>
-                  <button className="offer__bookmark-button button" type="button">
+                  <button type="button" className={cn(
+                    'offer__bookmark-button',
+                    { 'offer__bookmark-button--active': detailedOffer.isFavorite },
+                    'button')}
+                  >
                     <svg className="offer__bookmark-icon" width={31} height={33}>
                       <use xlinkHref="#icon-bookmark" />
                     </svg>
@@ -54,130 +62,55 @@ export default function Offer(): JSX.Element {
                 </div>
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">
-                    <span style={{ width: '80%' }} />
+                    <span style={{ width: `${detailedOffer.rating / MAX_RATING * 100}%` }} />
                     <span className="visually-hidden">Rating</span>
                   </div>
-                  <span className="offer__rating-value rating__value">4.8</span>
+                  <span className="offer__rating-value rating__value">{detailedOffer.rating}</span>
                 </div>
                 <ul className="offer__features">
                   <li className="offer__feature offer__feature--entire">
-                    Apartment
+                    {detailedOffer.type}
                   </li>
                   <li className="offer__feature offer__feature--bedrooms">
-                    3 Bedrooms
+                    {detailedOffer.bedrooms} {getPluralForm('Bedroom', detailedOffer.bedrooms)}
                   </li>
                   <li className="offer__feature offer__feature--adults">
-                    Max 4 adults
+                    Max {detailedOffer.maxAdults} {getPluralForm('adult', detailedOffer.maxAdults)}
                   </li>
                 </ul>
                 <div className="offer__price">
-                  <b className="offer__price-value">€120</b>
+                  <b className="offer__price-value">€{detailedOffer.price}</b>
                   <span className="offer__price-text">&nbsp;night</span>
                 </div>
-                <div className="offer__inside">
-                  <h2 className="offer__inside-title">What&apos;s inside</h2>
-                  <ul className="offer__inside-list">
-                    <li className="offer__inside-item">
-                      Wi-Fi
-                    </li>
-                    <li className="offer__inside-item">
-                      Washing machine
-                    </li>
-                    <li className="offer__inside-item">
-                      Towels
-                    </li>
-                    <li className="offer__inside-item">
-                      Heating
-                    </li>
-                    <li className="offer__inside-item">
-                      Coffee machine
-                    </li>
-                    <li className="offer__inside-item">
-                      Baby seat
-                    </li>
-                    <li className="offer__inside-item">
-                      Kitchen
-                    </li>
-                    <li className="offer__inside-item">
-                      Dishwasher
-                    </li>
-                    <li className="offer__inside-item">
-                      Cabel TV
-                    </li>
-                    <li className="offer__inside-item">
-                      Fridge
-                    </li>
-                  </ul>
-                </div>
+                <Advantages advantages={detailedOffer.goods} />
                 <div className="offer__host">
                   <h2 className="offer__host-title">Meet the host</h2>
                   <div className="offer__host-user user">
-                    <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                      <img className="offer__avatar user__avatar" src="img/avatar-angelina.jpg" width={74} height={74} alt="Host avatar" />
+                    <div className={`offer__avatar-wrapper${detailedOffer.host.isPro ? ' offer__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
+                      <img className="offer__avatar user__avatar" src={detailedOffer.host.avatarUrl} width={74} height={74} alt="Host avatar" />
                     </div>
                     <span className="offer__user-name">
-                      Angelina
+                      {detailedOffer.host.name}
                     </span>
-                    <span className="offer__user-status">
-                      Pro
-                    </span>
+                    {detailedOffer.host.isPro &&
+                      <span className="offer__user-status">
+                        Pro
+                      </span>}
                   </div>
                   <div className="offer__description">
                     <p className="offer__text">
-                      A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                    </p>
-                    <p className="offer__text">
-                      An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
+                      {detailedOffer.description}
                     </p>
                   </div>
                 </div>
                 <section className="offer__reviews reviews">
-                  <h2 className="reviews__title">Reviews · <span className="reviews__amount">1</span></h2>
+                  <h2 className="reviews__title">{getPluralForm('Review', reviewsOffer.length)} · <span className="reviews__amount">{reviewsOffer.length}</span></h2>
                   <ul className="reviews__list">
-                    <ReviewsItem />
+                    {reviewsOffer.map((reviewOffer) => (
+                      <Review reviewOffer={reviewOffer} key={reviewOffer.id} />
+                    ))}
                   </ul>
-                  <form className="reviews__form form" action="#" method="post">
-                    <label className="reviews__label form__label" htmlFor="review">Your review</label>
-                    <div className="reviews__rating-form form__rating">
-                      <input className="form__rating-input visually-hidden" name="rating" defaultValue={5} id="5-stars" type="radio" />
-                      <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
-                        <svg className="form__star-image" width={37} height={33}>
-                          <use xlinkHref="#icon-star" />
-                        </svg>
-                      </label>
-                      <input className="form__rating-input visually-hidden" name="rating" defaultValue={4} id="4-stars" type="radio" />
-                      <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
-                        <svg className="form__star-image" width={37} height={33}>
-                          <use xlinkHref="#icon-star" />
-                        </svg>
-                      </label>
-                      <input className="form__rating-input visually-hidden" name="rating" defaultValue={3} id="3-stars" type="radio" />
-                      <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
-                        <svg className="form__star-image" width={37} height={33}>
-                          <use xlinkHref="#icon-star" />
-                        </svg>
-                      </label>
-                      <input className="form__rating-input visually-hidden" name="rating" defaultValue={2} id="2-stars" type="radio" />
-                      <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
-                        <svg className="form__star-image" width={37} height={33}>
-                          <use xlinkHref="#icon-star" />
-                        </svg>
-                      </label>
-                      <input className="form__rating-input visually-hidden" name="rating" defaultValue={1} id="1-star" type="radio" />
-                      <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
-                        <svg className="form__star-image" width={37} height={33}>
-                          <use xlinkHref="#icon-star" />
-                        </svg>
-                      </label>
-                    </div>
-                    <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" defaultValue={''} />
-                    <div className="reviews__button-wrapper">
-                      <p className="reviews__help">
-                        To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
-                      </p>
-                      <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
-                    </div>
-                  </form>
+                  {isAuth && <ReviewsForm review={review} handleChange={handleChange} />}
                 </section>
               </div>
             </div>
@@ -187,9 +120,7 @@ export default function Offer(): JSX.Element {
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <PlaceCard variant='near-places' />
-                <PlaceCard variant='near-places' />
-                <PlaceCard variant='near-places' />
+                <PlaceCards PlaceCard={PlaceCardNearPlaces} offersPreview={offersPreview.slice(0, MAX_PLACES_LIST_NEARBY)} />
               </div>
             </section>
           </div>

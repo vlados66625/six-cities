@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Helmet } from 'react-helmet-async';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, useRef } from 'react';
 import { DetailedOffer } from '../../types/offer-types';
 import { OffersPreview } from '../../types/offer-types';
 import { ReviewsOffer } from '../../types/review-offer';
@@ -15,6 +15,7 @@ import Header from '../../components/layout/header/header';
 import { MAX_PLACES_LIST_NEARBY } from '../../const';
 import { getIsAuth, getPluralForm } from '../../util';
 import PlaceCardNearPlaces from '../../components/place-card/place-card-near-places';
+import Map from '../../components/map/map';
 
 type OfferProps = {
   detailedOffer: DetailedOffer;
@@ -25,6 +26,8 @@ type OfferProps = {
 export default function Offer({ detailedOffer, offersPreview, reviewsOffer }: OfferProps): JSX.Element {
   const isAuth = getIsAuth();
   const [review, setReview] = useState({ rating: 0, review: '' });
+  const mapRef = useRef<HTMLDivElement | null>(null);
+  const [idFocusCard, setIdFocusCard] = useState<string | null>(null);
 
   function handleChange(evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
     const { name, value } = evt.currentTarget;
@@ -114,13 +117,19 @@ export default function Offer({ detailedOffer, offersPreview, reviewsOffer }: Of
                 </section>
               </div>
             </div>
-            <section className="offer__map map" />
+            <section ref={mapRef} className="offer__map map" >
+              <Map mapRef={mapRef} idFocusCard={idFocusCard} offersPreview={offersPreview.slice(0, MAX_PLACES_LIST_NEARBY)} />
+            </section>
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <PlaceCards PlaceCard={PlaceCardNearPlaces} offersPreview={offersPreview.slice(0, MAX_PLACES_LIST_NEARBY)} />
+                <PlaceCards
+                  PlaceCard={PlaceCardNearPlaces}
+                  offersPreview={offersPreview.slice(0, MAX_PLACES_LIST_NEARBY)}
+                  handleHoverCard={setIdFocusCard}
+                />
               </div>
             </section>
           </div>

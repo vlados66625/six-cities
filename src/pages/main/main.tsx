@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Helmet } from 'react-helmet-async';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { OffersPreview } from '../../types/offer-types';
 import PlaceCards from '../../components/place-cards/place-cards';
 import NoPlaces from './components/no-places';
@@ -8,6 +8,7 @@ import PlacesSorting from './components/places-sorting';
 import Header from '../../components/layout/header/header';
 import { sixCities } from '../../const';
 import PlaceCardCities from '../../components/place-card/place-card-cities';
+import Map from '../../components/map/map';
 
 type MainProps = {
   offersPreview: OffersPreview;
@@ -17,11 +18,12 @@ type MainProps = {
 export default function Main({ offersPreview, rentalOffer }: MainProps): JSX.Element {
   const [idFocusCard, setIdFocusCard] = useState<string | null>(null);
   const isEmpty = offersPreview.length === 0;
+  const mapRef = useRef<HTMLDivElement | null>(null);
 
   return (
     <>
       <Helmet>
-        <title>6 cities{`пока сюда ее воткну, чтобы линтер не ругался${idFocusCard}`}</title>
+        <title>6 cities</title>
       </Helmet>
 
       <div className="page page--gray page--main">
@@ -61,7 +63,10 @@ export default function Main({ offersPreview, rentalOffer }: MainProps): JSX.Ele
                   </div>
                 </section>}
               <div className="cities__right-section">
-                {!isEmpty && <section className="cities__map map"></section>}
+                {!isEmpty &&
+                  <section className="cities__map map" ref={mapRef} >
+                    <Map mapRef={mapRef} idFocusCard={idFocusCard} offersPreview={offersPreview} />
+                  </section>}
               </div>
             </div>
           </div>

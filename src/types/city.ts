@@ -5,4 +5,4 @@ export type City = {
     longitude: number;
     zoom: number;
   };
-};
+}

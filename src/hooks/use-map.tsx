@@ -13,13 +13,7 @@ export default function useMap(
 
   useEffect(() => {
     if (mapRef.current !== null && !isRenderedRef.current) {
-      const instance = leaflet.map(mapRef.current, {
-        center: {
-          lat: city.location.latitude,
-          lng: city.location.longitude
-        },
-        zoom: city.location.zoom
-      });
+      const instance = leaflet.map(mapRef.current);
 
       leaflet
         .tileLayer(
@@ -33,7 +27,13 @@ export default function useMap(
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef, city]);
+
+    if (isRenderedRef.current) {
+      map?.setView([city.location.latitude, city.location.longitude], city.location.zoom);
+    }
+
+  }, [mapRef, city, map]);
 
   return map;
 }
+

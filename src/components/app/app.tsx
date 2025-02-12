@@ -15,16 +15,15 @@ type AppProps = {
   offersPreview: OffersPreview;
   detailedOffer: DetailedOffer;
   reviewsOffer: ReviewsOffer;
-  rentalOffer: number;
 }
 
-export default function App({ offersPreview, reviewsOffer, rentalOffer, detailedOffer }: AppProps): JSX.Element {
+export default function App({ offersPreview, reviewsOffer, detailedOffer }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Root}>
-            <Route index element={<Main rentalOffer={rentalOffer} offersPreview={offersPreview} />} />
+            <Route index element={<Main offersPreview={offersPreview} />} />
             <Route path={AppRoute.Favorites} element={
               <PrivateRoute requireAuth >
                 <Favorites offersPreview={offersPreview} />

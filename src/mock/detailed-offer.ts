@@ -17,7 +17,7 @@ export const detailedOffer: DetailedOffer = {
   },
   location: {
     latitude: 48.868610000000004,
-    longitude: 2.342499,
+    longitude: 2.330499,
     zoom: 16
   },
   goods: ['Baby seat', 'Wi-Fi', 'Fridge'],

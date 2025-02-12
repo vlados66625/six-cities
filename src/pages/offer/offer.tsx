@@ -118,7 +118,7 @@ export default function Offer({ detailedOffer, offersPreview, reviewsOffer }: Of
               </div>
             </div>
             <section ref={mapRef} className="offer__map map" >
-              <Map mapRef={mapRef} idFocusCard={idFocusCard} offersPreview={offersPreview.slice(0, MAX_PLACES_LIST_NEARBY)} />
+              <Map mapRef={mapRef} idFocusCard={idFocusCard || detailedOffer.id} currentOffer={detailedOffer} offersPreview={offersPreview.slice(0, MAX_PLACES_LIST_NEARBY)} />
             </section>
           </section>
           <div className="container">

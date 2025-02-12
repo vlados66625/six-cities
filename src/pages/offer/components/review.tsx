@@ -1,7 +1,7 @@
 import { ReviewOffer } from '../../../types/review-offer';
-import { MAX_RATING } from '../../../const';
 import { getFormatedDate } from '../../../util';
 import { DateFormat } from '../../../const';
+import { getRoundedRatingInPercentage } from '../../../util';
 
 type ReviewProps = {
   reviewOffer: ReviewOffer;
@@ -21,7 +21,7 @@ export default function Review({ reviewOffer }: ReviewProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${reviewOffer.rating / MAX_RATING * 100}%` }} />
+            <span style={{ width: `${getRoundedRatingInPercentage(reviewOffer.rating)}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

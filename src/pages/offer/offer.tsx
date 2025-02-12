@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet-async';
 import { ChangeEvent, useState, useRef } from 'react';
 import { DetailedOffer } from '../../types/offer-types';
 import { ReviewsOffer } from '../../types/review-offer';
-import { MAX_RATING } from '../../const';
 import PlaceCards from '../../components/place-cards/place-cards';
 import Review from './components/review';
 import Gallery from './components/gallery';
@@ -16,6 +15,7 @@ import { getIsAuth, getPluralForm } from '../../util';
 import PlaceCardNearPlaces from '../../components/place-card/place-card-near-places';
 import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
+import { getRoundedRatingInPercentage } from '../../util';
 
 type OfferProps = {
   detailedOffer: DetailedOffer;
@@ -66,7 +66,7 @@ export default function Offer({ detailedOffer, reviewsOffer }: OfferProps): JSX.
                 </div>
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">
-                    <span style={{ width: `${detailedOffer.rating / MAX_RATING * 100}%` }} />
+                    <span style={{ width: `${getRoundedRatingInPercentage(detailedOffer.rating)}%` }} />
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="offer__rating-value rating__value">{detailedOffer.rating}</span>

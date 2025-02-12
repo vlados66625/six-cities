@@ -3,6 +3,7 @@ import { AuthorizationStatus } from './const';
 import { OffersPreview } from './types/offer-types';
 import { CityName } from './const';
 import dayjs from 'dayjs';
+import { MAX_RATING } from './const';
 
 export function getIsAuth() {
   return getAuthorizationStatus() === AuthorizationStatus.Auth;
@@ -21,4 +22,8 @@ export function getPluralForm(word: string, count: number): string {
     return word;
   }
   return `${word}s`;
+}
+
+export function getRoundedRatingInPercentage(rating: number): number {
+  return Math.round(rating) / MAX_RATING * 100;
 }

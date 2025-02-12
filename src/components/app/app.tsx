@@ -1,4 +1,3 @@
-import { OffersPreview } from '../../types/offer-types';
 import { DetailedOffer } from '../../types/offer-types';
 import { ReviewsOffer } from '../../types/review-offer';
 import Main from '../../pages/main/main';
@@ -12,25 +11,24 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
 type AppProps = {
-  offersPreview: OffersPreview;
   detailedOffer: DetailedOffer;
   reviewsOffer: ReviewsOffer;
 }
 
-export default function App({ offersPreview, reviewsOffer, detailedOffer }: AppProps): JSX.Element {
+export default function App({ reviewsOffer, detailedOffer }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Root}>
-            <Route index element={<Main offersPreview={offersPreview} />} />
+            <Route index element={<Main />} />
             <Route path={AppRoute.Favorites} element={
               <PrivateRoute requireAuth >
-                <Favorites offersPreview={offersPreview} />
+                <Favorites />
               </PrivateRoute>
             }
             />
-            <Route path={AppRoute.Offer} element={<Offer detailedOffer={detailedOffer} offersPreview={offersPreview} reviewsOffer={reviewsOffer} />} />
+            <Route path={AppRoute.Offer} element={<Offer detailedOffer={detailedOffer} reviewsOffer={reviewsOffer} />} />
             <Route path={AppRoute.Login} element={
               <PrivateRoute requireAuth={false}>
                 <Login />

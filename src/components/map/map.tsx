@@ -7,7 +7,7 @@ import { DetailedOffer } from '../../types/offer-types';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  mapRef: MutableRefObject<HTMLDivElement | null>;
+  mapRef: MutableRefObject<HTMLElement | null>;
   offersPreview: OffersPreview;
   idFocusCard: string | null;
   currentOffer?: DetailedOffer;

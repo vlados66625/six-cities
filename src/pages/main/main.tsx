@@ -1,7 +1,6 @@
 import cn from 'classnames';
 import { Helmet } from 'react-helmet-async';
 import { useState, useRef } from 'react';
-import { OffersPreview } from '../../types/offer-types';
 import PlaceCards from '../../components/place-cards/place-cards';
 import NoPlaces from './components/no-places';
 import PlacesSorting from './components/places-sorting';
@@ -13,14 +12,14 @@ import { getFilteredByCityOffers } from '../../util';
 import { useAppSelector } from '../../hooks';
 import { getPluralForm } from '../../util';
 
-type MainProps = {
-  offersPreview: OffersPreview;
-}
-
-export default function Main({ offersPreview }: MainProps): JSX.Element {
+export default function Main(): JSX.Element {
   const [idFocusCard, setIdFocusCard] = useState<string | null>(null);
-  const mapRef = useRef<HTMLDivElement | null>(null);
+  const mapRef = useRef<HTMLElement | null>(null);
+
   const selectedCity = useAppSelector((state) => state.city);
+  const offersPreview = useAppSelector((state) => state.offersPreview);
+
+
   const filteredByCityOffers = getFilteredByCityOffers(offersPreview, selectedCity);
   const isEmpty = filteredByCityOffers.length === 0;
 

@@ -4,7 +4,7 @@ import { City } from '../types/city';
 import { Map } from 'leaflet';
 
 export default function useMap(
-  mapRef: MutableRefObject<HTMLDivElement | null>,
+  mapRef: MutableRefObject<HTMLElement | null>,
   city: City
 ): Map | null {
 

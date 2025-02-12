@@ -2,7 +2,6 @@ import cn from 'classnames';
 import { Helmet } from 'react-helmet-async';
 import { ChangeEvent, useState, useRef } from 'react';
 import { DetailedOffer } from '../../types/offer-types';
-import { OffersPreview } from '../../types/offer-types';
 import { ReviewsOffer } from '../../types/review-offer';
 import { MAX_RATING } from '../../const';
 import PlaceCards from '../../components/place-cards/place-cards';
@@ -16,18 +15,20 @@ import { MAX_PLACES_LIST_NEARBY } from '../../const';
 import { getIsAuth, getPluralForm } from '../../util';
 import PlaceCardNearPlaces from '../../components/place-card/place-card-near-places';
 import Map from '../../components/map/map';
+import { useAppSelector } from '../../hooks';
 
 type OfferProps = {
   detailedOffer: DetailedOffer;
-  offersPreview: OffersPreview;
   reviewsOffer: ReviewsOffer;
 }
 
-export default function Offer({ detailedOffer, offersPreview, reviewsOffer }: OfferProps): JSX.Element {
+export default function Offer({ detailedOffer, reviewsOffer }: OfferProps): JSX.Element {
   const isAuth = getIsAuth();
   const [review, setReview] = useState({ rating: 0, review: '' });
-  const mapRef = useRef<HTMLDivElement | null>(null);
+  const mapRef = useRef<HTMLElement | null>(null);
   const [idFocusCard, setIdFocusCard] = useState<string | null>(null);
+
+  const offersPreview = useAppSelector((state) => state.offersPreview);
 
   function handleChange(evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
     const { name, value } = evt.currentTarget;

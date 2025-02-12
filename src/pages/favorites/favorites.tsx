@@ -15,7 +15,7 @@ export default function Favorites(): JSX.Element {
   return (
     <>
       <Helmet>
-        <title>`6 cities: favorites${isEmpty ? ' empty' : ''}`</title>
+        <title>6 cities: favorites{isEmpty ? ' empty' : ''}</title>
       </Helmet>
 
       <div className={cn('page',

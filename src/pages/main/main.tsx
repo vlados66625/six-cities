@@ -8,9 +8,10 @@ import Header from '../../components/layout/header/header';
 import PlaceCardCities from '../../components/place-card/place-card-cities';
 import Map from '../../components/map/map';
 import Locations from './components/locations';
-import { getFilteredByCityOffers } from '../../util';
+import { getFilteredByCityOffers, getPluralForm } from '../../util';
 import { useAppSelector } from '../../hooks';
-import { getPluralForm } from '../../util';
+import { SortingOptions } from '../../util';
+import { OffersPreview } from '../../types/offer-types';
 
 export default function Main(): JSX.Element {
   const [idFocusCard, setIdFocusCard] = useState<string | null>(null);
@@ -18,10 +19,12 @@ export default function Main(): JSX.Element {
 
   const selectedCity = useAppSelector((state) => state.city);
   const offersPreview = useAppSelector((state) => state.offersPreview);
-
-
   const filteredByCityOffers = getFilteredByCityOffers(offersPreview, selectedCity);
-  const isEmpty = filteredByCityOffers.length === 0;
+
+  const [sorting, setSorting] = useState<(offers: OffersPreview) => OffersPreview>(() => SortingOptions[0].functionSorting);
+  const offers = sorting(getFilteredByCityOffers(offersPreview, selectedCity));
+
+  const isEmpty = offers.length === 0;
 
   return (
     <>
@@ -50,15 +53,15 @@ export default function Main(): JSX.Element {
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
                   <b className="places__found">{filteredByCityOffers.length} {getPluralForm('place', filteredByCityOffers.length)} to stay in Amsterdam</b>
-                  <PlacesSorting />
+                  <PlacesSorting setSorting={setSorting} />
                   <div className="cities__places-list places__list tabs__content">
-                    <PlaceCards PlaceCard={PlaceCardCities} handleHoverCard={setIdFocusCard} offersPreview={filteredByCityOffers} />
+                    <PlaceCards PlaceCard={PlaceCardCities} handleHoverCard={setIdFocusCard} offersPreview={offers} />
                   </div>
                 </section>}
               <div className="cities__right-section">
                 {!isEmpty &&
                   <section className="cities__map map" ref={mapRef} >
-                    <Map mapRef={mapRef} idFocusCard={idFocusCard} offersPreview={filteredByCityOffers} />
+                    <Map mapRef={mapRef} idFocusCard={idFocusCard} offersPreview={offers} />
                   </section>}
               </div>
             </div>

@@ -1,8 +1,6 @@
 import cn from 'classnames';
 import { Helmet } from 'react-helmet-async';
 import { ChangeEvent, useState, useRef } from 'react';
-import { DetailedOffer } from '../../types/offer-types';
-import { ReviewsOffer } from '../../types/review-offer';
 import PlaceCards from '../../components/place-cards/place-cards';
 import Review from './components/review';
 import Gallery from './components/gallery';
@@ -17,18 +15,15 @@ import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
 import { getRoundedRatingInPercentage } from '../../util';
 
-type OfferProps = {
-  detailedOffer: DetailedOffer;
-  reviewsOffer: ReviewsOffer;
-}
-
-export default function Offer({ detailedOffer, reviewsOffer }: OfferProps): JSX.Element {
+export default function Offer(): JSX.Element {
   const isAuth = getIsAuth();
   const [review, setReview] = useState({ rating: 0, review: '' });
   const mapRef = useRef<HTMLElement | null>(null);
   const [idFocusCard, setIdFocusCard] = useState<string | null>(null);
 
   const offersPreview = useAppSelector((state) => state.offersPreview);
+  const reviewsOffer = useAppSelector((state) => state.reviewsOffer);
+  const detailedOffer = useAppSelector((state) => state.detailedOffer);
 
   function handleChange(evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
     const { name, value } = evt.currentTarget;

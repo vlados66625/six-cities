@@ -14,6 +14,7 @@ import PlaceCardNearPlaces from '../../components/place-card/place-card-near-pla
 import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
 import { getRoundedRatingInPercentage } from '../../util';
+import { offersSelectors } from '../../store/slices/offers';
 
 export default function Offer(): JSX.Element {
   const isAuth = getIsAuth();
@@ -21,9 +22,9 @@ export default function Offer(): JSX.Element {
   const mapRef = useRef<HTMLElement | null>(null);
   const [idFocusCard, setIdFocusCard] = useState<string | null>(null);
 
-  const offersPreview = useAppSelector((state) => state.offersPreview);
-  const reviewsOffer = useAppSelector((state) => state.reviewsOffer);
-  const detailedOffer = useAppSelector((state) => state.detailedOffer);
+  const offersPreview = useAppSelector(offersSelectors.offersPreview);
+  const reviewsOffer = useAppSelector(offersSelectors.reviewsOffer);
+  const detailedOffer = useAppSelector(offersSelectors.detailedOffer);
 
   function handleChange(evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
     const { name, value } = evt.currentTarget;

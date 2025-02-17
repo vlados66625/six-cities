@@ -1,8 +1,8 @@
 import cn from 'classnames';
 import { MouseEvent } from 'react';
 import { sixCities } from '../../../const';
-import { useAppDispatch } from '../../../hooks';
-import { changeCity } from '../../../store/action';
+import { useActionCreators } from '../../../hooks';
+import { offersActions } from '../../../store/slices/offers';
 import { CityName } from '../../../const';
 
 type LocationsProps = {
@@ -10,10 +10,10 @@ type LocationsProps = {
 }
 
 export default function Locations({ selectedCity }: LocationsProps): JSX.Element {
-  const dispatch = useAppDispatch();
+  const { changeCity } = useActionCreators(offersActions);
   function handleLocationLinkClick(evt: MouseEvent<HTMLAnchorElement>, city: CityName): void {
     evt.preventDefault();
-    dispatch(changeCity(city));
+    changeCity(city);
   }
 
   return (

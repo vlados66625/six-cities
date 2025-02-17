@@ -6,9 +6,10 @@ import Header from '../../components/layout/header/header';
 import Footer from '../../components/layout/footer/footer';
 import NoFavorites from './components/no-favorites';
 import { useAppSelector } from '../../hooks';
+import { offersSelectors } from '../../store/slices/offers';
 
 export default function Favorites(): JSX.Element {
-  const offersPreview = useAppSelector((state) => state.offersPreview);
+  const offersPreview = useAppSelector(offersSelectors.offersPreview);
   const favoritesOffers = getFavoritesOffers(offersPreview);
   const isEmpty = favoritesOffers.length === 0;
 

@@ -12,13 +12,14 @@ import { getFilteredByCityOffers, getPluralForm } from '../../util';
 import { useAppSelector } from '../../hooks';
 import { SortingOptions } from '../../util';
 import { OffersPreview } from '../../types/offer-types';
+import { offersSelectors } from '../../store/slices/offers';
 
 export default function Main(): JSX.Element {
   const [idFocusCard, setIdFocusCard] = useState<string | null>(null);
   const mapRef = useRef<HTMLElement | null>(null);
 
-  const selectedCity = useAppSelector((state) => state.city);
-  const offersPreview = useAppSelector((state) => state.offersPreview);
+  const selectedCity = useAppSelector(offersSelectors.city);
+  const offersPreview = useAppSelector(offersSelectors.offersPreview);
   const filteredByCityOffers = getFilteredByCityOffers(offersPreview, selectedCity);
 
   const [sorting, setSorting] = useState<(offers: OffersPreview) => OffersPreview>(() => SortingOptions[0].functionSorting);

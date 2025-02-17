@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { SortingOptions, SortingOption } from '../../../util';
 import { useAppSelector } from '../../../hooks';
 import { OffersPreview } from '../../../types/offer-types';
+import { offersSelectors } from '../../../store/slices/offers';
 
 type PlacesSortingProps = {
   setSorting: (sortingFunction: () => (offers: OffersPreview) => OffersPreview) => void;
@@ -12,7 +13,7 @@ export default function PlacesSorting({ setSorting }: PlacesSortingProps): JSX.E
   const [isSortingOpened, setIsSortingOpened] = useState(false);
   const [optionActive, setOptionActive] = useState(SortingOptions[0].name);
 
-  const selectedCity = useAppSelector((state) => state.city);
+  const selectedCity = useAppSelector(offersSelectors.city);
 
   function handlePlacesOptionOnClick({ name, functionSorting }: SortingOption) {
     setIsSortingOpened(false);

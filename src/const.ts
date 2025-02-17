@@ -1,7 +1,5 @@
-export const RENTAL_OFFER = 312;
-
 export const sixCities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'] as const;
-export type CytyName = typeof sixCities[number];
+export type CityName = typeof sixCities[number];
 
 export enum AppRoute {
   Root = '/',

@@ -1,10 +1,6 @@
 import cn from 'classnames';
 import { Helmet } from 'react-helmet-async';
 import { ChangeEvent, useState, useRef } from 'react';
-import { DetailedOffer } from '../../types/offer-types';
-import { OffersPreview } from '../../types/offer-types';
-import { ReviewsOffer } from '../../types/review-offer';
-import { MAX_RATING } from '../../const';
 import PlaceCards from '../../components/place-cards/place-cards';
 import Review from './components/review';
 import Gallery from './components/gallery';
@@ -16,18 +12,18 @@ import { MAX_PLACES_LIST_NEARBY } from '../../const';
 import { getIsAuth, getPluralForm } from '../../util';
 import PlaceCardNearPlaces from '../../components/place-card/place-card-near-places';
 import Map from '../../components/map/map';
+import { useAppSelector } from '../../hooks';
+import { getRoundedRatingInPercentage } from '../../util';
 
-type OfferProps = {
-  detailedOffer: DetailedOffer;
-  offersPreview: OffersPreview;
-  reviewsOffer: ReviewsOffer;
-}
-
-export default function Offer({ detailedOffer, offersPreview, reviewsOffer }: OfferProps): JSX.Element {
+export default function Offer(): JSX.Element {
   const isAuth = getIsAuth();
   const [review, setReview] = useState({ rating: 0, review: '' });
-  const mapRef = useRef<HTMLDivElement | null>(null);
+  const mapRef = useRef<HTMLElement | null>(null);
   const [idFocusCard, setIdFocusCard] = useState<string | null>(null);
+
+  const offersPreview = useAppSelector((state) => state.offersPreview);
+  const reviewsOffer = useAppSelector((state) => state.reviewsOffer);
+  const detailedOffer = useAppSelector((state) => state.detailedOffer);
 
   function handleChange(evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
     const { name, value } = evt.currentTarget;
@@ -65,7 +61,7 @@ export default function Offer({ detailedOffer, offersPreview, reviewsOffer }: Of
                 </div>
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">
-                    <span style={{ width: `${detailedOffer.rating / MAX_RATING * 100}%` }} />
+                    <span style={{ width: `${getRoundedRatingInPercentage(detailedOffer.rating)}%` }} />
                     <span className="visually-hidden">Rating</span>
                   </div>
                   <span className="offer__rating-value rating__value">{detailedOffer.rating}</span>
@@ -118,7 +114,7 @@ export default function Offer({ detailedOffer, offersPreview, reviewsOffer }: Of
               </div>
             </div>
             <section ref={mapRef} className="offer__map map" >
-              <Map mapRef={mapRef} idFocusCard={idFocusCard} offersPreview={offersPreview.slice(0, MAX_PLACES_LIST_NEARBY)} />
+              <Map mapRef={mapRef} idFocusCard={idFocusCard || detailedOffer.id} currentOffer={detailedOffer} offersPreview={offersPreview.slice(0, MAX_PLACES_LIST_NEARBY)} />
             </section>
           </section>
           <div className="container">

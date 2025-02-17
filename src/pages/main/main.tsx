@@ -1,24 +1,30 @@
 import cn from 'classnames';
 import { Helmet } from 'react-helmet-async';
 import { useState, useRef } from 'react';
-import { OffersPreview } from '../../types/offer-types';
 import PlaceCards from '../../components/place-cards/place-cards';
 import NoPlaces from './components/no-places';
 import PlacesSorting from './components/places-sorting';
 import Header from '../../components/layout/header/header';
-import { sixCities } from '../../const';
 import PlaceCardCities from '../../components/place-card/place-card-cities';
 import Map from '../../components/map/map';
+import Locations from './components/locations';
+import { getFilteredByCityOffers, getPluralForm } from '../../util';
+import { useAppSelector } from '../../hooks';
+import { SortingOptions } from '../../util';
+import { OffersPreview } from '../../types/offer-types';
 
-type MainProps = {
-  offersPreview: OffersPreview;
-  rentalOffer: number;
-}
-
-export default function Main({ offersPreview, rentalOffer }: MainProps): JSX.Element {
+export default function Main(): JSX.Element {
   const [idFocusCard, setIdFocusCard] = useState<string | null>(null);
-  const isEmpty = offersPreview.length === 0;
-  const mapRef = useRef<HTMLDivElement | null>(null);
+  const mapRef = useRef<HTMLElement | null>(null);
+
+  const selectedCity = useAppSelector((state) => state.city);
+  const offersPreview = useAppSelector((state) => state.offersPreview);
+  const filteredByCityOffers = getFilteredByCityOffers(offersPreview, selectedCity);
+
+  const [sorting, setSorting] = useState<(offers: OffersPreview) => OffersPreview>(() => SortingOptions[0].functionSorting);
+  const offers = sorting(getFilteredByCityOffers(offersPreview, selectedCity));
+
+  const isEmpty = offers.length === 0;
 
   return (
     <>
@@ -33,17 +39,7 @@ export default function Main({ offersPreview, rentalOffer }: MainProps): JSX.Ele
         >
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
-            <section className="locations container">
-              <ul className="locations__list tabuls__list">
-                {sixCities.map((city) => (
-                  <li className="locations__item" key={city}>
-                    <a className="locations__item-link tabs__item" href="#">
-                      <span>{city}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </section>
+            <Locations selectedCity={selectedCity} />
           </div>
           <div className="cities">
             <div className={cn(
@@ -56,16 +52,16 @@ export default function Main({ offersPreview, rentalOffer }: MainProps): JSX.Ele
                 :
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{rentalOffer} places to stay in Amsterdam</b>
-                  <PlacesSorting />
+                  <b className="places__found">{filteredByCityOffers.length} {getPluralForm('place', filteredByCityOffers.length)} to stay in Amsterdam</b>
+                  <PlacesSorting setSorting={setSorting} />
                   <div className="cities__places-list places__list tabs__content">
-                    <PlaceCards PlaceCard={PlaceCardCities} handleHoverCard={setIdFocusCard} offersPreview={offersPreview} />
+                    <PlaceCards PlaceCard={PlaceCardCities} handleHoverCard={setIdFocusCard} offersPreview={offers} />
                   </div>
                 </section>}
               <div className="cities__right-section">
                 {!isEmpty &&
                   <section className="cities__map map" ref={mapRef} >
-                    <Map mapRef={mapRef} idFocusCard={idFocusCard} offersPreview={offersPreview} />
+                    <Map mapRef={mapRef} idFocusCard={idFocusCard} offersPreview={offers} />
                   </section>}
               </div>
             </div>

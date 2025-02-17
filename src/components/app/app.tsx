@@ -1,6 +1,3 @@
-import { OffersPreview } from '../../types/offer-types';
-import { DetailedOffer } from '../../types/offer-types';
-import { ReviewsOffer } from '../../types/review-offer';
 import Main from '../../pages/main/main';
 import Favorites from '../../pages/favorites/favorites';
 import Offer from '../../pages/offer/offer';
@@ -11,27 +8,20 @@ import { AppRoute } from '../../const';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
-type AppProps = {
-  offersPreview: OffersPreview;
-  detailedOffer: DetailedOffer;
-  reviewsOffer: ReviewsOffer;
-  rentalOffer: number;
-}
-
-export default function App({ offersPreview, reviewsOffer, rentalOffer, detailedOffer }: AppProps): JSX.Element {
+export default function App(): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Root}>
-            <Route index element={<Main rentalOffer={rentalOffer} offersPreview={offersPreview} />} />
+            <Route index element={<Main />} />
             <Route path={AppRoute.Favorites} element={
               <PrivateRoute requireAuth >
-                <Favorites offersPreview={offersPreview} />
+                <Favorites />
               </PrivateRoute>
             }
             />
-            <Route path={AppRoute.Offer} element={<Offer detailedOffer={detailedOffer} offersPreview={offersPreview} reviewsOffer={reviewsOffer} />} />
+            <Route path={AppRoute.Offer} element={<Offer />} />
             <Route path={AppRoute.Login} element={
               <PrivateRoute requireAuth={false}>
                 <Login />

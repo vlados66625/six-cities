@@ -1,10 +1,10 @@
 import { OffersPreview } from '../../../types/offer-types';
-import { CytyName } from '../../../const';
+import { CityName } from '../../../const';
 import PlaceCards from '../../../components/place-cards/place-cards';
 import PlaceCardFavorites from '../../../components/place-card/place-card-favorites';
 
 type FavoritesItemsProps = {
-  city: CytyName;
+  city: CityName;
   filteredByCityOffers: OffersPreview;
 }
 

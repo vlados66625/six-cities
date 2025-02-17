@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { OfferPreview } from '../../../types/offer-types';
 import { Link } from 'react-router-dom';
-import { MAX_RATING } from '../../../const';
+import { getRoundedRatingInPercentage } from '../../../util';
 
 type PlaceCardContentProps = {
   offerPreview: OfferPreview;
@@ -28,7 +28,7 @@ export default function PlaceCardContent({ offerPreview }: PlaceCardContentProps
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
-          <span style={{ width: `${offerPreview.rating / MAX_RATING * 100}%` }}></span>
+          <span style={{ width: `${getRoundedRatingInPercentage(offerPreview.rating)}%` }}></span>
           <span className="visually-hidden">Rating</span>
         </div>
       </div>

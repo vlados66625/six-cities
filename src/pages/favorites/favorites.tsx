@@ -1,24 +1,21 @@
 import { Helmet } from 'react-helmet-async';
 import cn from 'classnames';
-import { OffersPreview } from '../../types/offer-types';
 import { getFavoritesOffers } from './util';
 import FavoritesList from './components/favorites-list';
 import Header from '../../components/layout/header/header';
 import Footer from '../../components/layout/footer/footer';
 import NoFavorites from './components/no-favorites';
+import { useAppSelector } from '../../hooks';
 
-type FavoritesProps = {
-  offersPreview: OffersPreview;
-}
-
-export default function Favorites({ offersPreview }: FavoritesProps): JSX.Element {
+export default function Favorites(): JSX.Element {
+  const offersPreview = useAppSelector((state) => state.offersPreview);
   const favoritesOffers = getFavoritesOffers(offersPreview);
   const isEmpty = favoritesOffers.length === 0;
 
   return (
     <>
       <Helmet>
-        <title>`6 cities: favorites${isEmpty ? ' empty' : ''}`</title>
+        <title>6 cities: favorites{isEmpty ? ' empty' : ''}</title>
       </Helmet>
 
       <div className={cn('page',

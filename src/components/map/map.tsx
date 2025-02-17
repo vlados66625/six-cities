@@ -3,12 +3,14 @@ import useMap from '../../hooks/use-map';
 import leaflet from 'leaflet';
 import { useEffect } from 'react';
 import { OffersPreview } from '../../types/offer-types';
+import { DetailedOffer } from '../../types/offer-types';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
-  mapRef: MutableRefObject<HTMLDivElement | null>;
+  mapRef: MutableRefObject<HTMLElement | null>;
   offersPreview: OffersPreview;
   idFocusCard: string | null;
+  currentOffer?: DetailedOffer;
 }
 
 const defaultCustomIcon = leaflet.icon({
@@ -23,7 +25,7 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [13.5, 39],
 });
 
-export default function Map({ mapRef, offersPreview, idFocusCard }: MapProps): null {
+export default function Map({ mapRef, offersPreview, idFocusCard, currentOffer }: MapProps): null {
   const map = useMap(mapRef, offersPreview[0].city);
 
   useEffect(() => {
@@ -40,11 +42,22 @@ export default function Map({ mapRef, offersPreview, idFocusCard }: MapProps): n
           .addTo(markerLayer);
       });
 
+      if (currentOffer) {
+        leaflet
+          .marker({
+            lat: currentOffer.location.latitude,
+            lng: currentOffer.location.longitude,
+          }, {
+            icon: idFocusCard === currentOffer.id ? currentCustomIcon : defaultCustomIcon,
+          })
+          .addTo(markerLayer);
+      }
+
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, offersPreview, idFocusCard]);
+  }, [map, offersPreview, idFocusCard, currentOffer]);
 
   return null;
 }

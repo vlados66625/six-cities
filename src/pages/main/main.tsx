@@ -25,7 +25,7 @@ export default function Main(): JSX.Element {
   const [sorting, setSorting] = useState<(offers: OffersPreview) => OffersPreview>(() => SortingOptions[0].functionSorting);
   const offers = sorting(getFilteredByCityOffers(offersPreview, selectedCity));
 
-  const isEmpty = offers.length === 0;
+  const empty = offers.length === 0;
 
   return (
     <>
@@ -36,7 +36,7 @@ export default function Main(): JSX.Element {
       <div className="page page--gray page--main">
         <Header isLogoActive />
         <main className={cn('page__main page__main--index',
-          { 'page__main--index-empty': isEmpty })}
+          { 'page__main--index-empty': empty })}
         >
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
@@ -45,10 +45,10 @@ export default function Main(): JSX.Element {
           <div className="cities">
             <div className={cn(
               'cities__places-container',
-              { 'cities__places-container--empty': isEmpty, },
+              { 'cities__places-container--empty': empty, },
               'container')}
             >
-              {isEmpty ?
+              {empty ?
                 <NoPlaces />
                 :
                 <section className="cities__places places">
@@ -60,7 +60,7 @@ export default function Main(): JSX.Element {
                   </div>
                 </section>}
               <div className="cities__right-section">
-                {!isEmpty &&
+                {!empty &&
                   <section className="cities__map map" ref={mapRef} >
                     <Map mapRef={mapRef} idFocusCard={idFocusCard} offersPreview={offers} />
                   </section>}

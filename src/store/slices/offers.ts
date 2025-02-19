@@ -6,7 +6,7 @@ import { ReviewOffer } from '../../types/review-offer';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../const';
-import { fetchOffersPreviewAction } from '../api-actions';
+import { fetchOffersPreviewAction, fetchAuthorizationStatusAction } from '../api-actions';
 
 type InitialState = {
   city: CityName;
@@ -52,6 +52,12 @@ export const offersSlice = createSlice({
       .addCase(fetchOffersPreviewAction.fulfilled, (state, action) => {
         state.isLoading = false;
         state.offersPreview = action.payload;
+      })
+      .addCase(fetchAuthorizationStatusAction.fulfilled, (state) => {
+        state.authorizationStatus = AuthorizationStatus.Auth;
+      })
+      .addCase(fetchAuthorizationStatusAction.rejected, (state) => {
+        state.authorizationStatus = AuthorizationStatus.NoAuth;
       });
   },
   selectors: {
@@ -59,7 +65,8 @@ export const offersSlice = createSlice({
     offersPreview: (state) => state.offersPreview,
     reviewsOffer: (state) => state.reviewsOffer,
     detailedOffer: (state) => state.detailedOffer,
-    isLoading: (state) => state.isLoading
+    isLoading: (state) => state.isLoading,
+    authorizationStatus: (state) => state.authorizationStatus,
   }
 });
 

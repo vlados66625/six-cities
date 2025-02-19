@@ -15,3 +15,14 @@ export const fetchOffersPreviewAction = createAsyncThunk<OfferPreview[], undefin
     return data;
   },
 );
+
+export const fetchAuthorizationStatusAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'offers/fetchAuthorizationStatus',
+  async (_arg, { extra: api }) => {
+    await api.get(APIRoute.Login);
+  },
+);

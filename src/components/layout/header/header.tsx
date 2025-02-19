@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../common/logo/logo';
-import { getIsAuth } from '../../../util';
+import { useIsAuth } from '../../../hooks/is-auth';
 
 type HeaderProps = {
   isHiddenNav?: boolean;
@@ -8,7 +8,7 @@ type HeaderProps = {
 }
 
 export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.Element {
-  const isAuth = getIsAuth();
+  const isAuth = useIsAuth();
 
   return (
     <header className="header">

@@ -1,13 +1,7 @@
-import getAuthorizationStatus from './mock/get-authorization-status';
-import { AuthorizationStatus } from './const';
 import { OffersPreview } from './types/offer-types';
 import { CityName } from './const';
 import dayjs from 'dayjs';
 import { MAX_RATING } from './const';
-
-export function getIsAuth() {
-  return getAuthorizationStatus() === AuthorizationStatus.Auth;
-}
 
 export function getFilteredByCityOffers(offers: OffersPreview, city: CityName): OffersPreview {
   return offers.filter((offer) => offer.city.name === city);

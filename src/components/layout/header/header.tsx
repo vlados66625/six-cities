@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../common/logo/logo';
 import { useIsAuth } from '../../../hooks/is-auth';
+import { useAppSelector } from '../../../hooks';
+import { offersSelectors } from '../../../store/slices/offers';
+import { logoutAction } from '../../../store/api-actions';
+import { store } from '../../../store';
 
 type HeaderProps = {
   isHiddenNav?: boolean;
@@ -9,7 +13,7 @@ type HeaderProps = {
 
 export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.Element {
   const isAuth = useIsAuth();
-
+  const email = useAppSelector(offersSelectors.email);
   return (
     <header className="header">
       <div className="container">
@@ -27,7 +31,7 @@ export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.
                     </div>
                     {isAuth ?
                       <>
-                        <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                        <span className="header__user-name user__name">{email}</span>
                         <span className="header__favorite-count">3</span>
                       </> :
                       <span className="header__login">Sign in</span>}
@@ -36,7 +40,14 @@ export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.
                 {isAuth &&
                   <li className="header__nav-item">
                     <a className="header__nav-link" href="#">
-                      <span className="header__signout">Sign out</span>
+                      <span
+                        onClick={() => {
+                          store.dispatch(logoutAction());
+                        }}
+                        className="header__signout"
+                      >
+                        Sign out
+                      </span>
                     </a>
                   </li>}
               </ul>

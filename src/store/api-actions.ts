@@ -3,6 +3,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { State, AppDispatch } from '../types/state';
 import { OfferPreview } from '../types/offer-types';
 import { APIRoute } from '../const';
+import { UserAuth } from '../types/user-auth';
+import { ResponseAuth } from '../types/response-auth';
+import { setToken, deleteToken } from '../services/token';
 
 export const fetchOffersPreviewAction = createAsyncThunk<OfferPreview[], undefined, {
   dispatch: AppDispatch;
@@ -26,3 +29,30 @@ export const fetchAuthorizationStatusAction = createAsyncThunk<void, undefined, 
     await api.get(APIRoute.Login);
   },
 );
+
+export const loginAction = createAsyncThunk<ResponseAuth, UserAuth, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'offers/login',
+  async ({ email, password }, { extra: api }) => {
+    const { data } = await api.post<ResponseAuth>(APIRoute.Login, { email, password });
+    const { token } = data;
+    setToken(token);
+    return data;
+  },
+);
+
+export const logoutAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'offers/logout',
+  async (_arg, { extra: api }) => {
+    await api.delete<ResponseAuth>(APIRoute.Logout);
+    deleteToken();
+  },
+);
+

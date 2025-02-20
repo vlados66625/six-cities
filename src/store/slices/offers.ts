@@ -6,7 +6,12 @@ import { ReviewOffer } from '../../types/review-offer';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../const';
-import { fetchOffersPreviewAction, fetchAuthorizationStatusAction } from '../api-actions';
+import {
+  fetchOffersPreviewAction,
+  fetchAuthorizationStatusAction,
+  loginAction,
+  logoutAction,
+} from '../api-actions';
 
 type InitialState = {
   city: CityName;
@@ -15,6 +20,7 @@ type InitialState = {
   detailedOffer: DetailedOffer;
   authorizationStatus: AuthorizationStatus;
   isLoading: boolean;
+  email: string;
 };
 
 const initialState: InitialState = {
@@ -23,8 +29,8 @@ const initialState: InitialState = {
   reviewsOffer: [...reviewsOffer],
   detailedOffer: detailedOffer,
   authorizationStatus: AuthorizationStatus.Unknown,
-  isLoading: false
-
+  isLoading: false,
+  email: 'unknown'
 };
 
 export const offersSlice = createSlice({
@@ -58,6 +64,14 @@ export const offersSlice = createSlice({
       })
       .addCase(fetchAuthorizationStatusAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
+      })
+      .addCase(loginAction.fulfilled, (state, action) => {
+        state.authorizationStatus = AuthorizationStatus.Auth;
+        state.email = action.payload.email;
+      })
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.authorizationStatus = AuthorizationStatus.NoAuth;
+        state.email = 'unknown';
       });
   },
   selectors: {
@@ -67,6 +81,7 @@ export const offersSlice = createSlice({
     detailedOffer: (state) => state.detailedOffer,
     isLoading: (state) => state.isLoading,
     authorizationStatus: (state) => state.authorizationStatus,
+    email: (state) => state.email,
   }
 });
 

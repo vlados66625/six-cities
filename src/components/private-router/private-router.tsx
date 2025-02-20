@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { useIsAuth } from '../../hooks/is-auth';
+import { useIsAuth } from '../../hooks/use-is-auth';
 
 type PrivateRouteProps = {
   children: JSX.Element;

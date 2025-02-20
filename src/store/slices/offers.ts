@@ -11,6 +11,7 @@ import {
   fetchAuthorizationStatusAction,
   loginAction,
   logoutAction,
+  deleteErrorAction,
 } from '../api-actions';
 
 type InitialState = {
@@ -21,6 +22,7 @@ type InitialState = {
   authorizationStatus: AuthorizationStatus;
   isLoading: boolean;
   email: string;
+  error: string | null;
 };
 
 const initialState: InitialState = {
@@ -30,7 +32,8 @@ const initialState: InitialState = {
   detailedOffer: detailedOffer,
   authorizationStatus: AuthorizationStatus.Unknown,
   isLoading: false,
-  email: 'unknown'
+  email: 'unknown',
+  error: null,
 };
 
 export const offersSlice = createSlice({
@@ -48,7 +51,10 @@ export const offersSlice = createSlice({
     },
     setAuthorizationStatus: (state, action: PayloadAction<AuthorizationStatus>) => {
       state.authorizationStatus = action.payload;
-    }
+    },
+    setError: (state, action: PayloadAction<string | null>) => {
+      state.error = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -72,6 +78,9 @@ export const offersSlice = createSlice({
       .addCase(logoutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
         state.email = 'unknown';
+      })
+      .addCase(deleteErrorAction.fulfilled, (state) => {
+        state.error = null;
       });
   },
   selectors: {
@@ -82,6 +91,7 @@ export const offersSlice = createSlice({
     isLoading: (state) => state.isLoading,
     authorizationStatus: (state) => state.authorizationStatus,
     email: (state) => state.email,
+    error: (state) => state.error,
   }
 });
 

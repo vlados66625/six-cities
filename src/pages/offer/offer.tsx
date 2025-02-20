@@ -15,7 +15,7 @@ import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
 import { getRoundedRatingInPercentage } from '../../util';
 import { offersSelectors } from '../../store/slices/offers';
-import { useIsAuth } from '../../hooks/is-auth';
+import { useIsAuth } from '../../hooks/use-is-auth';
 
 export default function Offer(): JSX.Element {
   const isAuth = useIsAuth();

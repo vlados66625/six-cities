@@ -2,7 +2,7 @@ import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { State, AppDispatch } from '../types/state';
 import { OfferPreview } from '../types/offer-types';
-import { APIRoute } from '../const';
+import { APIRoute, DELETE_ERROR_TIMEOUT } from '../const';
 import { UserAuth } from '../types/user-auth';
 import { ResponseAuth } from '../types/response-auth';
 import { setToken, deleteToken } from '../services/token';
@@ -53,6 +53,17 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, { extra: api }) => {
     await api.delete<ResponseAuth>(APIRoute.Logout);
     deleteToken();
+  },
+);
+
+export const deleteErrorAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'offers/deleteError',
+  async () => {
+    await new Promise((resolve) => setTimeout(resolve, DELETE_ERROR_TIMEOUT));
   },
 );
 

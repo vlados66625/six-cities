@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../common/logo/logo';
-import { useIsAuth } from '../../../hooks/is-auth';
+import { useIsAuth } from '../../../hooks/use-is-auth';
 import { useAppSelector } from '../../../hooks';
 import { offersSelectors } from '../../../store/slices/offers';
 import { logoutAction } from '../../../store/api-actions';

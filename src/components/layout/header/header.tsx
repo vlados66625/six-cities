@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../common/logo/logo';
-import { useIsAuth } from '../../../hooks/is-auth';
 import { useAppSelector } from '../../../hooks';
 import { offersSelectors } from '../../../store/slices/offers';
 import { AuthorizationStatus } from '../../../const';
@@ -11,8 +10,8 @@ type HeaderProps = {
 }
 
 export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.Element {
-  const isAuth = useIsAuth();
   const authorizationStatus = useAppSelector(offersSelectors.authorizationStatus);
+  const isAuth = useAppSelector(offersSelectors.isAuth);
 
   return (
     <header className="header">

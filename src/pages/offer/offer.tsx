@@ -15,14 +15,13 @@ import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
 import { getRoundedRatingInPercentage } from '../../util';
 import { offersSelectors } from '../../store/slices/offers';
-import { useIsAuth } from '../../hooks/is-auth';
 
 export default function Offer(): JSX.Element {
-  const isAuth = useIsAuth();
   const [review, setReview] = useState({ rating: 0, review: '' });
   const mapRef = useRef<HTMLElement | null>(null);
   const [idFocusCard, setIdFocusCard] = useState<string | null>(null);
 
+  const isAuth = useAppSelector(offersSelectors.isAuth);
   const offersPreview = useAppSelector(offersSelectors.offersPreview);
   const reviewsOffer = useAppSelector(offersSelectors.reviewsOffer);
   const detailedOffer = useAppSelector(offersSelectors.detailedOffer);

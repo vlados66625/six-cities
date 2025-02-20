@@ -17,10 +17,5 @@ export function createAPI(): AxiosInstance {
   },
   );
 
-  // api.interceptors.response.use((response) => {
-
-  // },
-  // );
-
   return api;
 }

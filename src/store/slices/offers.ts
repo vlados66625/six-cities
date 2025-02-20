@@ -67,6 +67,7 @@ export const offersSlice = createSlice({
     detailedOffer: (state) => state.detailedOffer,
     isLoading: (state) => state.isLoading,
     authorizationStatus: (state) => state.authorizationStatus,
+    isAuth: (state) => state.authorizationStatus === AuthorizationStatus.Auth,
   }
 });
 

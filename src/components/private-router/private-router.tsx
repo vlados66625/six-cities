@@ -1,6 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { useIsAuth } from '../../hooks/is-auth';
+import { useAppSelector } from '../../hooks';
+import { offersSelectors } from '../../store/slices/offers';
 
 type PrivateRouteProps = {
   children: JSX.Element;
@@ -8,8 +9,7 @@ type PrivateRouteProps = {
 }
 
 export default function PrivateRoute({ children, requireAuth }: PrivateRouteProps): JSX.Element {
-
-  const isAuth = useIsAuth();
+  const isAuth = useAppSelector(offersSelectors.isAuth);
 
   if (requireAuth && !isAuth) {
     return <Navigate to={AppRoute.Login} />;

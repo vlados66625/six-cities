@@ -9,7 +9,7 @@ import Advantages from './components/advantages';
 import ReviewsForm from './components/reviews-form';
 import Header from '../../components/layout/header/header';
 import { MAX_PLACES_LIST_NEARBY } from '../../const';
-import { getIsAuth, getPluralForm } from '../../util';
+import { getPluralForm } from '../../util';
 import PlaceCardNearPlaces from '../../components/place-card/place-card-near-places';
 import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
@@ -17,11 +17,11 @@ import { getRoundedRatingInPercentage } from '../../util';
 import { offersSelectors } from '../../store/slices/offers';
 
 export default function Offer(): JSX.Element {
-  const isAuth = getIsAuth();
   const [review, setReview] = useState({ rating: 0, review: '' });
   const mapRef = useRef<HTMLElement | null>(null);
   const [idFocusCard, setIdFocusCard] = useState<string | null>(null);
 
+  const isAuth = useAppSelector(offersSelectors.isAuth);
   const offersPreview = useAppSelector(offersSelectors.offersPreview);
   const reviewsOffer = useAppSelector(offersSelectors.reviewsOffer);
   const detailedOffer = useAppSelector(offersSelectors.detailedOffer);

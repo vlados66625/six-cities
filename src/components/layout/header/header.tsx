@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../common/logo/logo';
-import { getIsAuth } from '../../../util';
+import { useAppSelector } from '../../../hooks';
+import { offersSelectors } from '../../../store/slices/offers';
+import { AuthorizationStatus } from '../../../const';
 
 type HeaderProps = {
   isHiddenNav?: boolean;
@@ -8,7 +10,8 @@ type HeaderProps = {
 }
 
 export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.Element {
-  const isAuth = getIsAuth();
+  const authorizationStatus = useAppSelector(offersSelectors.authorizationStatus);
+  const isAuth = useAppSelector(offersSelectors.isAuth);
 
   return (
     <header className="header">
@@ -30,7 +33,11 @@ export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.
                         <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
                         <span className="header__favorite-count">3</span>
                       </> :
-                      <span className="header__login">Sign in</span>}
+                      <span className="header__login">
+                        {authorizationStatus === AuthorizationStatus.Unknown ?
+                          'загрузка...' :
+                          'Sign in'}
+                      </span>}
                   </Link>
                 </li>
                 {isAuth &&

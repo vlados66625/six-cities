@@ -19,7 +19,7 @@ import { authorizationSelectors } from '../../store/slices/authorization';
 import { useParams } from 'react-router-dom';
 import Loading from '../../components/loading/loading';
 import { store } from '../../store';
-import { fetchDetailedOfferAction, fetchOffersNearbyAction } from '../../store/api-actions';
+import { fetchDetailedOfferAction, fetchOffersNearbyAction, fetchReviewsOfferAction } from '../../store/api-actions';
 
 export default function Offer(): JSX.Element | null {
   const { id } = useParams();
@@ -42,6 +42,7 @@ export default function Offer(): JSX.Element | null {
     if (id) {
       store.dispatch(fetchDetailedOfferAction(id));
       store.dispatch(fetchOffersNearbyAction(id));
+      store.dispatch(fetchReviewsOfferAction(id));
     }
   }, [id]);
 
@@ -126,7 +127,11 @@ export default function Offer(): JSX.Element | null {
                   </div>
                 </div>
                 <section className="offer__reviews reviews">
-                  <h2 className="reviews__title">{getPluralForm('Review', reviewsOffer.length)} · <span className="reviews__amount">{reviewsOffer.length}</span></h2>
+                  {reviewsOffer.length === 0 ?
+                    <h2 className="reviews__title">There are no reviews, be the first</h2>
+                    :
+                    <h2 className="reviews__title">{getPluralForm('Review', reviewsOffer.length)} · <span className="reviews__amount">{reviewsOffer.length}</span></h2>}
+
                   <ul className="reviews__list">
                     {reviewsOffer.map((reviewOffer) => (
                       <Review reviewOffer={reviewOffer} key={reviewOffer.id} />

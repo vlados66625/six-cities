@@ -1,5 +1,4 @@
 import { CityName, AppRoute } from '../../const';
-import { reviewsOffer } from '../../mock/reviews-offer';
 import { OfferPreview, DetailedOffer } from '../../types/offer-types';
 import { ReviewOffer } from '../../types/review-offer';
 import { PayloadAction } from '@reduxjs/toolkit';
@@ -9,6 +8,7 @@ import {
   fetchOffersPreviewAction,
   fetchDetailedOfferAction,
   fetchOffersNearbyAction,
+  fetchReviewsOfferAction,
 } from '../api-actions';
 import browserHistory from '../../browser-history';
 
@@ -25,7 +25,7 @@ type InitialState = {
 const initialState: InitialState = {
   city: 'Paris',
   offersPreview: [],
-  reviewsOffer: [...reviewsOffer],
+  reviewsOffer: [],
   detailedOffer: null,
   offersNearby: [],
   isLoading: false,
@@ -38,9 +38,6 @@ export const offersSlice = createSlice({
   reducers: {
     changeCity: (state, action: PayloadAction<CityName>) => {
       state.city = action.payload;
-    },
-    fillingReviewOffer: (state) => {
-      state.reviewsOffer = [...reviewsOffer];
     },
     setSorting: (state, action: PayloadAction<(offers: OfferPreview[]) => OfferPreview[]>) => {
       state.sorting = action.payload;
@@ -67,6 +64,9 @@ export const offersSlice = createSlice({
       })
       .addCase(fetchOffersNearbyAction.fulfilled, (state, action) => {
         state.offersNearby = action.payload;
+      })
+      .addCase(fetchReviewsOfferAction.fulfilled, (state, action) => {
+        state.reviewsOffer = action.payload;
       });
   },
   selectors: {

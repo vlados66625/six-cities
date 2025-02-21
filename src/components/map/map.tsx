@@ -26,7 +26,8 @@ const currentCustomIcon = leaflet.icon({
 });
 
 export default function Map({ mapRef, offersPreview, idFocusCard, currentOffer }: MapProps): null {
-  const map = useMap(mapRef, offersPreview[0].city);
+  const city = currentOffer?.city || offersPreview[0]?.city;
+  const map = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {

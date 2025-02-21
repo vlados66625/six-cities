@@ -32,12 +32,24 @@ export const fetchDetailedOfferAction = createAsyncThunk<DetailedOffer, string |
   },
 );
 
+export const fetchOffersNearbyAction = createAsyncThunk<OfferPreview[], string | undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'offers/fetchOffersNearby',
+  async (offerId, { extra: api }) => {
+    const { data } = await api.get<OfferPreview[]>(`${APIRoute.Offers}/${offerId}/nearby`);
+    return data;
+  },
+);
+
 export const fetchAuthorizationStatusAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
-  'offers/fetchAuthorizationStatus',
+  'authorization/fetchAuthorizationStatus',
   async (_arg, { extra: api }) => {
     await api.get(APIRoute.Login);
   },
@@ -48,7 +60,7 @@ export const loginAction = createAsyncThunk<ResponseAuth, UserAuth, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'offers/login',
+  'authorization/login',
   async ({ email, password }, { extra: api }) => {
     const { data } = await api.post<ResponseAuth>(APIRoute.Login, { email, password });
     const { token } = data;
@@ -62,7 +74,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'offers/logout',
+  'authorization/logout',
   async (_arg, { extra: api }) => {
     await api.delete<ResponseAuth>(APIRoute.Logout);
     deleteUserData();
@@ -75,7 +87,7 @@ export const deleteErrorAction = createAsyncThunk<void, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'offers/deleteError',
+  'error/deleteError',
   async () => {
     await new Promise((resolve) => setTimeout(resolve, DELETE_ERROR_TIMEOUT));
   },

@@ -19,7 +19,7 @@ import { authorizationSelectors } from '../../store/slices/authorization';
 import { useParams } from 'react-router-dom';
 import Loading from '../../components/loading/loading';
 import { store } from '../../store';
-import { fetchDetailedOfferAction } from '../../store/api-actions';
+import { fetchDetailedOfferAction, fetchOffersNearbyAction } from '../../store/api-actions';
 
 export default function Offer(): JSX.Element | null {
   const { id } = useParams();
@@ -28,9 +28,9 @@ export default function Offer(): JSX.Element | null {
   const [idFocusCard, setIdFocusCard] = useState<string | null>(null);
 
   const isAuth = useAppSelector(authorizationSelectors.isAuth);
-  const offersPreview = useAppSelector(offersSelectors.offersPreview);
   const reviewsOffer = useAppSelector(offersSelectors.reviewsOffer);
   const detailedOffer = useAppSelector(offersSelectors.detailedOffer);
+  const offersNearby = useAppSelector(offersSelectors.offersNearby);
   const isLoading = useAppSelector(offersSelectors.isLoading);
 
   function handleChange(evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
@@ -41,6 +41,7 @@ export default function Offer(): JSX.Element | null {
   useEffect(() => {
     if (id) {
       store.dispatch(fetchDetailedOfferAction(id));
+      store.dispatch(fetchOffersNearbyAction(id));
     }
   }, [id]);
 
@@ -136,21 +137,22 @@ export default function Offer(): JSX.Element | null {
               </div>
             </div>
             <section ref={mapRef} className="offer__map map" >
-              <Map mapRef={mapRef} idFocusCard={idFocusCard || detailedOffer?.id} currentOffer={detailedOffer} offersPreview={offersPreview.slice(0, MAX_PLACES_LIST_NEARBY)} />
+              <Map mapRef={mapRef} idFocusCard={idFocusCard || detailedOffer?.id} currentOffer={detailedOffer} offersPreview={offersNearby.slice(0, MAX_PLACES_LIST_NEARBY)} />
             </section>
           </section>
-          <div className="container">
-            <section className="near-places places">
-              <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <div className="near-places__list places__list">
-                <PlaceCards
-                  PlaceCard={PlaceCardNearPlaces}
-                  offersPreview={offersPreview.slice(0, MAX_PLACES_LIST_NEARBY)}
-                  handleHoverCard={setIdFocusCard}
-                />
-              </div>
-            </section>
-          </div>
+          {offersNearby.length !== 0 &&
+            <div className="container">
+              <section className="near-places places">
+                <h2 className="near-places__title">Other places in the neighbourhood</h2>
+                <div className="near-places__list places__list">
+                  <PlaceCards
+                    PlaceCard={PlaceCardNearPlaces}
+                    offersPreview={offersNearby.slice(0, MAX_PLACES_LIST_NEARBY)}
+                    handleHoverCard={setIdFocusCard}
+                  />
+                </div>
+              </section>
+            </div>}
         </main>
       </div>
     </>

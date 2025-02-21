@@ -8,6 +8,7 @@ import { getFilteredByCityOffers, SortingOptions } from '../../util';
 import {
   fetchOffersPreviewAction,
   fetchDetailedOfferAction,
+  fetchOffersNearbyAction,
 } from '../api-actions';
 import browserHistory from '../../browser-history';
 
@@ -16,6 +17,7 @@ type InitialState = {
   offersPreview: OfferPreview[];
   reviewsOffer: ReviewOffer[];
   detailedOffer: DetailedOffer | null;
+  offersNearby: OfferPreview[];
   isLoading: boolean;
   sorting: (offers: OffersPreview) => OffersPreview;
 };
@@ -25,6 +27,7 @@ const initialState: InitialState = {
   offersPreview: [],
   reviewsOffer: [...reviewsOffer],
   detailedOffer: null,
+  offersNearby: [],
   isLoading: false,
   sorting: SortingOptions[0].functionSorting,
 };
@@ -55,12 +58,15 @@ export const offersSlice = createSlice({
       .addCase(fetchDetailedOfferAction.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(fetchDetailedOfferAction.fulfilled, (state, action: PayloadAction<DetailedOffer>) => {
+      .addCase(fetchDetailedOfferAction.fulfilled, (state, action) => {
         state.isLoading = false;
         state.detailedOffer = action.payload;
       })
       .addCase(fetchDetailedOfferAction.rejected, () => {
         browserHistory.push(AppRoute.Error);
+      })
+      .addCase(fetchOffersNearbyAction.fulfilled, (state, action) => {
+        state.offersNearby = action.payload;
       });
   },
   selectors: {
@@ -68,6 +74,7 @@ export const offersSlice = createSlice({
     offersPreview: (state) => state.offersPreview,
     reviewsOffer: (state) => state.reviewsOffer,
     detailedOffer: (state) => state.detailedOffer,
+    offersNearby: (state) => state.offersNearby,
     isLoading: (state) => state.isLoading,
     showOffers: (state) => state.sorting(getFilteredByCityOffers(state.offersPreview, state.city)),
   }

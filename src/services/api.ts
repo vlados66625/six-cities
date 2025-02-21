@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosError } from 'axios';
 import { BASE_URL, REQUEST_TIMEOUT } from '../const';
-import { getToken } from './token';
+import { getToken } from './user-data';
 import { ErrorResponse, ErrorResponseDetailed } from '../types/error-response';
 import { showErrorMessage } from './show-error-message';
 import { StatusCodes } from 'http-status-codes';

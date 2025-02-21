@@ -6,6 +6,7 @@ import { ReviewOffer } from '../../types/review-offer';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../const';
+import { getEmail } from '../../services/user-data';
 import {
   fetchOffersPreviewAction,
   fetchAuthorizationStatusAction,
@@ -32,7 +33,7 @@ const initialState: InitialState = {
   detailedOffer: detailedOffer,
   authorizationStatus: AuthorizationStatus.Unknown,
   isLoading: false,
-  email: 'unknown',
+  email: getEmail(),
   error: null,
 };
 

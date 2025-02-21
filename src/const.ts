@@ -37,6 +37,7 @@ export const REQUEST_TIMEOUT = 5000;
 export const DELETE_ERROR_TIMEOUT = 2000;
 
 export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
+export const EMAIL_TOKEN_KEY_NAME = 'six-cities-email';
 
 export enum APIRoute {
   Offers = '/offers',

@@ -5,6 +5,7 @@ import { useAppSelector } from '../../../hooks';
 import { offersSelectors } from '../../../store/slices/offers';
 import { logoutAction } from '../../../store/api-actions';
 import { store } from '../../../store';
+import { MouseEvent } from 'react';
 
 type HeaderProps = {
   isHiddenNav?: boolean;
@@ -14,6 +15,12 @@ type HeaderProps = {
 export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.Element {
   const isAuth = useIsAuth();
   const email = useAppSelector(offersSelectors.email);
+
+  function handleNavLinkClick(evt: MouseEvent<HTMLAnchorElement>) {
+    evt.preventDefault();
+    store.dispatch(logoutAction());
+  }
+
   return (
     <header className="header">
       <div className="container">
@@ -39,13 +46,8 @@ export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.
                 </li>
                 {isAuth &&
                   <li className="header__nav-item">
-                    <a className="header__nav-link" href="#">
-                      <span
-                        onClick={() => {
-                          store.dispatch(logoutAction());
-                        }}
-                        className="header__signout"
-                      >
+                    <a onClick={(evt) => handleNavLinkClick(evt)} className="header__nav-link" href="#">
+                      <span className="header__signout">
                         Sign out
                       </span>
                     </a>

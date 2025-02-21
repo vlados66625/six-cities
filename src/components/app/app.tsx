@@ -5,13 +5,15 @@ import Login from '../../pages/login/login';
 import Error404 from '../../pages/error-404/error-404';
 import PrivateRoute from '../private-router/private-router';
 import { AppRoute } from '../../const';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+import browserHistory from '../../browser-history';
+import HistoryRouter from '../history-route/history-route';
 
 export default function App(): JSX.Element {
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route path={AppRoute.Root}>
             <Route index element={<Main />} />
@@ -31,7 +33,7 @@ export default function App(): JSX.Element {
           </Route>
           <Route path='*' element={<Error404 />} />
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
   );
 }

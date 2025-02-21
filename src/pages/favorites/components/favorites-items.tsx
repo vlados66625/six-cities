@@ -1,11 +1,11 @@
-import { OffersPreview } from '../../../types/offer-types';
+import { OfferPreview } from '../../../types/offer-types';
 import { CityName } from '../../../const';
 import PlaceCards from '../../../components/place-cards/place-cards';
 import PlaceCardFavorites from '../../../components/place-card/place-card-favorites';
 
 type FavoritesItemsProps = {
   city: CityName;
-  filteredByCityOffers: OffersPreview;
+  filteredByCityOffers: OfferPreview[];
 }
 
 export default function FavoritesItems({ city, filteredByCityOffers }: FavoritesItemsProps): JSX.Element {

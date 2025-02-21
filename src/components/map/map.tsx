@@ -2,13 +2,12 @@ import { MutableRefObject } from 'react';
 import useMap from '../../hooks/use-map';
 import leaflet from 'leaflet';
 import { useEffect } from 'react';
-import { OffersPreview } from '../../types/offer-types';
-import { DetailedOffer } from '../../types/offer-types';
+import { OfferPreview, DetailedOffer } from '../../types/offer-types';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   mapRef: MutableRefObject<HTMLElement | null>;
-  offersPreview: OffersPreview;
+  offersPreview: OfferPreview[];
   idFocusCard: string | null;
   currentOffer?: DetailedOffer;
 }

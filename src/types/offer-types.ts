@@ -26,5 +26,3 @@ export type DetailedOffer = Offer & {
 export type OfferPreview = Offer & {
   previewImage: string;
 };
-
-export type OffersPreview = readonly OfferPreview[];

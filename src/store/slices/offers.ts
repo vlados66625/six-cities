@@ -1,6 +1,6 @@
 import { CityName, AppRoute } from '../../const';
 import { reviewsOffer } from '../../mock/reviews-offer';
-import { OfferPreview, DetailedOffer, OffersPreview } from '../../types/offer-types';
+import { OfferPreview, DetailedOffer } from '../../types/offer-types';
 import { ReviewOffer } from '../../types/review-offer';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
@@ -19,7 +19,7 @@ type InitialState = {
   detailedOffer: DetailedOffer | null;
   offersNearby: OfferPreview[];
   isLoading: boolean;
-  sorting: (offers: OffersPreview) => OffersPreview;
+  sorting: (offers: OfferPreview[]) => OfferPreview[];
 };
 
 const initialState: InitialState = {
@@ -42,7 +42,7 @@ export const offersSlice = createSlice({
     fillingReviewOffer: (state) => {
       state.reviewsOffer = [...reviewsOffer];
     },
-    setSorting: (state, action: PayloadAction<(offers: OffersPreview) => OffersPreview>) => {
+    setSorting: (state, action: PayloadAction<(offers: OfferPreview[]) => OfferPreview[]>) => {
       state.sorting = action.payload;
     },
   },

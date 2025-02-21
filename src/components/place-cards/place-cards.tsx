@@ -1,9 +1,9 @@
-import { OffersPreview } from '../../types/offer-types';
+import { OfferPreview } from '../../types/offer-types';
 import { ComponentType } from 'react';
 import { PlaceCardContainerProps } from '../place-card/type-props-place-card-container';
 
 type PlaceCardsProps = {
-  offersPreview: OffersPreview;
+  offersPreview: OfferPreview[];
   handleHoverCard?: (idFocusCard: string | null) => void;
   PlaceCard: ComponentType<PlaceCardContainerProps>;
 }

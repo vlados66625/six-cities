@@ -93,6 +93,7 @@ export const offersSlice = createSlice({
     authorizationStatus: (state) => state.authorizationStatus,
     email: (state) => state.email,
     error: (state) => state.error,
+    isAuth: (state) => state.authorizationStatus === AuthorizationStatus.Auth,
   }
 });
 

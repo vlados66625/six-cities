@@ -1,8 +1,6 @@
 import { AUTH_TOKEN_KEY_NAME, EMAIL_TOKEN_KEY_NAME } from '../const';
 
-export type Token = string;
-
-export function setUserData(token: Token, email: string) {
+export function setUserData(token: string, email: string) {
   localStorage.setItem(AUTH_TOKEN_KEY_NAME, token);
   localStorage.setItem(EMAIL_TOKEN_KEY_NAME, email);
 }
@@ -12,7 +10,7 @@ export function deleteUserData() {
   localStorage.removeItem(EMAIL_TOKEN_KEY_NAME);
 }
 
-export function getToken(): Token {
+export function getToken(): string {
   return localStorage.getItem(AUTH_TOKEN_KEY_NAME) ?? '';
 }
 

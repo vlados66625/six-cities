@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../common/logo/logo';
-import { useIsAuth } from '../../../hooks/use-is-auth';
 import { useAppSelector } from '../../../hooks';
 import { offersSelectors } from '../../../store/slices/offers';
 import { logoutAction } from '../../../store/api-actions';
 import { store } from '../../../store';
 import { MouseEvent } from 'react';
+import { AuthorizationStatus } from '../../../const';
 
 type HeaderProps = {
   isHiddenNav?: boolean;
@@ -13,7 +13,9 @@ type HeaderProps = {
 }
 
 export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.Element {
-  const isAuth = useIsAuth();
+
+  const isAuth = useAppSelector(offersSelectors.isAuth);
+  const authorizationStatus = useAppSelector(offersSelectors.authorizationStatus);
   const email = useAppSelector(offersSelectors.email);
 
   function handleNavLinkClick(evt: MouseEvent<HTMLAnchorElement>) {
@@ -41,7 +43,11 @@ export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.
                         <span className="header__user-name user__name">{email}</span>
                         <span className="header__favorite-count">3</span>
                       </> :
-                      <span className="header__login">Sign in</span>}
+                      <span className="header__login">
+                        {authorizationStatus === AuthorizationStatus.Unknown ?
+                          'загрузка...' :
+                          'Sign in'}
+                      </span>}
                   </Link>
                 </li>
                 {isAuth &&

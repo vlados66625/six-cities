@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { State, AppDispatch } from '../types/state';
-import { OfferPreview } from '../types/offer-types';
+import { OfferPreview, DetailedOffer } from '../types/offer-types';
 import { APIRoute, DELETE_ERROR_TIMEOUT, AppRoute } from '../const';
 import { UserAuth } from '../types/user-auth';
 import { ResponseAuth } from '../types/response-auth';
@@ -16,6 +16,18 @@ export const fetchOffersPreviewAction = createAsyncThunk<OfferPreview[], undefin
   'offers/fetchOffersPreview',
   async (_arg, { extra: api }) => {
     const { data } = await api.get<OfferPreview[]>(APIRoute.Offers);
+    return data;
+  },
+);
+
+export const fetchDetailedOfferAction = createAsyncThunk<DetailedOffer, string | undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'offers/fetchDetailedOffer',
+  async (offerId, { extra: api }) => {
+    const { data } = await api.get<DetailedOffer>(`${APIRoute.Offers}/${offerId}`);
     return data;
   },
 );

@@ -31,7 +31,7 @@ export default function App(): JSX.Element {
             }
             />
           </Route>
-          <Route path='*' element={<Error404 />} />
+          <Route path={AppRoute.Error} element={<Error404 />} />
         </Routes>
       </HistoryRouter>
     </HelmetProvider>

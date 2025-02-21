@@ -1,6 +1,5 @@
-import { CityName } from '../../const';
+import { CityName, AppRoute } from '../../const';
 import { reviewsOffer } from '../../mock/reviews-offer';
-import { detailedOffer } from '../../mock/detailed-offer';
 import { OfferPreview, DetailedOffer, OffersPreview } from '../../types/offer-types';
 import { ReviewOffer } from '../../types/review-offer';
 import { PayloadAction } from '@reduxjs/toolkit';
@@ -8,13 +7,15 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getFilteredByCityOffers, SortingOptions } from '../../util';
 import {
   fetchOffersPreviewAction,
+  fetchDetailedOfferAction,
 } from '../api-actions';
+import browserHistory from '../../browser-history';
 
 type InitialState = {
   city: CityName;
   offersPreview: OfferPreview[];
   reviewsOffer: ReviewOffer[];
-  detailedOffer: DetailedOffer;
+  detailedOffer: DetailedOffer | null;
   isLoading: boolean;
   sorting: (offers: OffersPreview) => OffersPreview;
 };
@@ -23,7 +24,7 @@ const initialState: InitialState = {
   city: 'Paris',
   offersPreview: [],
   reviewsOffer: [...reviewsOffer],
-  detailedOffer: detailedOffer,
+  detailedOffer: null,
   isLoading: false,
   sorting: SortingOptions[0].functionSorting,
 };
@@ -38,10 +39,7 @@ export const offersSlice = createSlice({
     fillingReviewOffer: (state) => {
       state.reviewsOffer = [...reviewsOffer];
     },
-    fillingDetailedOffer: (state) => {
-      state.detailedOffer = detailedOffer;
-    },
-    setSorting: (state, action:PayloadAction<(offers: OffersPreview) => OffersPreview>) => {
+    setSorting: (state, action: PayloadAction<(offers: OffersPreview) => OffersPreview>) => {
       state.sorting = action.payload;
     },
   },
@@ -53,6 +51,16 @@ export const offersSlice = createSlice({
       .addCase(fetchOffersPreviewAction.fulfilled, (state, action) => {
         state.isLoading = false;
         state.offersPreview = action.payload;
+      })
+      .addCase(fetchDetailedOfferAction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchDetailedOfferAction.fulfilled, (state, action: PayloadAction<DetailedOffer>) => {
+        state.isLoading = false;
+        state.detailedOffer = action.payload;
+      })
+      .addCase(fetchDetailedOfferAction.rejected, () => {
+        browserHistory.push(AppRoute.Error);
       });
   },
   selectors: {

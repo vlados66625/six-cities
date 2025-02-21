@@ -1,10 +1,11 @@
 import { CityName } from '../../const';
 import { reviewsOffer } from '../../mock/reviews-offer';
 import { detailedOffer } from '../../mock/detailed-offer';
-import { OfferPreview, DetailedOffer } from '../../types/offer-types';
+import { OfferPreview, DetailedOffer, OffersPreview } from '../../types/offer-types';
 import { ReviewOffer } from '../../types/review-offer';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
+import { getFilteredByCityOffers, SortingOptions } from '../../util';
 import {
   fetchOffersPreviewAction,
 } from '../api-actions';
@@ -15,7 +16,7 @@ type InitialState = {
   reviewsOffer: ReviewOffer[];
   detailedOffer: DetailedOffer;
   isLoading: boolean;
-  error: string | null;
+  sorting: (offers: OffersPreview) => OffersPreview;
 };
 
 const initialState: InitialState = {
@@ -24,7 +25,7 @@ const initialState: InitialState = {
   reviewsOffer: [...reviewsOffer],
   detailedOffer: detailedOffer,
   isLoading: false,
-  error: null,
+  sorting: SortingOptions[0].functionSorting,
 };
 
 export const offersSlice = createSlice({
@@ -39,6 +40,9 @@ export const offersSlice = createSlice({
     },
     fillingDetailedOffer: (state) => {
       state.detailedOffer = detailedOffer;
+    },
+    setSorting: (state, action:PayloadAction<(offers: OffersPreview) => OffersPreview>) => {
+      state.sorting = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -57,6 +61,7 @@ export const offersSlice = createSlice({
     reviewsOffer: (state) => state.reviewsOffer,
     detailedOffer: (state) => state.detailedOffer,
     isLoading: (state) => state.isLoading,
+    showOffers: (state) => state.sorting(getFilteredByCityOffers(state.offersPreview, state.city)),
   }
 });
 

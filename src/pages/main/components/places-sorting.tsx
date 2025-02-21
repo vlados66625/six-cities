@@ -2,28 +2,28 @@ import { useEffect, useState } from 'react';
 import cn from 'classnames';
 import { SortingOptions, SortingOption } from '../../../util';
 import { useAppSelector } from '../../../hooks';
-import { OffersPreview } from '../../../types/offer-types';
 import { offersSelectors } from '../../../store/slices/offers';
+import { useActionCreators } from '../../../hooks';
+import { offersActions } from '../../../store/slices/offers';
 
-type PlacesSortingProps = {
-  setSorting: (sortingFunction: () => (offers: OffersPreview) => OffersPreview) => void;
-}
-
-export default function PlacesSorting({ setSorting }: PlacesSortingProps): JSX.Element {
+export default function PlacesSorting(): JSX.Element {
   const [isSortingOpened, setIsSortingOpened] = useState(false);
   const [optionActive, setOptionActive] = useState(SortingOptions[0].name);
 
   const selectedCity = useAppSelector(offersSelectors.city);
 
+  const { setSorting } = useActionCreators(offersActions);
+
   function handlePlacesOptionOnClick({ name, functionSorting }: SortingOption) {
     setIsSortingOpened(false);
     setOptionActive(name);
-    setSorting(() => functionSorting);
+    setSorting(functionSorting);
   }
 
   useEffect(() => {
     setOptionActive(SortingOptions[0].name);
-    setSorting(() => SortingOptions[0].functionSorting);
+    setSorting(SortingOptions[0].functionSorting);
+    setIsSortingOpened(false);
   }, [selectedCity, setSorting]);
 
   return (

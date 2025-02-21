@@ -8,6 +8,7 @@ import { UserAuth } from '../types/user-auth';
 import { ResponseAuth } from '../types/response-auth';
 import { setUserData, deleteUserData } from '../services/user-data';
 import browserHistory from '../browser-history';
+import { ReviewForm } from '../types/review-form';
 
 export const fetchOffersPreviewAction = createAsyncThunk<OfferPreview[], undefined, {
   dispatch: AppDispatch;
@@ -21,7 +22,7 @@ export const fetchOffersPreviewAction = createAsyncThunk<OfferPreview[], undefin
   },
 );
 
-export const fetchDetailedOfferAction = createAsyncThunk<DetailedOffer, string | undefined, {
+export const fetchDetailedOfferAction = createAsyncThunk<DetailedOffer, string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -33,7 +34,7 @@ export const fetchDetailedOfferAction = createAsyncThunk<DetailedOffer, string |
   },
 );
 
-export const fetchOffersNearbyAction = createAsyncThunk<OfferPreview[], string | undefined, {
+export const fetchOffersNearbyAction = createAsyncThunk<OfferPreview[], string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -45,7 +46,7 @@ export const fetchOffersNearbyAction = createAsyncThunk<OfferPreview[], string |
   },
 );
 
-export const fetchReviewsOfferAction = createAsyncThunk<ReviewOffer[], string | undefined, {
+export const fetchReviewsOfferAction = createAsyncThunk<ReviewOffer[], string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -53,6 +54,18 @@ export const fetchReviewsOfferAction = createAsyncThunk<ReviewOffer[], string | 
   'offers/fetchReviewsOffer',
   async (offerId, { extra: api }) => {
     const { data } = await api.get<ReviewOffer[]>(`${APIRoute.Comments}/${offerId}`);
+    return data;
+  },
+);
+
+export const reviewPostAction = createAsyncThunk<ReviewOffer, ReviewForm & { offerId: string }, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'offers/reviewPost',
+  async ({ offerId, comment, rating }, { extra: api }) => {
+    const { data } = await api.post<ReviewOffer>(`${APIRoute.Comments}/${offerId}`, { comment, rating: rating });
     return data;
   },
 );

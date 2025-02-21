@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { Helmet } from 'react-helmet-async';
-import { ChangeEvent, useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import PlaceCards from '../../components/place-cards/place-cards';
 import Review from './components/review';
 import Gallery from './components/gallery';
@@ -23,7 +23,6 @@ import { fetchDetailedOfferAction, fetchOffersNearbyAction, fetchReviewsOfferAct
 
 export default function Offer(): JSX.Element | null {
   const { id } = useParams();
-  const [review, setReview] = useState({ rating: 0, review: '' });
   const mapRef = useRef<HTMLElement | null>(null);
   const [idFocusCard, setIdFocusCard] = useState<string | null>(null);
 
@@ -32,11 +31,6 @@ export default function Offer(): JSX.Element | null {
   const detailedOffer = useAppSelector(offersSelectors.detailedOffer);
   const offersNearby = useAppSelector(offersSelectors.offersNearby);
   const isLoading = useAppSelector(offersSelectors.isLoading);
-
-  function handleChange(evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
-    const { name, value } = evt.currentTarget;
-    setReview({ ...review, [name]: value });
-  }
 
   useEffect(() => {
     if (id) {
@@ -137,7 +131,7 @@ export default function Offer(): JSX.Element | null {
                       <Review reviewOffer={reviewOffer} key={reviewOffer.id} />
                     ))}
                   </ul>
-                  {isAuth && <ReviewsForm review={review} handleChange={handleChange} />}
+                  {isAuth && <ReviewsForm offerId={detailedOffer?.id} />}
                 </section>
               </div>
             </div>

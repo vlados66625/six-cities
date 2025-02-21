@@ -9,6 +9,7 @@ import {
   fetchDetailedOfferAction,
   fetchOffersNearbyAction,
   fetchReviewsOfferAction,
+  reviewPostAction,
 } from '../api-actions';
 import browserHistory from '../../browser-history';
 
@@ -67,6 +68,9 @@ export const offersSlice = createSlice({
       })
       .addCase(fetchReviewsOfferAction.fulfilled, (state, action) => {
         state.reviewsOffer = action.payload;
+      })
+      .addCase(reviewPostAction.fulfilled, (state, action) => {
+        state.reviewsOffer.push(action.payload);
       });
   },
   selectors: {

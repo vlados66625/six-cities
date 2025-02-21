@@ -1,9 +1,9 @@
 import { useAppSelector } from '../../hooks';
-import { offersSelectors } from '../../store/slices/offers';
+import { errorSelectors } from '../../store/slices/error';
 
 
 export default function ErrorMessage(): JSX.Element | null {
-  const error = useAppSelector(offersSelectors.error);
+  const error = useAppSelector(errorSelectors.error);
 
   if (error) {
     return (

@@ -5,14 +5,8 @@ import { OfferPreview, DetailedOffer } from '../../types/offer-types';
 import { ReviewOffer } from '../../types/review-offer';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import { AuthorizationStatus } from '../../const';
-import { getEmail } from '../../services/user-data';
 import {
   fetchOffersPreviewAction,
-  fetchAuthorizationStatusAction,
-  loginAction,
-  logoutAction,
-  deleteErrorAction,
 } from '../api-actions';
 
 type InitialState = {
@@ -20,9 +14,7 @@ type InitialState = {
   offersPreview: OfferPreview[];
   reviewsOffer: ReviewOffer[];
   detailedOffer: DetailedOffer;
-  authorizationStatus: AuthorizationStatus;
   isLoading: boolean;
-  email: string;
   error: string | null;
 };
 
@@ -31,9 +23,7 @@ const initialState: InitialState = {
   offersPreview: [],
   reviewsOffer: [...reviewsOffer],
   detailedOffer: detailedOffer,
-  authorizationStatus: AuthorizationStatus.Unknown,
   isLoading: false,
-  email: getEmail(),
   error: null,
 };
 
@@ -50,12 +40,6 @@ export const offersSlice = createSlice({
     fillingDetailedOffer: (state) => {
       state.detailedOffer = detailedOffer;
     },
-    setAuthorizationStatus: (state, action: PayloadAction<AuthorizationStatus>) => {
-      state.authorizationStatus = action.payload;
-    },
-    setError: (state, action: PayloadAction<string | null>) => {
-      state.error = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -65,23 +49,6 @@ export const offersSlice = createSlice({
       .addCase(fetchOffersPreviewAction.fulfilled, (state, action) => {
         state.isLoading = false;
         state.offersPreview = action.payload;
-      })
-      .addCase(fetchAuthorizationStatusAction.fulfilled, (state) => {
-        state.authorizationStatus = AuthorizationStatus.Auth;
-      })
-      .addCase(fetchAuthorizationStatusAction.rejected, (state) => {
-        state.authorizationStatus = AuthorizationStatus.NoAuth;
-      })
-      .addCase(loginAction.fulfilled, (state, action) => {
-        state.authorizationStatus = AuthorizationStatus.Auth;
-        state.email = action.payload.email;
-      })
-      .addCase(logoutAction.fulfilled, (state) => {
-        state.authorizationStatus = AuthorizationStatus.NoAuth;
-        state.email = 'unknown';
-      })
-      .addCase(deleteErrorAction.fulfilled, (state) => {
-        state.error = null;
       });
   },
   selectors: {
@@ -90,10 +57,6 @@ export const offersSlice = createSlice({
     reviewsOffer: (state) => state.reviewsOffer,
     detailedOffer: (state) => state.detailedOffer,
     isLoading: (state) => state.isLoading,
-    authorizationStatus: (state) => state.authorizationStatus,
-    email: (state) => state.email,
-    error: (state) => state.error,
-    isAuth: (state) => state.authorizationStatus === AuthorizationStatus.Auth,
   }
 });
 

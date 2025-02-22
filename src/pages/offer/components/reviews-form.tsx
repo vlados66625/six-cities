@@ -11,6 +11,9 @@ type ReviewsFormProps = {
 
 export default function ReviewsForm({ offerId }: ReviewsFormProps): JSX.Element {
   const [review, setReview] = useState({ rating: 0, review: '' });
+  function clearReviewForm() {
+    setReview({ rating: 0, review: '' });
+  }
 
   function handleChange(evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
     const { name, value } = evt.currentTarget;
@@ -23,6 +26,7 @@ export default function ReviewsForm({ offerId }: ReviewsFormProps): JSX.Element 
       offerId,
       comment: review.review,
       rating: Number(review.rating),
+      cb: clearReviewForm,
     }));
   }
 
@@ -39,6 +43,7 @@ export default function ReviewsForm({ offerId }: ReviewsFormProps): JSX.Element 
               id={`${value}-${getPluralForm('star', value)}`}
               type="radio"
               onChange={handleChange}
+              checked={value === review.rating}
             />
             <label
               htmlFor={`${value}-${getPluralForm('star', value)}`}

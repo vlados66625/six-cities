@@ -58,17 +58,18 @@ export const fetchReviewsOfferAction = createAsyncThunk<ReviewOffer[], string, {
   },
 );
 
-export const reviewPostAction = createAsyncThunk<ReviewOffer, ReviewForm & { offerId: string }, {
+export const reviewPostAction = createAsyncThunk<ReviewOffer, ReviewForm & { offerId: string; cb: () => void }, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'offers/reviewPost',
-  async ({ offerId, comment, rating }, { extra: api }) => {
+  async ({ offerId, comment, rating, cb }, { extra: api }) => {
     const { data } = await api.post<ReviewOffer>(`${APIRoute.Comments}/${offerId}`, { comment, rating: rating });
+    cb();
     return data;
   },
-);
+  );
 
 export const fetchAuthorizationStatusAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;

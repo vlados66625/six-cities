@@ -9,11 +9,13 @@ import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import browserHistory from '../../browser-history';
 import HistoryRouter from '../history-route/history-route';
+import ScrollToTop from '../scroll-to-top';
 
 export default function App(): JSX.Element {
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
+        <ScrollToTop />
         <Routes>
           <Route path={AppRoute.Root}>
             <Route index element={<Main />} />

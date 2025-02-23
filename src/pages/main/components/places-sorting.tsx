@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import cn from 'classnames';
-import { SortingOptions, SortingOption } from '../../../util';
+import { SortingOptions } from '../../../util';
 import { useAppSelector } from '../../../hooks';
 import { offersSelectors } from '../../../store/slices/offers';
 import { useActionCreators } from '../../../hooks';
@@ -14,15 +14,15 @@ export default function PlacesSorting(): JSX.Element {
 
   const { setSorting } = useActionCreators(offersActions);
 
-  function handlePlacesOptionOnClick({ name, functionSorting }: SortingOption) {
+  function handlePlacesOptionOnClick(name: string) {
     setIsSortingOpened(false);
     setOptionActive(name);
-    setSorting(functionSorting);
+    setSorting(name);
   }
 
   useEffect(() => {
     setOptionActive(SortingOptions[0].name);
-    setSorting(SortingOptions[0].functionSorting);
+    setSorting(SortingOptions[0].name);
     setIsSortingOpened(false);
   }, [selectedCity, setSorting]);
 
@@ -39,12 +39,12 @@ export default function PlacesSorting(): JSX.Element {
         'places__options places__options--custom',
         { 'places__options--opened': isSortingOpened })}
       >
-        {SortingOptions.map(({ name, functionSorting }) => (
+        {SortingOptions.map(({ name }) => (
           <li
             className={cn('places__option',
               { 'places__option--active': optionActive === name })}
             key={name}
-            onClick={() => handlePlacesOptionOnClick({ name, functionSorting })}
+            onClick={() => handlePlacesOptionOnClick(name)}
             tabIndex={0}
           >
             {name}

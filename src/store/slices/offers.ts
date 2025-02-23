@@ -20,7 +20,7 @@ type InitialState = {
   detailedOffer: DetailedOffer | null;
   offersNearby: OfferPreview[];
   isLoading: boolean;
-  sorting: (offers: OfferPreview[]) => OfferPreview[];
+  sortingName: string;
 };
 
 const initialState: InitialState = {
@@ -30,7 +30,7 @@ const initialState: InitialState = {
   detailedOffer: null,
   offersNearby: [],
   isLoading: false,
-  sorting: SortingOptions[0].functionSorting,
+  sortingName: SortingOptions[0].name,
 };
 
 export const offersSlice = createSlice({
@@ -40,8 +40,8 @@ export const offersSlice = createSlice({
     changeCity: (state, action: PayloadAction<CityName>) => {
       state.city = action.payload;
     },
-    setSorting: (state, action: PayloadAction<(offers: OfferPreview[]) => OfferPreview[]>) => {
-      state.sorting = action.payload;
+    setSorting: (state, action: PayloadAction<string>) => {
+      state.sortingName = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -80,7 +80,12 @@ export const offersSlice = createSlice({
     detailedOffer: (state) => state.detailedOffer,
     offersNearby: (state) => state.offersNearby,
     isLoading: (state) => state.isLoading,
-    showOffers: (state) => state.sorting(getFilteredByCityOffers(state.offersPreview, state.city)),
+    showOffers: (state): OfferPreview[] => {
+      const filteredOffers = getFilteredByCityOffers(state.offersPreview, state.city);
+      const sortingFunction = SortingOptions.find(({ name }) => name === state.sortingName)?.functionSorting;
+
+      return sortingFunction ? sortingFunction(filteredOffers) : filteredOffers;
+    }
   }
 });
 

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { PropsWithChildren } from 'react';
+import { AppRoute } from '../../../const';
 
 type PlaceCardLinkProps = PropsWithChildren<{
   offerId: string;
@@ -7,7 +8,7 @@ type PlaceCardLinkProps = PropsWithChildren<{
 
 export default function placeCardLink({ offerId, children }: PlaceCardLinkProps): JSX.Element {
   return (
-    <Link to={`/offer/${offerId}`}>
+    <Link to={`${AppRoute.Offer}/${offerId}`}>
       {children}
     </Link>
   );

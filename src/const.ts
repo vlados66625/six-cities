@@ -4,7 +4,8 @@ export type CityName = typeof sixCities[number];
 export enum AppRoute {
   Root = '/',
   Favorites = '/favorites',
-  Offer = '/offer/:id',
+  Offer = '/offer',
+  OfferId = '/offer/:id',
   Login = '/login',
   Error = '*'
 }

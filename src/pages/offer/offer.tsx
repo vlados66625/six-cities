@@ -1,7 +1,6 @@
 import cn from 'classnames';
 import { Helmet } from 'react-helmet-async';
 import { useState, useRef, useEffect } from 'react';
-import PlaceCards from '../../components/place-cards/place-cards';
 import Review from './components/review';
 import Gallery from './components/gallery';
 import PremiumMark from './components/premium-mark';
@@ -10,7 +9,6 @@ import ReviewsForm from './components/reviews-form';
 import Header from '../../components/layout/header/header';
 import { MAX_PLACES_LIST_NEARBY } from '../../const';
 import { getPluralForm } from '../../util';
-import PlaceCardNearPlaces from '../../components/place-card/place-card-near-places';
 import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
 import { getRoundedRatingInPercentage } from '../../util';
@@ -20,6 +18,7 @@ import { useParams } from 'react-router-dom';
 import Loading from '../../components/loading/loading';
 import { store } from '../../store';
 import { fetchDetailedOfferAction, fetchOffersNearbyAction, fetchReviewsOfferAction } from '../../store/api-actions';
+import OffersNearby from './components/offers-nearby';
 
 export default function Offer(): JSX.Element | null {
   const { id } = useParams();
@@ -139,19 +138,7 @@ export default function Offer(): JSX.Element | null {
               <Map mapRef={mapRef} idFocusCard={idFocusCard || detailedOffer?.id} currentOffer={detailedOffer} offersPreview={offersNearby.slice(0, MAX_PLACES_LIST_NEARBY)} />
             </section>
           </section>
-          {offersNearby.length !== 0 &&
-            <div className="container">
-              <section className="near-places places">
-                <h2 className="near-places__title">Other places in the neighbourhood</h2>
-                <div className="near-places__list places__list">
-                  <PlaceCards
-                    PlaceCard={PlaceCardNearPlaces}
-                    offersPreview={offersNearby.slice(0, MAX_PLACES_LIST_NEARBY)}
-                    handleHoverCard={setIdFocusCard}
-                  />
-                </div>
-              </section>
-            </div>}
+          <OffersNearby setIdFocusCard={setIdFocusCard} />
         </main>
       </div>
     </>

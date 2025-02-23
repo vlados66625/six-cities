@@ -23,7 +23,7 @@ export default function App(): JSX.Element {
               </PrivateRoute>
             }
             />
-            <Route path={AppRoute.Offer} element={<Offer />} />
+            <Route path={AppRoute.OfferId} element={<Offer />} />
             <Route path={AppRoute.Login} element={
               <PrivateRoute requireAuth={false}>
                 <Login />

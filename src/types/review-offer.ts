@@ -7,5 +7,3 @@ export type ReviewOffer = {
   rating: number;
   user: User;
 };
-
-export type ReviewsOffer = readonly ReviewOffer[];

@@ -8,10 +8,8 @@ import Header from '../../components/layout/header/header';
 import PlaceCardCities from '../../components/place-card/place-card-cities';
 import Map from '../../components/map/map';
 import Locations from './components/locations';
-import { getFilteredByCityOffers, getPluralForm } from '../../util';
+import { getPluralForm } from '../../util';
 import { useAppSelector } from '../../hooks';
-import { SortingOptions } from '../../util';
-import { OffersPreview } from '../../types/offer-types';
 import { offersSelectors } from '../../store/slices/offers';
 
 export default function Main(): JSX.Element {
@@ -19,12 +17,7 @@ export default function Main(): JSX.Element {
   const mapRef = useRef<HTMLElement | null>(null);
 
   const selectedCity = useAppSelector(offersSelectors.city);
-  const offersPreview = useAppSelector(offersSelectors.offersPreview);
-  const filteredByCityOffers = getFilteredByCityOffers(offersPreview, selectedCity);
-
-  const [sorting, setSorting] = useState<(offers: OffersPreview) => OffersPreview>(() => SortingOptions[0].functionSorting);
-  const offers = sorting(getFilteredByCityOffers(offersPreview, selectedCity));
-
+  const offers = useAppSelector(offersSelectors.showOffers);
   const empty = offers.length === 0;
 
   return (
@@ -53,8 +46,8 @@ export default function Main(): JSX.Element {
                 :
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{filteredByCityOffers.length} {getPluralForm('place', filteredByCityOffers.length)} to stay in Amsterdam</b>
-                  <PlacesSorting setSorting={setSorting} />
+                  <b className="places__found">{offers.length} {getPluralForm('place', offers.length)} to stay in Amsterdam</b>
+                  <PlacesSorting />
                   <div className="cities__places-list places__list tabs__content">
                     <PlaceCards PlaceCard={PlaceCardCities} handleHoverCard={setIdFocusCard} offersPreview={offers} />
                   </div>

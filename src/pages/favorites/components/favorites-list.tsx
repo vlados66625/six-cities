@@ -1,9 +1,9 @@
 import FavoritesItems from './favorites-items';
 import { sixCities } from '../../../const';
 import { getFilteredByCityOffers } from '../../../util';
-import { OffersPreview } from '../../../types/offer-types';
+import { OfferPreview } from '../../../types/offer-types';
 type FavoritesListProps = {
-  favoritesOffers: OffersPreview;
+  favoritesOffers: OfferPreview[];
 }
 
 export default function FavoritesList({ favoritesOffers }: FavoritesListProps): JSX.Element {

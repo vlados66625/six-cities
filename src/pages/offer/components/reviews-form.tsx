@@ -1,19 +1,37 @@
 import { rating } from '../../../const';
-import { Fragment } from 'react';
+import { Fragment, useState, ChangeEvent } from 'react';
 import { getPluralForm } from '../../../util';
-import { ChangeEventHandler } from 'react';
+import { FormEvent } from 'react';
+import { store } from '../../../store';
+import { reviewPostAction } from '../../../store/api-actions';
 
 type ReviewsFormProps = {
-  review: {
-    rating: number;
-    review: string;
-  };
-  handleChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  offerId: string;
 }
 
-export default function ReviewsForm({ review, handleChange }: ReviewsFormProps): JSX.Element {
+export default function ReviewsForm({ offerId }: ReviewsFormProps): JSX.Element {
+  const [review, setReview] = useState({ rating: 0, review: '' });
+  function clearReviewForm() {
+    setReview({ rating: 0, review: '' });
+  }
+
+  function handleChange(evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
+    const { name, value } = evt.currentTarget;
+    setReview({ ...review, [name]: value });
+  }
+
+  function handleReviewFormSubmit(evt: FormEvent<HTMLFormElement>) {
+    evt.preventDefault();
+    store.dispatch(reviewPostAction({
+      offerId,
+      comment: review.review,
+      rating: Number(review.rating),
+      cb: clearReviewForm,
+    }));
+  }
+
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form onSubmit={handleReviewFormSubmit} className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {rating.map(({ value, label }) => (
@@ -25,6 +43,7 @@ export default function ReviewsForm({ review, handleChange }: ReviewsFormProps):
               id={`${value}-${getPluralForm('star', value)}`}
               type="radio"
               onChange={handleChange}
+              checked={value === review.rating}
             />
             <label
               htmlFor={`${value}-${getPluralForm('star', value)}`}

@@ -1,30 +1,36 @@
-import { CityName } from '../../const';
-import { reviewsOffer } from '../../mock/reviews-offer';
-import { detailedOffer } from '../../mock/detailed-offer';
+import { CityName, AppRoute } from '../../const';
 import { OfferPreview, DetailedOffer } from '../../types/offer-types';
 import { ReviewOffer } from '../../types/review-offer';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import { AuthorizationStatus } from '../../const';
-import { fetchOffersPreviewAction, fetchAuthorizationStatusAction } from '../api-actions';
+import { getFilteredByCityOffers, SortingOptions } from '../../util';
+import {
+  fetchOffersPreviewAction,
+  fetchDetailedOfferAction,
+  fetchOffersNearbyAction,
+  fetchReviewsOfferAction,
+  reviewPostAction,
+} from '../api-actions';
+import browserHistory from '../../browser-history';
 
 type InitialState = {
   city: CityName;
   offersPreview: OfferPreview[];
   reviewsOffer: ReviewOffer[];
-  detailedOffer: DetailedOffer;
-  authorizationStatus: AuthorizationStatus;
+  detailedOffer: DetailedOffer | null;
+  offersNearby: OfferPreview[];
   isLoading: boolean;
+  sortingName: string;
 };
 
 const initialState: InitialState = {
   city: 'Paris',
   offersPreview: [],
-  reviewsOffer: [...reviewsOffer],
-  detailedOffer: detailedOffer,
-  authorizationStatus: AuthorizationStatus.Unknown,
-  isLoading: false
-
+  reviewsOffer: [],
+  detailedOffer: null,
+  offersNearby: [],
+  isLoading: false,
+  sortingName: SortingOptions[0].name,
 };
 
 export const offersSlice = createSlice({
@@ -34,15 +40,9 @@ export const offersSlice = createSlice({
     changeCity: (state, action: PayloadAction<CityName>) => {
       state.city = action.payload;
     },
-    fillingReviewOffer: (state) => {
-      state.reviewsOffer = [...reviewsOffer];
+    setSorting: (state, action: PayloadAction<string>) => {
+      state.sortingName = action.payload;
     },
-    fillingDetailedOffer: (state) => {
-      state.detailedOffer = detailedOffer;
-    },
-    setAuthorizationStatus: (state, action: PayloadAction<AuthorizationStatus>) => {
-      state.authorizationStatus = action.payload;
-    }
   },
   extraReducers: (builder) => {
     builder
@@ -53,11 +53,24 @@ export const offersSlice = createSlice({
         state.isLoading = false;
         state.offersPreview = action.payload;
       })
-      .addCase(fetchAuthorizationStatusAction.fulfilled, (state) => {
-        state.authorizationStatus = AuthorizationStatus.Auth;
+      .addCase(fetchDetailedOfferAction.pending, (state) => {
+        state.isLoading = true;
       })
-      .addCase(fetchAuthorizationStatusAction.rejected, (state) => {
-        state.authorizationStatus = AuthorizationStatus.NoAuth;
+      .addCase(fetchDetailedOfferAction.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.detailedOffer = action.payload;
+      })
+      .addCase(fetchDetailedOfferAction.rejected, () => {
+        browserHistory.push(AppRoute.Error);
+      })
+      .addCase(fetchOffersNearbyAction.fulfilled, (state, action) => {
+        state.offersNearby = action.payload;
+      })
+      .addCase(fetchReviewsOfferAction.fulfilled, (state, action) => {
+        state.reviewsOffer = action.payload;
+      })
+      .addCase(reviewPostAction.fulfilled, (state, action) => {
+        state.reviewsOffer.push(action.payload);
       });
   },
   selectors: {
@@ -65,9 +78,14 @@ export const offersSlice = createSlice({
     offersPreview: (state) => state.offersPreview,
     reviewsOffer: (state) => state.reviewsOffer,
     detailedOffer: (state) => state.detailedOffer,
+    offersNearby: (state) => state.offersNearby,
     isLoading: (state) => state.isLoading,
-    authorizationStatus: (state) => state.authorizationStatus,
-    isAuth: (state) => state.authorizationStatus === AuthorizationStatus.Auth,
+    showOffers: (state): OfferPreview[] => {
+      const filteredOffers = getFilteredByCityOffers(state.offersPreview, state.city);
+      const sortingFunction = SortingOptions.find(({ name }) => name === state.sortingName)?.functionSorting;
+
+      return sortingFunction ? sortingFunction(filteredOffers) : filteredOffers;
+    }
   }
 });
 

@@ -1,5 +1,5 @@
 import { PlaceCardContainerProps } from './type-props-place-card-container';
-import { Link } from 'react-router-dom';
+import PlaceCardLink from './place-card-components/place-card-link';
 import PlaceCardContent from './place-card-content/place-card-content';
 
 export default function PlaceCardNearPlaces({ offerPreview, handleHoverCard }: PlaceCardContainerProps): JSX.Element {
@@ -17,9 +17,9 @@ export default function PlaceCardNearPlaces({ offerPreview, handleHoverCard }: P
           <span>Premium</span>
         </div>}
       <div className="near-places__image-wrapper place-card__image-wrapper">
-        <Link to={`/offer/${offerPreview.id}`}>
+        <PlaceCardLink offerId={offerPreview.id}>
           <img className="place-card__image" src={offerPreview.previewImage} width="260" height="200" alt="Place image" />
-        </Link>
+        </PlaceCardLink>
       </div>
       <div className="place-card__info">
         <PlaceCardContent offerPreview={offerPreview} />

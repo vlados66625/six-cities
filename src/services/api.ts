@@ -1,6 +1,14 @@
-import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosError } from 'axios';
 import { BASE_URL, REQUEST_TIMEOUT } from '../const';
-import { getToken } from './token';
+import { getToken } from './user-data';
+import { ErrorResponse, ErrorResponseDetailed } from '../types/error-response';
+import { showErrorMessage } from './show-error-message';
+import { StatusCodes } from 'http-status-codes';
+
+const StatusCodeMapping: Record<number, boolean> = {
+  [StatusCodes.BAD_REQUEST]: true,
+  [StatusCodes.NOT_FOUND]: true,
+};
 
 export function createAPI(): AxiosInstance {
   const api = axios.create({
@@ -15,6 +23,16 @@ export function createAPI(): AxiosInstance {
     }
     return config;
   },
+  );
+
+  api.interceptors.response.use(
+    (response) => response,
+    (error: AxiosError<ErrorResponse | ErrorResponseDetailed>) => {
+      if (error.response && StatusCodeMapping[error.response.status]) {
+        showErrorMessage(error.response.data.message);
+      }
+      throw error;
+    }
   );
 
   return api;

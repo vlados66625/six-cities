@@ -1,5 +1,5 @@
-import { OffersPreview } from '../../types/offer-types';
+import { OfferPreview } from '../../types/offer-types';
 
-export function getFavoritesOffers(offersPreview: OffersPreview): OffersPreview {
+export function getFavoritesOffers(offersPreview: OfferPreview[]): OfferPreview[] {
   return offersPreview.filter((offer) => offer.isFavorite === true);
 }

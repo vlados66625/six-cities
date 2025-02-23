@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../common/logo/logo';
 import { useAppSelector } from '../../../hooks';
-import { offersSelectors } from '../../../store/slices/offers';
+import { authorizationSelectors } from '../../../store/slices/authorization';
+import { logoutAction } from '../../../store/api-actions';
+import { store } from '../../../store';
+import { MouseEvent } from 'react';
 import { AuthorizationStatus } from '../../../const';
 
 type HeaderProps = {
@@ -10,8 +13,15 @@ type HeaderProps = {
 }
 
 export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.Element {
-  const authorizationStatus = useAppSelector(offersSelectors.authorizationStatus);
-  const isAuth = useAppSelector(offersSelectors.isAuth);
+
+  const isAuth = useAppSelector(authorizationSelectors.isAuth);
+  const authorizationStatus = useAppSelector(authorizationSelectors.authorizationStatus);
+  const email = useAppSelector(authorizationSelectors.email);
+
+  function handleNavLinkClick(evt: MouseEvent<HTMLAnchorElement>) {
+    evt.preventDefault();
+    store.dispatch(logoutAction());
+  }
 
   return (
     <header className="header">
@@ -30,7 +40,7 @@ export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.
                     </div>
                     {isAuth ?
                       <>
-                        <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                        <span className="header__user-name user__name">{email}</span>
                         <span className="header__favorite-count">3</span>
                       </> :
                       <span className="header__login">
@@ -42,8 +52,10 @@ export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.
                 </li>
                 {isAuth &&
                   <li className="header__nav-item">
-                    <a className="header__nav-link" href="#">
-                      <span className="header__signout">Sign out</span>
+                    <a onClick={(evt) => handleNavLinkClick(evt)} className="header__nav-link" href="#">
+                      <span className="header__signout">
+                        Sign out
+                      </span>
                     </a>
                   </li>}
               </ul>

@@ -1,9 +1,9 @@
-import { OffersPreview } from './types/offer-types';
+import { OfferPreview } from './types/offer-types';
 import { CityName } from './const';
 import dayjs from 'dayjs';
 import { MAX_RATING } from './const';
 
-export function getFilteredByCityOffers(offers: OffersPreview, city: CityName): OffersPreview {
+export function getFilteredByCityOffers(offers: OfferPreview[], city: CityName): OfferPreview[] {
   return offers.filter((offer) => offer.city.name === city);
 }
 
@@ -24,7 +24,7 @@ export function getRoundedRatingInPercentage(rating: number): number {
 
 export type SortingOption = {
   name: string;
-  functionSorting: (array: OffersPreview) => OffersPreview;
+  functionSorting: (array: OfferPreview[]) => OfferPreview[];
 }
 
 export const SortingOptions: SortingOption[] = [

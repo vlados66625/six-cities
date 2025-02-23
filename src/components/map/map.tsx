@@ -2,13 +2,12 @@ import { MutableRefObject } from 'react';
 import useMap from '../../hooks/use-map';
 import leaflet from 'leaflet';
 import { useEffect } from 'react';
-import { OffersPreview } from '../../types/offer-types';
-import { DetailedOffer } from '../../types/offer-types';
+import { OfferPreview, DetailedOffer } from '../../types/offer-types';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   mapRef: MutableRefObject<HTMLElement | null>;
-  offersPreview: OffersPreview;
+  offersPreview: OfferPreview[];
   idFocusCard: string | null;
   currentOffer?: DetailedOffer;
 }
@@ -26,7 +25,8 @@ const currentCustomIcon = leaflet.icon({
 });
 
 export default function Map({ mapRef, offersPreview, idFocusCard, currentOffer }: MapProps): null {
-  const map = useMap(mapRef, offersPreview[0].city);
+  const city = currentOffer?.city || offersPreview[0]?.city;
+  const map = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {

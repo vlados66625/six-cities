@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import Logo from '../../common/logo/logo';
 import { useAppSelector } from '../../../hooks';
 import { authorizationSelectors } from '../../../store/slices/authorization';
-import { logoutAction } from '../../../store/api-actions';
-import { store } from '../../../store';
+import { useActionCreators } from '../../../hooks';
+import { authorizationActions } from '../../../store/slices/authorization';
 import { MouseEvent } from 'react';
 import { AuthorizationStatus } from '../../../const';
 
@@ -13,14 +13,14 @@ type HeaderProps = {
 }
 
 export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.Element {
-
+  const { logoutAction } = useActionCreators(authorizationActions);
   const isAuth = useAppSelector(authorizationSelectors.isAuth);
   const authorizationStatus = useAppSelector(authorizationSelectors.authorizationStatus);
   const email = useAppSelector(authorizationSelectors.email);
 
   function handleNavLinkClick(evt: MouseEvent<HTMLAnchorElement>) {
     evt.preventDefault();
-    store.dispatch(logoutAction());
+    logoutAction();
   }
 
   return (

@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import cn from 'classnames';
 
@@ -10,6 +10,8 @@ import PlaceCards from '../../components/place-cards/place-cards';
 import PlaceCardCities from '../../components/place-card/place-card-cities';
 import Map from '../../components/map/map';
 
+import { useActionCreators } from '../../hooks';
+import { offersActions } from '../../store/slices/offers';
 import { useAppSelector } from '../../hooks';
 import { offersSelectors } from '../../store/slices/offers';
 import { getPluralForm } from '../../util';
@@ -18,8 +20,14 @@ export default function Main(): JSX.Element {
   const mapRef = useRef<HTMLElement | null>(null);
 
   const selectedCity = useAppSelector(offersSelectors.city);
-  const offers = useAppSelector(offersSelectors.showOffers);
+  const offers = useAppSelector(offersSelectors.offersPreview);
   const empty = offers.length === 0;
+
+  const { fetchOffersPreviewAction } = useActionCreators(offersActions);
+
+  useEffect(() => {
+    fetchOffersPreviewAction();
+  }, [fetchOffersPreviewAction]);
 
   return (
     <>
@@ -47,7 +55,7 @@ export default function Main(): JSX.Element {
                 :
                 <section className="cities__places places">
                   <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{offers.length} {getPluralForm('place', offers.length)} to stay in Amsterdam</b>
+                  <b className="places__found">{offers.length} {getPluralForm('place', offers.length)} to stay in {selectedCity}</b>
                   <PlacesSorting />
                   <div className="cities__places-list places__list tabs__content">
                     <PlaceCards PlaceCard={PlaceCardCities} isSupportsHover offersPreview={offers} />

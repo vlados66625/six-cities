@@ -2,10 +2,10 @@ import { PlaceCardContainerProps } from './type-props-place-card-container';
 import PlaceCardContent from './place-card-content/place-card-content';
 import PlaceCardLink from './place-card-components/place-card-link';
 import { useActionCreators } from '../../hooks';
-import { offersActions } from '../../store/slices/offers';
+import { offerActions } from '../../store/slices/offer';
 
 export default function PlaceCardCities({ offerPreview, isSupportsHover }: PlaceCardContainerProps): JSX.Element {
-  const { setidFocusCard } = useActionCreators(offersActions);
+  const { setidFocusCard } = useActionCreators(offerActions);
 
   return (
     <article

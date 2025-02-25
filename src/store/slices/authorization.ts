@@ -46,4 +46,4 @@ export const authorizationSlice = createSlice({
 });
 
 export const authorizationSelectors = authorizationSlice.selectors;
-export const authorizationActions = authorizationSlice.actions;
+export const authorizationActions = { ...authorizationSlice.actions, fetchAuthorizationStatusAction, loginAction, logoutAction };

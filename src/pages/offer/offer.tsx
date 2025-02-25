@@ -14,9 +14,9 @@ import Loading from '../../components/loading/loading';
 import Map from '../../components/map/map';
 
 import { useAppSelector } from '../../hooks';
-import { offersSelectors } from '../../store/slices/offers';
-import { store } from '../../store';
-import { fetchDetailedOfferAction, fetchOffersNearbyAction, fetchReviewsOfferAction } from '../../store/api-actions';
+import { offerSelectors } from '../../store/slices/offer';
+import { useActionCreators } from '../../hooks';
+import { offerActions } from '../../store/slices/offer';
 import { MAX_PLACES_LIST_NEARBY } from '../../const';
 
 
@@ -24,19 +24,19 @@ export default function Offer(): JSX.Element | null {
   const { id } = useParams();
   const mapRef = useRef<HTMLElement | null>(null);
 
-  const detailedOffer = useAppSelector(offersSelectors.detailedOffer);
-  const offersNearby = useAppSelector(offersSelectors.offersNearby);
-  const isLoading = useAppSelector(offersSelectors.isLoading);
+  const detailedOffer = useAppSelector(offerSelectors.detailedOffer);
+  const offersNearby = useAppSelector(offerSelectors.offersNearby);
+  const isLoadingOffer = useAppSelector(offerSelectors.isLoadingOffer);
 
+  const { fetchDetailedOfferAction, fetchReviewsOfferAction } = useActionCreators(offerActions);
   useEffect(() => {
     if (id) {
-      store.dispatch(fetchDetailedOfferAction(id));
-      store.dispatch(fetchOffersNearbyAction(id));
-      store.dispatch(fetchReviewsOfferAction(id));
+      fetchDetailedOfferAction(id);
+      fetchReviewsOfferAction(id);
     }
-  }, [id]);
+  }, [fetchDetailedOfferAction, fetchReviewsOfferAction, id]);
 
-  if (isLoading) {
+  if (isLoadingOffer) {
     return <Loading />;
   }
 

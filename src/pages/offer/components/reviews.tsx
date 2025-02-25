@@ -1,6 +1,6 @@
 import { useAppSelector } from '../../../hooks';
 import { authorizationSelectors } from '../../../store/slices/authorization';
-import { offersSelectors } from '../../../store/slices/offers';
+import { offerSelectors } from '../../../store/slices/offer';
 import { getPluralForm } from '../../../util';
 import Review from './review';
 import ReviewsForm from './reviews-form';
@@ -11,7 +11,7 @@ type ReviewsProps = {
 
 export default function Reviews({ idDetailedOffer }: ReviewsProps): JSX.Element {
   const isAuth = useAppSelector(authorizationSelectors.isAuth);
-  const reviewsOffer = useAppSelector(offersSelectors.reviewsOffer);
+  const reviewsOffer = useAppSelector(offerSelectors.reviewsOffer);
 
   return (
     <section className="offer__reviews reviews">

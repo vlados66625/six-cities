@@ -32,4 +32,4 @@ export const errorSlice = createSlice({
 });
 
 export const errorSelectors = errorSlice.selectors;
-export const errorActions = errorSlice.actions;
+export const errorActions = { ...errorSlice.actions, deleteErrorAction };

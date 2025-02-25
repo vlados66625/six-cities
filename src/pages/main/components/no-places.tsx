@@ -3,12 +3,12 @@ import { useAppSelector } from '../../../hooks';
 import { offersSelectors } from '../../../store/slices/offers';
 
 export default function NoPlaces(): JSX.Element {
-  const isLoading = useAppSelector(offersSelectors.isLoading);
+  const isLoadingOffers = useAppSelector(offersSelectors.isLoadingOffers);
 
   return (
     <section className="cities__no-places">
 
-      {isLoading ?
+      {isLoadingOffers ?
         <Loading />
         :
         <div className="cities__status-wrapper tabs__content">

@@ -27,7 +27,7 @@ export const fetchDetailedOfferAction = createAsyncThunk<DetailedOffer, string, 
   state: State;
   extra: AxiosInstance;
 }>(
-  'offers/fetchDetailedOffer',
+  'offer/fetchDetailedOffer',
   async (offerId, { extra: api }) => {
     const { data } = await api.get<DetailedOffer>(`${APIRoute.Offers}/${offerId}`);
     return data;
@@ -39,7 +39,7 @@ export const fetchOffersNearbyAction = createAsyncThunk<OfferPreview[], string, 
   state: State;
   extra: AxiosInstance;
 }>(
-  'offers/fetchOffersNearby',
+  'offer/fetchOffersNearby',
   async (offerId, { extra: api }) => {
     const { data } = await api.get<OfferPreview[]>(`${APIRoute.Offers}/${offerId}/nearby`);
     return data;
@@ -51,7 +51,7 @@ export const fetchReviewsOfferAction = createAsyncThunk<ReviewOffer[], string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'offers/fetchReviewsOffer',
+  'offer/fetchReviewsOffer',
   async (offerId, { extra: api }) => {
     const { data } = await api.get<ReviewOffer[]>(`${APIRoute.Comments}/${offerId}`);
     return data;
@@ -63,7 +63,7 @@ export const reviewPostAction = createAsyncThunk<ReviewOffer, ReviewForm & { off
   state: State;
   extra: AxiosInstance;
 }>(
-  'offers/reviewPost',
+  'offer/reviewPost',
   async ({ offerId, comment, rating, cb }, { extra: api }) => {
     const { data } = await api.post<ReviewOffer>(`${APIRoute.Comments}/${offerId}`, { comment, rating: rating });
     cb();

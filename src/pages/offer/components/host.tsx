@@ -1,8 +1,8 @@
 import { useAppSelector } from '../../../hooks';
-import { offersSelectors } from '../../../store/slices/offers';
+import { offerSelectors } from '../../../store/slices/offer';
 
 export default function Host(): JSX.Element | null {
-  const detailedOffer = useAppSelector(offersSelectors.detailedOffer);
+  const detailedOffer = useAppSelector(offerSelectors.detailedOffer);
   if (!detailedOffer) {
     return null;
   }

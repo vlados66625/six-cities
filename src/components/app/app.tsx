@@ -1,3 +1,10 @@
+import { useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+import browserHistory from '../../browser-history';
+import HistoryRouter from '../history-route/history-route';
+import ScrollToTop from '../scroll-to-top';
+
 import Main from '../../pages/main/main';
 import Favorites from '../../pages/favorites/favorites';
 import Offer from '../../pages/offer/offer';
@@ -5,13 +12,16 @@ import Login from '../../pages/login/login';
 import Error404 from '../../pages/error-404/error-404';
 import PrivateRoute from '../private-router/private-router';
 import { AppRoute } from '../../const';
-import { Routes, Route } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
-import browserHistory from '../../browser-history';
-import HistoryRouter from '../history-route/history-route';
-import ScrollToTop from '../scroll-to-top';
+
+import { useActionCreators } from '../../hooks';
+import { authorizationActions } from '../../store/slices/authorization';
 
 export default function App(): JSX.Element {
+  const { fetchAuthorizationStatusAction } = useActionCreators(authorizationActions);
+  useEffect(() => {
+    fetchAuthorizationStatusAction();
+  }, [ fetchAuthorizationStatusAction]);
+
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>

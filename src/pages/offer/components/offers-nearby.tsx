@@ -3,20 +3,22 @@ import PlaceCards from '../../../components/place-cards/place-cards';
 import PlaceCardNearPlaces from '../../../components/place-card/place-card-near-places';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import { store } from '../../../store';
 import { useAppSelector } from '../../../hooks';
-import { offersSelectors } from '../../../store/slices/offers';
-import { fetchOffersNearbyAction } from '../../../store/api-actions';
+import { offerSelectors } from '../../../store/slices/offer';
+import { offerActions } from '../../../store/slices/offer';
+import { useActionCreators } from '../../../hooks';
+
 
 export default function OffersNearby(): JSX.Element | null {
-  const offersNearby = useAppSelector(offersSelectors.offersNearby);
+  const offersNearby = useAppSelector(offerSelectors.offersNearby);
+  const { fetchOffersNearbyAction } = useActionCreators(offerActions);
   const { id } = useParams();
 
   useEffect(() => {
     if (id) {
-      store.dispatch(fetchOffersNearbyAction(id));
+      fetchOffersNearbyAction(id);
     }
-  }, [id]);
+  }, [fetchOffersNearbyAction, id]);
 
   if (offersNearby.length !== 0) {
     return (

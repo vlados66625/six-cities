@@ -8,7 +8,7 @@ import {
   fetchOffersNearbyAction,
   fetchReviewsOfferAction,
   reviewPostAction,
-} from '../api-actions';
+} from './api-actions/offer';
 
 type InitialState = {
   reviewsOffer: ReviewOffer[];

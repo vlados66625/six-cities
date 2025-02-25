@@ -5,7 +5,7 @@ import {
   fetchAuthorizationStatusAction,
   loginAction,
   logoutAction,
-} from '../api-actions';
+} from './api-actions/authorization';
 
 type InitialState = {
   authorizationStatus: AuthorizationStatus;

@@ -2,7 +2,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import {
   deleteErrorAction,
-} from '../api-actions';
+} from './api-actions/error';
 
 type InitialState = {
   error: string | null;

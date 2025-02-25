@@ -20,7 +20,7 @@ export default function Main(): JSX.Element {
   const mapRef = useRef<HTMLElement | null>(null);
 
   const selectedCity = useAppSelector(offersSelectors.city);
-  const offers = useAppSelector(offersSelectors.offersPreview);
+  const offers = useAppSelector(offersSelectors.showOffers);
   const empty = offers.length === 0;
 
   const { fetchOffersPreviewAction } = useActionCreators(offersActions);

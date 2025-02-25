@@ -4,7 +4,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { getFilteredByCityOffers, SortingOptions } from '../../util';
 import {
   fetchOffersPreviewAction,
-} from '../api-actions';
+} from './api-actions/offers';
 
 type InitialState = {
   city: CityName;

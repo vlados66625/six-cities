@@ -35,7 +35,6 @@ export const rating = [
 export const BASE_URL = 'https://15.design.htmlacademy.pro/six-cities';
 
 export const REQUEST_TIMEOUT = 5000;
-
 export const DELETE_ERROR_TIMEOUT = 2000;
 
 export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';

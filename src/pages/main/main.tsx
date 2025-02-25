@@ -1,19 +1,20 @@
-import cn from 'classnames';
+import { useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useState, useRef } from 'react';
-import PlaceCards from '../../components/place-cards/place-cards';
+import cn from 'classnames';
+
 import NoPlaces from './components/no-places';
 import PlacesSorting from './components/places-sorting';
+import Locations from './components/locations';
 import Header from '../../components/layout/header/header';
+import PlaceCards from '../../components/place-cards/place-cards';
 import PlaceCardCities from '../../components/place-card/place-card-cities';
 import Map from '../../components/map/map';
-import Locations from './components/locations';
-import { getPluralForm } from '../../util';
+
 import { useAppSelector } from '../../hooks';
 import { offersSelectors } from '../../store/slices/offers';
+import { getPluralForm } from '../../util';
 
 export default function Main(): JSX.Element {
-  const [idFocusCard, setIdFocusCard] = useState<string | null>(null);
   const mapRef = useRef<HTMLElement | null>(null);
 
   const selectedCity = useAppSelector(offersSelectors.city);
@@ -49,13 +50,13 @@ export default function Main(): JSX.Element {
                   <b className="places__found">{offers.length} {getPluralForm('place', offers.length)} to stay in Amsterdam</b>
                   <PlacesSorting />
                   <div className="cities__places-list places__list tabs__content">
-                    <PlaceCards PlaceCard={PlaceCardCities} handleHoverCard={setIdFocusCard} offersPreview={offers} />
+                    <PlaceCards PlaceCard={PlaceCardCities} isSupportsHover offersPreview={offers} />
                   </div>
                 </section>}
               <div className="cities__right-section">
                 {!empty &&
                   <section className="cities__map map" ref={mapRef} >
-                    <Map mapRef={mapRef} idFocusCard={idFocusCard} offersPreview={offers} />
+                    <Map mapRef={mapRef} offersPreview={offers} />
                   </section>}
               </div>
             </div>

@@ -1,7 +1,6 @@
+import { useRef, FormEvent } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/layout/header/header';
-import { useRef } from 'react';
-import { FormEvent } from 'react';
 import { store } from '../../store';
 import { loginAction } from '../../store/api-actions';
 import { UserAuth } from '../../types/user-auth';

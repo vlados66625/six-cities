@@ -1,14 +1,17 @@
 import { PlaceCardContainerProps } from './type-props-place-card-container';
 import PlaceCardLink from './place-card-components/place-card-link';
 import PlaceCardContent from './place-card-content/place-card-content';
+import { useActionCreators } from '../../hooks';
+import { offersActions } from '../../store/slices/offers';
 
-export default function PlaceCardNearPlaces({ offerPreview, handleHoverCard }: PlaceCardContainerProps): JSX.Element {
+export default function PlaceCardNearPlaces({ offerPreview, isSupportsHover }: PlaceCardContainerProps): JSX.Element {
+  const { setidFocusCard } = useActionCreators(offersActions);
 
   return (
     <article
-      {...(handleHoverCard && {
-        onMouseEnter: () => handleHoverCard(offerPreview.id),
-        onMouseLeave: () => handleHoverCard(null),
+      {...(isSupportsHover && {
+        onMouseEnter: () => setidFocusCard(offerPreview.id),
+        onMouseLeave: () => setidFocusCard(null),
       })}
       className="near-places__card place-card"
     >

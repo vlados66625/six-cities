@@ -21,6 +21,7 @@ type InitialState = {
   offersNearby: OfferPreview[];
   isLoading: boolean;
   sortingName: string;
+  idFocusCard: string | null;
 };
 
 const initialState: InitialState = {
@@ -31,6 +32,7 @@ const initialState: InitialState = {
   offersNearby: [],
   isLoading: false,
   sortingName: SortingOptions[0].name,
+  idFocusCard: null,
 };
 
 export const offersSlice = createSlice({
@@ -42,6 +44,9 @@ export const offersSlice = createSlice({
     },
     setSorting: (state, action: PayloadAction<string>) => {
       state.sortingName = action.payload;
+    },
+    setidFocusCard: (state, action: PayloadAction<string | null>) => {
+      state.idFocusCard = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -80,6 +85,7 @@ export const offersSlice = createSlice({
     detailedOffer: (state) => state.detailedOffer,
     offersNearby: (state) => state.offersNearby,
     isLoading: (state) => state.isLoading,
+    idFocusCard: (state) => state.idFocusCard,
     showOffers: (state): OfferPreview[] => {
       const filteredOffers = getFilteredByCityOffers(state.offersPreview, state.city);
       const sortingFunction = SortingOptions.find(({ name }) => name === state.sortingName)?.functionSorting;

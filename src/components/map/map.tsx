@@ -4,11 +4,12 @@ import leaflet from 'leaflet';
 import { useEffect } from 'react';
 import { OfferPreview, DetailedOffer } from '../../types/offer-types';
 import 'leaflet/dist/leaflet.css';
+import { useAppSelector } from '../../hooks';
+import { offersSelectors } from '../../store/slices/offers';
 
 type MapProps = {
   mapRef: MutableRefObject<HTMLElement | null>;
   offersPreview: OfferPreview[];
-  idFocusCard: string | null;
   currentOffer?: DetailedOffer;
 }
 
@@ -24,9 +25,10 @@ const currentCustomIcon = leaflet.icon({
   iconAnchor: [13.5, 39],
 });
 
-export default function Map({ mapRef, offersPreview, idFocusCard, currentOffer }: MapProps): null {
+export default function Map({ mapRef, offersPreview, currentOffer }: MapProps): null {
   const city = currentOffer?.city || offersPreview[0]?.city;
   const map = useMap(mapRef, city);
+  const idFocusCard = useAppSelector(offersSelectors.idFocusCard);
 
   useEffect(() => {
     if (map) {
@@ -48,7 +50,7 @@ export default function Map({ mapRef, offersPreview, idFocusCard, currentOffer }
             lat: currentOffer.location.latitude,
             lng: currentOffer.location.longitude,
           }, {
-            icon: idFocusCard === currentOffer.id ? currentCustomIcon : defaultCustomIcon,
+            icon: idFocusCard ? defaultCustomIcon : currentCustomIcon,
           })
           .addTo(markerLayer);
       }

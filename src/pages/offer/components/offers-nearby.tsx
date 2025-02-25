@@ -8,11 +8,7 @@ import { useAppSelector } from '../../../hooks';
 import { offersSelectors } from '../../../store/slices/offers';
 import { fetchOffersNearbyAction } from '../../../store/api-actions';
 
-type OffersNearbyProps = {
-  setIdFocusCard: (idFocusCard: string | null) => void;
-}
-
-export default function OffersNearby({ setIdFocusCard }: OffersNearbyProps): JSX.Element | null {
+export default function OffersNearby(): JSX.Element | null {
   const offersNearby = useAppSelector(offersSelectors.offersNearby);
   const { id } = useParams();
 
@@ -31,7 +27,7 @@ export default function OffersNearby({ setIdFocusCard }: OffersNearbyProps): JSX
             <PlaceCards
               PlaceCard={PlaceCardNearPlaces}
               offersPreview={offersNearby.slice(0, MAX_PLACES_LIST_NEARBY)}
-              handleHoverCard={setIdFocusCard}
+              isSupportsHover
             />
           </div>
         </section>

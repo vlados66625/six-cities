@@ -6,6 +6,7 @@ import { showErrorMessage } from './show-error-message';
 import { StatusCodes } from 'http-status-codes';
 
 const StatusCodeMapping: Record<number, boolean> = {
+  [StatusCodes.UNAUTHORIZED]: true,
   [StatusCodes.BAD_REQUEST]: true,
   [StatusCodes.NOT_FOUND]: true,
 };

@@ -1,12 +1,14 @@
+import { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../common/logo/logo';
+import UserName from './components/user-name';
+import FavoriteCount from './components/favorite-count';
+import Login from './components/login';
+
 import { useAppSelector } from '../../../hooks';
 import { authorizationSelectors } from '../../../store/slices/authorization';
 import { useActionCreators } from '../../../hooks';
 import { authorizationActions } from '../../../store/slices/authorization';
-import { MouseEvent } from 'react';
-import { AuthorizationStatus } from '../../../const';
-import { offersSelectors } from '../../../store/slices/offers';
 
 type HeaderProps = {
   isHiddenNav?: boolean;
@@ -16,9 +18,6 @@ type HeaderProps = {
 export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.Element {
   const { logoutAction } = useActionCreators(authorizationActions);
   const isAuth = useAppSelector(authorizationSelectors.isAuth);
-  const authorizationStatus = useAppSelector(authorizationSelectors.authorizationStatus);
-  const email = useAppSelector(authorizationSelectors.email);
-  const favoritesOffersCount = useAppSelector(offersSelectors.favoritesOffersCount);
 
   function handleNavLinkClick(evt: MouseEvent<HTMLAnchorElement>) {
     evt.preventDefault();
@@ -42,14 +41,10 @@ export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.
                     </div>
                     {isAuth ?
                       <>
-                        <span className="header__user-name user__name">{email}</span>
-                        <span className="header__favorite-count">{favoritesOffersCount}</span>
+                        <UserName />
+                        <FavoriteCount />
                       </> :
-                      <span className="header__login">
-                        {authorizationStatus === AuthorizationStatus.Unknown ?
-                          'загрузка...' :
-                          'Sign in'}
-                      </span>}
+                      <Login />}
                   </Link>
                 </li>
                 {isAuth &&

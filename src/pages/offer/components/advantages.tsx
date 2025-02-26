@@ -1,8 +1,10 @@
+import { memo } from 'react';
+
 type AdvantagesProps = {
   advantages: string[];
 }
 
-export default function Advantages({ advantages }: AdvantagesProps): JSX.Element {
+function Advantages({ advantages }: AdvantagesProps): JSX.Element {
   return (
     <div className="offer__inside">
       <h2 className="offer__inside-title">What&apos;s inside</h2>
@@ -16,3 +18,7 @@ export default function Advantages({ advantages }: AdvantagesProps): JSX.Element
     </div>
   );
 }
+
+const AdvantagesMemo = memo(Advantages);
+
+export default AdvantagesMemo;

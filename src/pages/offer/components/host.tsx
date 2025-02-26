@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import { useAppSelector } from '../../../hooks';
 import { offerSelectors } from '../../../store/slices/offer';
 
-export default function Host(): JSX.Element | null {
+function Host(): JSX.Element | null {
   const detailedOffer = useAppSelector(offerSelectors.detailedOffer);
   if (!detailedOffer) {
     return null;
@@ -29,3 +30,8 @@ export default function Host(): JSX.Element | null {
     </div>
   );
 }
+
+const HostMemo = memo(Host);
+
+export default HostMemo;
+

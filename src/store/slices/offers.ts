@@ -7,6 +7,7 @@ import {
   fetchFavoriteOffersAction,
   setFavoriteOfferAction,
 } from './api-actions/offers';
+import { createSelector } from '@reduxjs/toolkit';
 
 type InitialState = {
   city: CityName;
@@ -67,12 +68,24 @@ export const offersSlice = createSlice({
     favoritesOffers: (state) => state.favoritesOffers,
     favoritesOffersCount: (state) => getFavoritesOffers(state.offersPreview).length + state.diffFavoritesOffers,
     isLoadingOffers: (state) => state.isLoadingOffers,
-    showOffers: (state): OfferPreview[] => {
-      const filteredOffers = getFilteredByCityOffers(state.offersPreview, state.city);
-      const sortingFunction = SortingOptions.find(({ name }) => name === state.sortingName)?.functionSorting;
+    // showOffers: (state): OfferPreview[] => {
+    //   const filteredOffers = getFilteredByCityOffers(state.offersPreview, state.city);
+    //   const sortingFunction = SortingOptions.find(({ name }) => name === state.sortingName)?.functionSorting;
 
-      return sortingFunction ? sortingFunction(filteredOffers) : filteredOffers;
-    }
+    //   return sortingFunction ? sortingFunction(filteredOffers) : filteredOffers;
+    // }
+    showOffers: createSelector(
+      [
+        (state: InitialState) => state.offersPreview,
+        (state: InitialState) => state.city,
+        (state: InitialState) => state.sortingName
+      ],
+      (offersPreview, city, sortingName): OfferPreview[] => {
+        const filteredOffers = getFilteredByCityOffers(offersPreview, city);
+        const sortingFunction = SortingOptions.find(({ name }) => name === sortingName)?.functionSorting;
+        return sortingFunction ? sortingFunction(filteredOffers) : filteredOffers;
+      }
+    )
   }
 });
 

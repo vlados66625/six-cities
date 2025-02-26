@@ -1,24 +1,13 @@
 import { MAX_PLACES_LIST_NEARBY } from '../../../const';
 import PlaceCards from '../../../components/place-cards/place-cards';
 import PlaceCardNearPlaces from '../../../components/place-card/place-card-near-places';
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useAppSelector } from '../../../hooks';
-import { offerSelectors } from '../../../store/slices/offer';
-import { offerActions } from '../../../store/slices/offer';
-import { useActionCreators } from '../../../hooks';
+import { OfferPreview } from '../../../types/offer-types';
 
+type OffersNearbyProps = {
+  offersNearby: OfferPreview[];
+}
 
-export default function OffersNearby(): JSX.Element | null {
-  const offersNearby = useAppSelector(offerSelectors.offersNearby);
-  const { fetchOffersNearbyAction } = useActionCreators(offerActions);
-  const { id } = useParams();
-
-  useEffect(() => {
-    if (id) {
-      fetchOffersNearbyAction(id);
-    }
-  }, [fetchOffersNearbyAction, id]);
+export default function OffersNearby({ offersNearby }: OffersNearbyProps): JSX.Element | null {
 
   if (offersNearby.length !== 0) {
     return (
@@ -38,5 +27,4 @@ export default function OffersNearby(): JSX.Element | null {
   }
 
   return null;
-
 }

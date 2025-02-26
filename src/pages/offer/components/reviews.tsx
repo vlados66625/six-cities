@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { useAppSelector } from '../../../hooks';
 import { authorizationSelectors } from '../../../store/slices/authorization';
 import { offerSelectors } from '../../../store/slices/offer';
@@ -9,7 +10,7 @@ type ReviewsProps = {
   idDetailedOffer: string;
 }
 
-export default function Reviews({ idDetailedOffer }: ReviewsProps): JSX.Element {
+function Reviews({ idDetailedOffer }: ReviewsProps): JSX.Element {
   const isAuth = useAppSelector(authorizationSelectors.isAuth);
   const reviewsOffer = useAppSelector(offerSelectors.reviewsOffer);
 
@@ -30,3 +31,7 @@ export default function Reviews({ idDetailedOffer }: ReviewsProps): JSX.Element 
     </section>
   );
 }
+
+const ReviewsMemo = memo(Reviews);
+
+export default ReviewsMemo;

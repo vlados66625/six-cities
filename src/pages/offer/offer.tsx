@@ -28,13 +28,14 @@ export default function Offer(): JSX.Element | null {
   const offersNearby = useAppSelector(offerSelectors.offersNearby);
   const isLoadingOffer = useAppSelector(offerSelectors.isLoadingOffer);
 
-  const { fetchDetailedOfferAction, fetchReviewsOfferAction } = useActionCreators(offerActions);
+  const { fetchDetailedOfferAction, fetchReviewsOfferAction, fetchOffersNearbyAction } = useActionCreators(offerActions);
   useEffect(() => {
     if (id) {
       fetchDetailedOfferAction(id);
       fetchReviewsOfferAction(id);
+      fetchOffersNearbyAction(id);
     }
-  }, [fetchDetailedOfferAction, fetchReviewsOfferAction, id]);
+  }, [fetchDetailedOfferAction, fetchReviewsOfferAction, fetchOffersNearbyAction, id]);
 
   if (isLoadingOffer) {
     return <Loading />;
@@ -68,7 +69,7 @@ export default function Offer(): JSX.Element | null {
               <Map mapRef={mapRef} currentOffer={detailedOffer} offersPreview={offersNearby.slice(0, MAX_PLACES_LIST_NEARBY)} />
             </section>
           </section>
-          <OffersNearby />
+          <OffersNearby offersNearby={offersNearby} />
         </main>
       </div>
     </>

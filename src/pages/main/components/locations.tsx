@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { MouseEvent } from 'react';
+import { memo, MouseEvent } from 'react';
 import { sixCities } from '../../../const';
 import { useActionCreators } from '../../../hooks';
 import { offersActions } from '../../../store/slices/offers';
@@ -9,7 +9,7 @@ type LocationsProps = {
   selectedCity: CityName;
 }
 
-export default function Locations({ selectedCity }: LocationsProps): JSX.Element {
+function Locations({ selectedCity }: LocationsProps): JSX.Element {
   const { changeCity } = useActionCreators(offersActions);
   function handleLocationLinkClick(evt: MouseEvent<HTMLAnchorElement>, city: CityName): void {
     evt.preventDefault();
@@ -37,3 +37,7 @@ export default function Locations({ selectedCity }: LocationsProps): JSX.Element
     </section>
   );
 }
+
+const LocationsMemo = memo(Locations);
+
+export default LocationsMemo;

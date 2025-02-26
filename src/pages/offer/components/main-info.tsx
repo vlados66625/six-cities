@@ -2,9 +2,10 @@ import cn from 'classnames';
 import { useAppSelector } from '../../../hooks';
 import { offerSelectors } from '../../../store/slices/offer';
 import { getPluralForm, getRoundedRatingInPercentage } from '../../../util';
+import { memo } from 'react';
 
 
-export default function MainInfo(): JSX.Element | null {
+function MainInfo(): JSX.Element | null {
   const detailedOffer = useAppSelector(offerSelectors.detailedOffer);
   if (!detailedOffer) {
     return null;
@@ -51,5 +52,8 @@ export default function MainInfo(): JSX.Element | null {
       </div>
     </>
   );
-
 }
+
+const MainInfoMemo = memo(MainInfo);
+
+export default MainInfoMemo;

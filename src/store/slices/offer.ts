@@ -66,4 +66,10 @@ export const offerSlice = createSlice({
 });
 
 export const offerSelectors = offerSlice.selectors;
-export const offerActions = { ...offerSlice.actions, fetchDetailedOfferAction, fetchOffersNearbyAction, fetchReviewsOfferAction, reviewPostAction, };
+export const offerActions = {
+  ...offerSlice.actions,
+  fetchDetailedOfferAction,
+  fetchOffersNearbyAction,
+  fetchReviewsOfferAction,
+  reviewPostAction,
+};

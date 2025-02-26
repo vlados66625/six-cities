@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import cn from 'classnames';
 
@@ -5,17 +6,26 @@ import FavoritesList from './components/favorites-list';
 import NoFavorites from './components/no-favorites';
 import Header from '../../components/layout/header/header';
 import Footer from '../../components/layout/footer/footer';
+import Loading from '../../components/loading/loading';
 
 import { useAppSelector } from '../../hooks';
 import { offersSelectors } from '../../store/slices/offers';
-
-import { getFavoritesOffers } from './util';
-
+import { useActionCreators } from '../../hooks';
+import { offersActions } from '../../store/slices/offers';
 
 export default function Favorites(): JSX.Element {
-  const offersPreview = useAppSelector(offersSelectors.offersPreview);
-  const favoritesOffers = getFavoritesOffers(offersPreview);
+  const { fetchFavoriteOffersAction } = useActionCreators(offersActions);
+  useEffect(() => {
+    fetchFavoriteOffersAction();
+  }, [fetchFavoriteOffersAction]);
+
+  const favoritesOffers = useAppSelector(offersSelectors.favoritesOffers);
+  const isLoadingOffers = useAppSelector(offersSelectors.isLoadingOffers);
   const isEmpty = favoritesOffers.length === 0;
+
+  if (isLoadingOffers) {
+    return <Loading />;
+  }
 
   return (
     <>

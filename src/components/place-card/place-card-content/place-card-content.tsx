@@ -1,13 +1,24 @@
+import { useState } from 'react';
 import cn from 'classnames';
 import { OfferPreview } from '../../../types/offer-types';
 import { Link } from 'react-router-dom';
 import { getRoundedRatingInPercentage } from '../../../util';
+import { useActionCreators } from '../../../hooks';
+import { offersActions } from '../../../store/slices/offers';
 
 type PlaceCardContentProps = {
   offerPreview: OfferPreview;
 };
 
 export default function PlaceCardContent({ offerPreview }: PlaceCardContentProps): JSX.Element {
+  const { setFavoriteOfferAction } = useActionCreators(offersActions);
+
+  const [isFavorite, setIsFavorite] = useState(offerPreview?.isFavorite);
+
+  function handleBookmarkClick() {
+    setFavoriteOfferAction({ offerId: offerPreview.id, offerIsFavorite: !isFavorite, setIsFavorite });
+  }
+
   return (
     <>
       <div className="place-card__price-wrapper">
@@ -15,9 +26,9 @@ export default function PlaceCardContent({ offerPreview }: PlaceCardContentProps
           <b className="place-card__price-value">&euro;{offerPreview.price}</b>
           <span className="place-card__price-text">&#47;&nbsp;night</span>
         </div>
-        <button type="button" className={cn(
+        <button onClick={handleBookmarkClick} type="button" className={cn(
           'place-card__bookmark-button',
-          { 'place-card__bookmark-button--active': offerPreview.isFavorite },
+          { 'place-card__bookmark-button--active': isFavorite },
           'button')}
         >
           <svg className="place-card__bookmark-icon" width={18} height={19}>

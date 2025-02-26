@@ -6,6 +6,7 @@ import { useActionCreators } from '../../../hooks';
 import { authorizationActions } from '../../../store/slices/authorization';
 import { MouseEvent } from 'react';
 import { AuthorizationStatus } from '../../../const';
+import { offersSelectors } from '../../../store/slices/offers';
 
 type HeaderProps = {
   isHiddenNav?: boolean;
@@ -17,6 +18,7 @@ export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.
   const isAuth = useAppSelector(authorizationSelectors.isAuth);
   const authorizationStatus = useAppSelector(authorizationSelectors.authorizationStatus);
   const email = useAppSelector(authorizationSelectors.email);
+  const favoritesOffersCount = useAppSelector(offersSelectors.favoritesOffersCount);
 
   function handleNavLinkClick(evt: MouseEvent<HTMLAnchorElement>) {
     evt.preventDefault();
@@ -41,7 +43,7 @@ export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.
                     {isAuth ?
                       <>
                         <span className="header__user-name user__name">{email}</span>
-                        <span className="header__favorite-count">3</span>
+                        <span className="header__favorite-count">{favoritesOffersCount}</span>
                       </> :
                       <span className="header__login">
                         {authorizationStatus === AuthorizationStatus.Unknown ?

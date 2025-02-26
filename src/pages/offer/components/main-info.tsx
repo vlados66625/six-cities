@@ -18,7 +18,7 @@ export default function MainInfo(): JSX.Element | null {
         </h1>
         <button type="button" className={cn(
           'offer__bookmark-button',
-          { 'offer__bookmark-button--active': detailedOffer.isFavorite },
+          { 'offer__bookmark-button--active': detailedOffer?.isFavorite },
           'button')}
         >
           <svg className="offer__bookmark-icon" width={31} height={33}>

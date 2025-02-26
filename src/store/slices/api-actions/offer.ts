@@ -53,27 +53,3 @@ export const reviewPostAction = createAsyncThunk<ReviewOffer, ReviewForm & { off
     cb();
     return data;
   },);
-
-export const fetchFavoriteOffersAction = createAsyncThunk<OfferPreview[], undefined, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'offer/fetchFavoriteOffers',
-  async (_arg, { extra: api }) => {
-    const { data } = await api.get<OfferPreview[]>(APIRoute.Favorite);
-    return data;
-  },
-);
-
-export const setFavoriteOfferAction = createAsyncThunk<OfferPreview, { offerId: string; isFavorite: boolean }, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'offer/setFavoriteOffer',
-  async ({ offerId, isFavorite }, { extra: api }) => {
-    const { data } = await api.post<OfferPreview>(`${APIRoute.Favorite}/${offerId}/${Number(isFavorite)}`);
-    return data;
-  },
-);

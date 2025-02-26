@@ -16,3 +16,28 @@ export const fetchOffersPreviewAction = createAsyncThunk<OfferPreview[], undefin
     return data;
   },
 );
+
+export const fetchFavoriteOffersAction = createAsyncThunk<OfferPreview[], undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'offers/fetchFavoriteOffers',
+  async (_arg, { extra: api }) => {
+    const { data } = await api.get<OfferPreview[]>(APIRoute.Favorite);
+    return data;
+  },
+);
+
+export const setFavoriteOfferAction = createAsyncThunk<boolean, { offerId: string; offerIsFavorite: boolean; setIsFavorite: (isFavorite: boolean) => void }, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'offers/setFavoriteOffer',
+  async ({ offerId, offerIsFavorite, setIsFavorite }, { extra: api }) => {
+    await api.post<OfferPreview>(`${APIRoute.Favorite}/${offerId}/${Number(offerIsFavorite)}`);
+    setIsFavorite(offerIsFavorite);
+    return offerIsFavorite;
+  },);
+

@@ -1,12 +1,12 @@
-import cn from 'classnames';
 import { useAppSelector } from '../../../hooks';
 import { offerSelectors } from '../../../store/slices/offer';
 import { getPluralForm, getRoundedRatingInPercentage } from '../../../util';
 import { memo } from 'react';
-
+import Bookmarks from '../../../components/common/bookmarks/bookmarks';
 
 function MainInfo(): JSX.Element | null {
   const detailedOffer = useAppSelector(offerSelectors.detailedOffer);
+
   if (!detailedOffer) {
     return null;
   }
@@ -17,16 +17,7 @@ function MainInfo(): JSX.Element | null {
         <h1 className="offer__name">
           {detailedOffer.title}
         </h1>
-        <button type="button" className={cn(
-          'offer__bookmark-button',
-          { 'offer__bookmark-button--active': detailedOffer?.isFavorite },
-          'button')}
-        >
-          <svg className="offer__bookmark-icon" width={31} height={33}>
-            <use xlinkHref="#icon-bookmark" />
-          </svg>
-          <span className="visually-hidden">To bookmarks</span>
-        </button>
+        <Bookmarks width={31} height={33} offerId={detailedOffer.id} blockName='offer' />
       </div>
       <div className="offer__rating rating">
         <div className="offer__stars rating__stars">

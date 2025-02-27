@@ -53,8 +53,3 @@ export const SortingOptions: SortingOption[] = [
     }
   },
 ];
-
-
-export function getFavoritesOffers(offersPreview: OfferPreview[]): OfferPreview[] {
-  return offersPreview.filter((offer) => offer.isFavorite === true);
-}

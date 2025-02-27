@@ -13,14 +13,26 @@ import Error404 from '../../pages/error-404/error-404';
 import PrivateRoute from '../private-router/private-router';
 import { AppRoute } from '../../const';
 
-import { useActionCreators } from '../../hooks';
-import { authorizationActions } from '../../store/slices/authorization';
+import { useActionCreators, useAppSelector } from '../../hooks';
+import { authorizationActions, authorizationSelectors } from '../../store/slices/authorization';
+import { offersActions } from '../../store/slices/offers';
 
 export default function App(): JSX.Element {
+  const isAuth = useAppSelector(authorizationSelectors.isAuth);
+
   const { fetchAuthorizationStatusAction } = useActionCreators(authorizationActions);
+  const { fetchFavoriteOffersAction } = useActionCreators(offersActions);
+
   useEffect(() => {
     fetchAuthorizationStatusAction();
-  }, [ fetchAuthorizationStatusAction]);
+  }, [fetchAuthorizationStatusAction]);
+
+  useEffect(() => {
+    if (isAuth) {
+      fetchFavoriteOffersAction();
+    }
+  }, [fetchFavoriteOffersAction, isAuth]);
+
 
   return (
     <HelmetProvider>

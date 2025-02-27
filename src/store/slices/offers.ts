@@ -1,12 +1,13 @@
 import { CityName } from '../../const';
 import { OfferPreview } from '../../types/offer-types';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { getFavoritesOffers, getFilteredByCityOffers, SortingOptions } from '../../util';
+import { getFilteredByCityOffers, SortingOptions } from '../../util';
 import {
   fetchOffersPreviewAction,
   fetchFavoriteOffersAction,
   setFavoriteOfferAction,
 } from './api-actions/offers';
+import { logoutAction } from './api-actions/authorization';
 import { createSelector } from '@reduxjs/toolkit';
 
 type InitialState = {
@@ -15,7 +16,6 @@ type InitialState = {
   favoritesOffers: OfferPreview[];
   isLoadingOffers: boolean;
   sortingName: string;
-  diffFavoritesOffers: number;
 };
 
 const initialState: InitialState = {
@@ -24,7 +24,6 @@ const initialState: InitialState = {
   favoritesOffers: [],
   isLoadingOffers: false,
   sortingName: SortingOptions[0].name,
-  diffFavoritesOffers: 0,
 };
 
 export const offersSlice = createSlice({
@@ -55,25 +54,22 @@ export const offersSlice = createSlice({
         state.favoritesOffers = action.payload;
       })
       .addCase(setFavoriteOfferAction.fulfilled, (state, action) => {
-        if (action.payload) {
-          state.diffFavoritesOffers += 1;
+        if (action.payload.offerIsFavorite) {
+          state.favoritesOffers.push(action.payload.offer);
         } else {
-          state.diffFavoritesOffers -= 1;
+          state.favoritesOffers = state.favoritesOffers.filter((favoritesOffer) => favoritesOffer.id !== action.payload.offer.id);
         }
+      })
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.favoritesOffers = [];
       });
   },
   selectors: {
     city: (state) => state.city,
     offersPreview: (state) => state.offersPreview,
     favoritesOffers: (state) => state.favoritesOffers,
-    favoritesOffersCount: (state) => getFavoritesOffers(state.offersPreview).length + state.diffFavoritesOffers,
+    favoritesOffersCount: (state) => state.favoritesOffers.length,
     isLoadingOffers: (state) => state.isLoadingOffers,
-    // showOffers: (state): OfferPreview[] => {
-    //   const filteredOffers = getFilteredByCityOffers(state.offersPreview, state.city);
-    //   const sortingFunction = SortingOptions.find(({ name }) => name === state.sortingName)?.functionSorting;
-
-    //   return sortingFunction ? sortingFunction(filteredOffers) : filteredOffers;
-    // }
     showOffers: createSelector(
       [
         (state: InitialState) => state.offersPreview,

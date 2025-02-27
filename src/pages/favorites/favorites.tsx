@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import cn from 'classnames';
 
@@ -10,14 +9,9 @@ import Loading from '../../components/loading/loading';
 
 import { useAppSelector } from '../../hooks';
 import { offersSelectors } from '../../store/slices/offers';
-import { useActionCreators } from '../../hooks';
-import { offersActions } from '../../store/slices/offers';
 
 export default function Favorites(): JSX.Element {
-  const { fetchFavoriteOffersAction } = useActionCreators(offersActions);
-  useEffect(() => {
-    fetchFavoriteOffersAction();
-  }, [fetchFavoriteOffersAction]);
+
 
   const favoritesOffers = useAppSelector(offersSelectors.favoritesOffers);
   const isLoadingOffers = useAppSelector(offersSelectors.isLoadingOffers);

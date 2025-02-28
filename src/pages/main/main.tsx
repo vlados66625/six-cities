@@ -7,7 +7,6 @@ import PlacesSorting from './components/places-sorting';
 import Locations from './components/locations';
 import Header from '../../components/layout/header/header';
 import PlaceCards from '../../components/place-cards/place-cards';
-import PlaceCardCities from '../../components/place-card/place-card-cities';
 import Map from '../../components/map/map';
 
 import { useActionCreators } from '../../hooks';
@@ -58,7 +57,7 @@ export default function Main(): JSX.Element {
                   <b className="places__found">{offers.length} {getPluralForm('place', offers.length)} to stay in {selectedCity}</b>
                   <PlacesSorting />
                   <div className="cities__places-list places__list tabs__content">
-                    <PlaceCards PlaceCard={PlaceCardCities} isSupportsHover offersPreview={offers} />
+                    <PlaceCards PlaceCardType='PlaceCardCities' isSupportsHover offersPreview={offers} />
                   </div>
                 </section>}
               <div className="cities__right-section">

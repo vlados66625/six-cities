@@ -1,9 +1,9 @@
-import { rating } from '../../../const';
+import { rating } from '../../../../const';
 import { Fragment, useState, ChangeEvent } from 'react';
-import { getPluralForm } from '../../../util';
+import { getPluralForm } from '../../../../util';
 import { FormEvent } from 'react';
-import { offerActions } from '../../../store/slices/offer';
-import { useActionCreators } from '../../../hooks';
+import { offerActions } from '../../../../store/slices/offer';
+import { useActionCreators } from '../../../../hooks';
 
 type ReviewsFormProps = {
   offerId: string;

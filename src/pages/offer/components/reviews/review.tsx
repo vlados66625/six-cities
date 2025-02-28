@@ -1,7 +1,7 @@
-import { ReviewOffer } from '../../../types/review-offer';
-import { getFormatedDate } from '../../../util';
-import { DateFormat } from '../../../const';
-import { getRoundedRatingInPercentage } from '../../../util';
+import { ReviewOffer } from '../../../../types/review-offer';
+import { getFormatedDate } from '../../../../util';
+import { DateFormat } from '../../../../const';
+import { getRoundedRatingInPercentage } from '../../../../util';
 
 type ReviewProps = {
   reviewOffer: ReviewOffer;

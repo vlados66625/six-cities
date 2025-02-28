@@ -7,7 +7,7 @@ import PremiumMark from './components/premium-mark';
 import Advantages from './components/advantages';
 import Host from './components/host';
 import MainInfo from './components/main-info';
-import Reviews from './components/reviews';
+import Reviews from './components/reviews/reviews';
 import OffersNearby from './components/offers-nearby';
 import Header from '../../components/layout/header/header';
 import Loading from '../../components/loading/loading';

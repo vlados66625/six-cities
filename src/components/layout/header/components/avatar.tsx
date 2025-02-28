@@ -7,7 +7,7 @@ export default function Avatar(): JSX.Element {
 
   return (
     <div className="header__avatar-wrapper user__avatar-wrapper">
-      {avatarUrl !== 'unknown' && <img className="header__avatar user__avatar" src={avatarUrl} width={20} height={20} alt='photo user'></img>}
+      {avatarUrl !== '' && <img className="header__avatar user__avatar" src={avatarUrl} width={20} height={20} alt='photo user'></img>}
     </div>
   );
 }

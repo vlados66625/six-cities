@@ -3,8 +3,9 @@ import PlaceCardLink from './place-card-components/place-card-link';
 import PlaceCardContent from './place-card-content/place-card-content';
 import { useActionCreators } from '../../hooks';
 import { offerActions } from '../../store/slices/offer';
+import { memo } from 'react';
 
-export default function PlaceCardFavorites({ offerPreview, isSupportsHover }: PlaceCardContainerProps): JSX.Element {
+function PlaceCardFavorites({ offerPreview, isSupportsHover }: PlaceCardContainerProps): JSX.Element {
   const { setidFocusCard } = useActionCreators(offerActions);
 
   return (
@@ -30,3 +31,7 @@ export default function PlaceCardFavorites({ offerPreview, isSupportsHover }: Pl
     </article>
   );
 }
+
+const PlaceCardFavoritesMemo = memo(PlaceCardFavorites);
+
+export default PlaceCardFavoritesMemo;

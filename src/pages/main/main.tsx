@@ -57,7 +57,7 @@ export default function Main(): JSX.Element {
                   <b className="places__found">{offers.length} {getPluralForm('place', offers.length)} to stay in {selectedCity}</b>
                   <PlacesSorting />
                   <div className="cities__places-list places__list tabs__content">
-                    <PlaceCards PlaceCardType='PlaceCardCities' isSupportsHover offersPreview={offers} />
+                    <PlaceCards placeCard='city' isSupportsHover offersPreview={offers} />
                   </div>
                 </section>}
               <div className="cities__right-section">

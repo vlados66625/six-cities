@@ -15,7 +15,7 @@ export default function OffersNearby({ offersNearby }: OffersNearbyProps): JSX.E
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
             <PlaceCards
-              PlaceCardType='PlaceCardNearPlaces'
+              placeCard='near'
               offersPreview={offersNearby.slice(0, MAX_PLACES_LIST_NEARBY)}
               isSupportsHover
             />

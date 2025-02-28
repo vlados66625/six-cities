@@ -38,8 +38,8 @@ export const authorizationSlice = createSlice({
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
-        state.userName = 'unknown';
-        state.avatarUrl = 'unknown';
+        state.userName = '';
+        state.avatarUrl = '';
       });
   },
   selectors: {

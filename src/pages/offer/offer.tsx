@@ -70,7 +70,7 @@ export default function Offer(): JSX.Element | null {
               <Map mapRef={mapRef} currentOffer={detailedOffer} offersPreview={limitedOffersNearby} />
             </section>
           </section>
-          <OffersNearby offersNearby={offersNearby} />
+          <OffersNearby offersNearby={limitedOffersNearby} />
         </main>
       </div>
     </>

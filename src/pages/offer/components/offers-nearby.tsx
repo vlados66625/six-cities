@@ -1,4 +1,3 @@
-import { MAX_PLACES_LIST_NEARBY } from '../../../const';
 import PlaceCards from '../../../components/place-cards/place-cards';
 import { OfferPreview } from '../../../types/offer-types';
 
@@ -16,7 +15,7 @@ export default function OffersNearby({ offersNearby }: OffersNearbyProps): JSX.E
           <div className="near-places__list places__list">
             <PlaceCards
               placeCard='near'
-              offersPreview={offersNearby.slice(0, MAX_PLACES_LIST_NEARBY)}
+              offersPreview={offersNearby}
               isSupportsHover
             />
           </div>

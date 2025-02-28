@@ -14,6 +14,6 @@ function placeCardLink({ offerId, children }: PlaceCardLinkProps): JSX.Element {
   );
 }
 
-const placeCardLinkMemo = memo(placeCardLink);
+const PlaceCardLinkMemo = memo(placeCardLink);
 
-export default placeCardLinkMemo;
+export default PlaceCardLinkMemo;

@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { useActionCreators } from '../../../hooks';
-import { offersActions } from '../../../store/slices/offers';
+import { offerActions, offerSelectors } from '../../../store/slices/offer';
 import { offersSelectors } from '../../../store/slices/offers';
 import { useAppSelector } from '../../../hooks';
 import { authorizationSelectors } from '../../../store/slices/authorization';
@@ -16,8 +16,9 @@ type LogoProps = {
 
 export default function Bookmarks({ width, height, offerId, blockName }: LogoProps): JSX.Element {
   const navigate = useNavigate();
-  const { setFavoriteOfferAction } = useActionCreators(offersActions);
+  const { setFavoriteOfferAction } = useActionCreators(offerActions);
   const favoritesOffers = useAppSelector(offersSelectors.favoritesOffers);
+  const isFavoriteBtnDisabled = useAppSelector(offerSelectors.isFavoriteBtnDisabled);
   const isAuth = useAppSelector(authorizationSelectors.isAuth);
   const isFavorite = favoritesOffers.some((favoriteOffer) => favoriteOffer.id === offerId);
 
@@ -30,10 +31,14 @@ export default function Bookmarks({ width, height, offerId, blockName }: LogoPro
   }
 
   return (
-    <button onClick={handleBookmarkClick} type="button" className={cn(
-      `${blockName}__bookmark-button`,
-      { [`${blockName}__bookmark-button--active`]: isFavorite },
-      'button')}
+    <button
+      className={cn(
+        `${blockName}__bookmark-button`,
+        { [`${blockName}__bookmark-button--active`]: isFavorite },
+        'button')}
+      onClick={handleBookmarkClick}
+      type="button"
+      disabled={isFavoriteBtnDisabled}
     >
       <svg className={`${blockName}__bookmark-icon`} width={width} height={height}>
         <use xlinkHref="#icon-bookmark" />

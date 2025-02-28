@@ -29,14 +29,3 @@ export const fetchFavoriteOffersAction = createAsyncThunk<OfferPreview[], undefi
   },
 );
 
-export const setFavoriteOfferAction = createAsyncThunk<{ offer: OfferPreview; offerIsFavorite: boolean }, { offerId: string; offerIsFavorite: boolean }, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}>(
-  'offers/setFavoriteOffer',
-  async ({ offerId, offerIsFavorite }, { extra: api }) => {
-    const { data: offer } = await api.post<OfferPreview>(`${APIRoute.Favorite}/${offerId}/${Number(offerIsFavorite)}`);
-    return { offer, offerIsFavorite };
-  },);
-

@@ -8,6 +8,7 @@ import {
   fetchOffersNearbyAction,
   fetchReviewsOfferAction,
   reviewPostAction,
+  setFavoriteOfferAction
 } from './api-actions/offer';
 
 type InitialState = {
@@ -16,6 +17,7 @@ type InitialState = {
   offersNearby: OfferPreview[];
   isLoadingOffer: boolean;
   idFocusCard: string | null;
+  isFavoriteBtnDisabled: boolean;
 };
 
 const initialState: InitialState = {
@@ -24,6 +26,7 @@ const initialState: InitialState = {
   offersNearby: [],
   isLoadingOffer: false,
   idFocusCard: null,
+  isFavoriteBtnDisabled: false,
 };
 
 export const offerSlice = createSlice({
@@ -54,6 +57,12 @@ export const offerSlice = createSlice({
       })
       .addCase(reviewPostAction.fulfilled, (state, action) => {
         state.reviewsOffer.push(action.payload);
+      })
+      .addCase(setFavoriteOfferAction.pending, (state) => {
+        state.isFavoriteBtnDisabled = true;
+      })
+      .addCase(setFavoriteOfferAction.fulfilled, (state) => {
+        state.isFavoriteBtnDisabled = false;
       });
   },
   selectors: {
@@ -62,6 +71,7 @@ export const offerSlice = createSlice({
     offersNearby: (state) => state.offersNearby,
     isLoadingOffer: (state) => state.isLoadingOffer,
     idFocusCard: (state) => state.idFocusCard,
+    isFavoriteBtnDisabled: (state) => state.isFavoriteBtnDisabled,
   }
 });
 
@@ -72,4 +82,5 @@ export const offerActions = {
   fetchOffersNearbyAction,
   fetchReviewsOfferAction,
   reviewPostAction,
+  setFavoriteOfferAction,
 };

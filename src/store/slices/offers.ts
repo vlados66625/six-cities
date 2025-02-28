@@ -5,8 +5,8 @@ import { getFilteredByCityOffers, SortingOptions } from '../../util';
 import {
   fetchOffersPreviewAction,
   fetchFavoriteOffersAction,
-  setFavoriteOfferAction,
 } from './api-actions/offers';
+import { setFavoriteOfferAction } from './api-actions/offer';
 import { logoutAction } from './api-actions/authorization';
 import { createSelector } from '@reduxjs/toolkit';
 
@@ -90,5 +90,4 @@ export const offersActions = {
   ...offersSlice.actions,
   fetchOffersPreviewAction,
   fetchFavoriteOffersAction,
-  setFavoriteOfferAction,
 };

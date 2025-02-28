@@ -2,6 +2,7 @@ import { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../common/logo/logo';
 import UserName from './components/user-name';
+import Avatar from './components/avatar';
 import FavoriteCount from './components/favorite-count';
 import Login from './components/login';
 
@@ -37,8 +38,7 @@ export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.
 
                 <li className="header__nav-item user">
                   <Link className="header__nav-link header__nav-link--profile" to='/favorites'>
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
+                    <Avatar />
                     {isAuth ?
                       <>
                         <UserName />

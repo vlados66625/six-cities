@@ -4,9 +4,9 @@ import { authorizationSelectors } from '../../../../store/slices/authorization';
 
 
 export default function UserName(): JSX.Element {
-  const email = useAppSelector(authorizationSelectors.email);
+  const userName = useAppSelector(authorizationSelectors.userName);
 
   return (
-    <span className="header__user-name user__name">{email}</span>
+    <span className="header__user-name user__name">{userName}</span>
   );
 }

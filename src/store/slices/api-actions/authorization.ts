@@ -26,8 +26,8 @@ export const loginAction = createAsyncThunk<ResponseAuth, UserAuth, {
   'authorization/login',
   async ({ email, password }, { extra: api }) => {
     const { data } = await api.post<ResponseAuth>(APIRoute.Login, { email, password });
-    const { token } = data;
-    setUserData(token, email);
+    const { token, name, avatarUrl } = data;
+    setUserData(token, name, avatarUrl);
     return data;
   },
 );

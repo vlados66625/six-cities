@@ -11,8 +11,6 @@ import { useAppSelector } from '../../hooks';
 import { offersSelectors } from '../../store/slices/offers';
 
 export default function Favorites(): JSX.Element {
-
-
   const favoritesOffers = useAppSelector(offersSelectors.favoritesOffers);
   const isLoadingOffers = useAppSelector(offersSelectors.isLoadingOffers);
   const isEmpty = favoritesOffers.length === 0;

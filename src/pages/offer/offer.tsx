@@ -26,6 +26,7 @@ export default function Offer(): JSX.Element | null {
 
   const detailedOffer = useAppSelector(offerSelectors.detailedOffer);
   const offersNearby = useAppSelector(offerSelectors.offersNearby);
+  const limitedOffersNearby = offersNearby.slice(0, MAX_PLACES_LIST_NEARBY);
   const isLoadingOffer = useAppSelector(offerSelectors.isLoadingOffer);
 
   const { fetchDetailedOfferAction, fetchReviewsOfferAction, fetchOffersNearbyAction } = useActionCreators(offerActions);
@@ -66,7 +67,7 @@ export default function Offer(): JSX.Element | null {
               </div>
             </div>
             <section ref={mapRef} className="offer__map map" >
-              <Map mapRef={mapRef} currentOffer={detailedOffer} offersPreview={offersNearby.slice(0, MAX_PLACES_LIST_NEARBY)} />
+              <Map mapRef={mapRef} currentOffer={detailedOffer} offersPreview={limitedOffersNearby} />
             </section>
           </section>
           <OffersNearby offersNearby={offersNearby} />

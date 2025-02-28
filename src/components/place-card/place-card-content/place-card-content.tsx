@@ -2,12 +2,13 @@ import { OfferPreview } from '../../../types/offer-types';
 import { Link } from 'react-router-dom';
 import { getRoundedRatingInPercentage } from '../../../util';
 import Bookmarks from '../../common/bookmarks/bookmarks';
+import { memo } from 'react';
 
 type PlaceCardContentProps = {
   offerPreview: OfferPreview;
 };
 
-export default function PlaceCardContent({ offerPreview }: PlaceCardContentProps): JSX.Element {
+function PlaceCardContent({ offerPreview }: PlaceCardContentProps): JSX.Element {
   return (
     <>
       <div className="place-card__price-wrapper">
@@ -32,3 +33,7 @@ export default function PlaceCardContent({ offerPreview }: PlaceCardContentProps
     </>
   );
 }
+
+const PlaceCardContentMemo = memo(PlaceCardContent);
+
+export default PlaceCardContentMemo;

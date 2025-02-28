@@ -12,7 +12,6 @@ type PlaceCardsProps = {
 }
 
 function PlaceCards({ offersPreview, placeCard, isSupportsHover }: PlaceCardsProps) {
-
   const PlaceCard = useMemo(() => {
     switch (placeCard) {
       case 'favorite':

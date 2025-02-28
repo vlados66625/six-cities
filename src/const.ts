@@ -37,10 +37,6 @@ export const BASE_URL = 'https://15.design.htmlacademy.pro/six-cities';
 export const REQUEST_TIMEOUT = 5000;
 export const DELETE_ERROR_TIMEOUT = 2000;
 
-export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
-export const USER_NAME_TOKEN_KEY_NAME = 'six-cities-user-name';
-export const AVATAR_URL_TOKEN_KEY_NAME = 'six-cities-avatar-url';
-
 export enum APIRoute {
   Offers = '/offers',
   Favorite = '/favorite',

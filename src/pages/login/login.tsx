@@ -4,11 +4,16 @@ import Header from '../../components/layout/header/header';
 import { UserAuth } from '../../types/user-auth';
 import { useActionCreators } from '../../hooks';
 import { authorizationActions } from '../../store/slices/authorization';
+import { getRandomItemArray } from '../../util';
+import { useCityLinkClick } from '../../hooks/use-city-link-click';
+import { sixCities } from '../../const';
 
 export default function Login(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const { loginAction } = useActionCreators(authorizationActions);
+  const randomCity = getRandomItemArray(sixCities);
+  const handleCityLinkClick = useCityLinkClick(randomCity);
 
   function formSubmitHandle(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
@@ -47,8 +52,8 @@ export default function Login(): JSX.Element {
             </section>
             <section className="locations locations--login locations--current">
               <div className="locations__item">
-                <a className="locations__item-link" href="#">
-                  <span>Amsterdam</span>
+                <a onClick={handleCityLinkClick} className="locations__item-link" href="#">
+                  <span>{randomCity}</span>
                 </a>
               </div>
             </section>

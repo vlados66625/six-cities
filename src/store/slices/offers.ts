@@ -30,7 +30,7 @@ export const offersSlice = createSlice({
   initialState,
   name: 'offers',
   reducers: {
-    changeCity: (state, action: PayloadAction<CityName>) => {
+    setCity: (state, action: PayloadAction<CityName>) => {
       state.city = action.payload;
     },
     setSorting: (state, action: PayloadAction<string>) => {

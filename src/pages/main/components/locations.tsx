@@ -10,10 +10,10 @@ type LocationsProps = {
 }
 
 function Locations({ selectedCity }: LocationsProps): JSX.Element {
-  const { changeCity } = useActionCreators(offersActions);
+  const { setCity } = useActionCreators(offersActions);
   function handleLocationLinkClick(evt: MouseEvent<HTMLAnchorElement>, city: CityName): void {
     evt.preventDefault();
-    changeCity(city);
+    setCity(city);
   }
 
   return (

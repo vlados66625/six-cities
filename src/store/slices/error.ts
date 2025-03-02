@@ -2,7 +2,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import {
   deleteErrorAction,
-} from '../api-actions';
+} from './api-actions/error';
 
 type InitialState = {
   error: string | null;
@@ -32,4 +32,4 @@ export const errorSlice = createSlice({
 });
 
 export const errorSelectors = errorSlice.selectors;
-export const errorActions = errorSlice.actions;
+export const errorActions = { ...errorSlice.actions, deleteErrorAction };

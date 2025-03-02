@@ -1,15 +1,14 @@
+import { useRef, FormEvent } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Header from '../../components/layout/header/header';
-import { useRef } from 'react';
-import { FormEvent } from 'react';
-import { store } from '../../store';
-import { loginAction } from '../../store/api-actions';
 import { UserAuth } from '../../types/user-auth';
+import { useActionCreators } from '../../hooks';
+import { authorizationActions } from '../../store/slices/authorization';
 
 export default function Login(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
+  const { loginAction } = useActionCreators(authorizationActions);
 
   function formSubmitHandle(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
@@ -18,7 +17,7 @@ export default function Login(): JSX.Element {
         email: emailRef.current.value,
         password: passwordRef.current.value,
       };
-      store.dispatch(loginAction(userAuth));
+      loginAction(userAuth);
     }
   }
 

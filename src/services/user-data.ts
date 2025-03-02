@@ -1,19 +1,29 @@
-import { AUTH_TOKEN_KEY_NAME, EMAIL_TOKEN_KEY_NAME } from '../const';
+enum KeyName {
+  AUTH_TOKEN_KEY_NAME = 'six-cities-auth-token',
+  USER_NAME_KEY_NAME = 'six-cities-user-name',
+  AVATAR_URL_KEY_NAME = 'six-cities-avatar-url',
+}
 
-export function setUserData(token: string, email: string) {
-  localStorage.setItem(AUTH_TOKEN_KEY_NAME, token);
-  localStorage.setItem(EMAIL_TOKEN_KEY_NAME, email);
+export function setUserData(token: string, name: string, avatarUrl: string) {
+  localStorage.setItem(KeyName.AUTH_TOKEN_KEY_NAME, token);
+  localStorage.setItem(KeyName.USER_NAME_KEY_NAME, name);
+  localStorage.setItem(KeyName.AVATAR_URL_KEY_NAME, avatarUrl);
 }
 
 export function deleteUserData() {
-  localStorage.removeItem(AUTH_TOKEN_KEY_NAME);
-  localStorage.removeItem(EMAIL_TOKEN_KEY_NAME);
+  localStorage.removeItem(KeyName.AUTH_TOKEN_KEY_NAME);
+  localStorage.removeItem(KeyName.USER_NAME_KEY_NAME);
+  localStorage.removeItem(KeyName.AVATAR_URL_KEY_NAME);
 }
 
 export function getToken(): string {
-  return localStorage.getItem(AUTH_TOKEN_KEY_NAME) ?? '';
+  return localStorage.getItem(KeyName.AUTH_TOKEN_KEY_NAME) ?? '';
 }
 
-export function getEmail(): string {
-  return localStorage.getItem(EMAIL_TOKEN_KEY_NAME) ?? '';
+export function getUserName(): string {
+  return localStorage.getItem(KeyName.USER_NAME_KEY_NAME) ?? '';
+}
+
+export function getAvatarUrl(): string {
+  return localStorage.getItem(KeyName.AVATAR_URL_KEY_NAME) ?? '';
 }

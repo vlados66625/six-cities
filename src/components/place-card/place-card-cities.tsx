@@ -1,14 +1,17 @@
 import { PlaceCardContainerProps } from './type-props-place-card-container';
 import PlaceCardContent from './place-card-content/place-card-content';
 import PlaceCardLink from './place-card-components/place-card-link';
+import { useHoverCard } from '../../hooks/use-hover-card';
+import { memo } from 'react';
 
-export default function PlaceCardCities({ offerPreview, handleHoverCard }: PlaceCardContainerProps): JSX.Element {
+function PlaceCardCities({ offerPreview, isSupportsHover }: PlaceCardContainerProps): JSX.Element {
+  const { handleMouseEnter, handleMouseLeave } = useHoverCard(offerPreview.id, isSupportsHover);
 
   return (
     <article
-      {...(handleHoverCard && {
-        onMouseEnter: () => handleHoverCard(offerPreview.id),
-        onMouseLeave: () => handleHoverCard(null),
+      {...(isSupportsHover && {
+        onMouseEnter: () => handleMouseEnter(),
+        onMouseLeave: () => handleMouseLeave(),
       })}
       className="cities__card place-card"
     >
@@ -27,3 +30,7 @@ export default function PlaceCardCities({ offerPreview, handleHoverCard }: Place
     </article>
   );
 }
+
+const PlaceCardCitiesMemo = memo(PlaceCardCities);
+
+export default PlaceCardCitiesMemo;

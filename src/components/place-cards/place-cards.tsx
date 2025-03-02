@@ -1,13 +1,34 @@
 import { OfferPreview } from '../../types/offer-types';
-import { ComponentType } from 'react';
-import { PlaceCardContainerProps } from '../place-card/type-props-place-card-container';
+import PlaceCardFavorites from '../place-card/place-card-favorites';
+import PlaceCardNearPlaces from '../place-card/place-card-near-places';
+import PlaceCardCities from '../place-card/place-card-cities';
+import { memo, useMemo } from 'react';
+
 
 type PlaceCardsProps = {
   offersPreview: OfferPreview[];
-  handleHoverCard?: (idFocusCard: string | null) => void;
-  PlaceCard: ComponentType<PlaceCardContainerProps>;
+  placeCard: 'city' | 'favorite' | 'near';
+  isSupportsHover?: boolean;
 }
 
-export default function PlaceCards({ offersPreview, handleHoverCard, PlaceCard }: PlaceCardsProps) {
-  return offersPreview.map((offerPreview) => <PlaceCard key={offerPreview.id} handleHoverCard={handleHoverCard} offerPreview={offerPreview} />);
+function PlaceCards({ offersPreview, placeCard, isSupportsHover }: PlaceCardsProps) {
+  const PlaceCard = useMemo(() => {
+    switch (placeCard) {
+      case 'favorite':
+        return PlaceCardFavorites;
+      case 'near':
+        return PlaceCardNearPlaces;
+      case 'city':
+        return PlaceCardCities;
+    }
+  }, [placeCard]);
+
+  const PlaceCardmemo = useMemo(() => offersPreview.map((offerPreview) => <PlaceCard key={offerPreview.id} isSupportsHover={isSupportsHover} offerPreview={offerPreview} />),
+    [offersPreview, isSupportsHover, PlaceCard]);
+
+  return PlaceCardmemo;
 }
+
+const PlaceCardsMemo = memo(PlaceCards);
+
+export default PlaceCardsMemo;

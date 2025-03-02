@@ -1,20 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../const';
-import { getEmail } from '../../services/user-data';
+import { getUserName, getAvatarUrl } from '../../services/user-data';
 import {
   fetchAuthorizationStatusAction,
   loginAction,
   logoutAction,
-} from '../api-actions';
+} from './api-actions/authorization';
 
 type InitialState = {
   authorizationStatus: AuthorizationStatus;
-  email: string;
+  userName: string;
+  avatarUrl: string;
 };
 
 const initialState: InitialState = {
   authorizationStatus: AuthorizationStatus.Unknown,
-  email: getEmail(),
+  userName: getUserName(),
+  avatarUrl: getAvatarUrl(),
 };
 
 export const authorizationSlice = createSlice({
@@ -31,19 +33,22 @@ export const authorizationSlice = createSlice({
       })
       .addCase(loginAction.fulfilled, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
-        state.email = action.payload.email;
+        state.userName = action.payload.name;
+        state.avatarUrl = action.payload.avatarUrl;
       })
       .addCase(logoutAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
-        state.email = 'unknown';
+        state.userName = '';
+        state.avatarUrl = '';
       });
   },
   selectors: {
     authorizationStatus: (state) => state.authorizationStatus,
-    email: (state) => state.email,
+    userName: (state) => state.userName,
+    avatarUrl: (state) => state.avatarUrl,
     isAuth: (state) => state.authorizationStatus === AuthorizationStatus.Auth,
   }
 });
 
 export const authorizationSelectors = authorizationSlice.selectors;
-export const authorizationActions = authorizationSlice.actions;
+export const authorizationActions = { ...authorizationSlice.actions, fetchAuthorizationStatusAction, loginAction, logoutAction };

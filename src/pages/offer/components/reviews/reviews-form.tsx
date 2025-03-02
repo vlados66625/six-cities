@@ -1,15 +1,17 @@
-import { rating } from '../../../const';
+import { rating } from '../../../../const';
 import { Fragment, useState, ChangeEvent } from 'react';
-import { getPluralForm } from '../../../util';
+import { getPluralForm } from '../../../../util';
 import { FormEvent } from 'react';
-import { store } from '../../../store';
-import { reviewPostAction } from '../../../store/api-actions';
+import { offerActions } from '../../../../store/slices/offer';
+import { useActionCreators } from '../../../../hooks';
 
 type ReviewsFormProps = {
   offerId: string;
 }
 
 export default function ReviewsForm({ offerId }: ReviewsFormProps): JSX.Element {
+  const { reviewPostAction } = useActionCreators(offerActions);
+
   const [review, setReview] = useState({ rating: 0, review: '' });
   function clearReviewForm() {
     setReview({ rating: 0, review: '' });
@@ -22,12 +24,12 @@ export default function ReviewsForm({ offerId }: ReviewsFormProps): JSX.Element 
 
   function handleReviewFormSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
-    store.dispatch(reviewPostAction({
+    reviewPostAction({
       offerId,
       comment: review.review,
       rating: Number(review.rating),
       cb: clearReviewForm,
-    }));
+    });
   }
 
   return (

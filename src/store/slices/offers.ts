@@ -1,35 +1,28 @@
-import { CityName, AppRoute } from '../../const';
-import { OfferPreview, DetailedOffer } from '../../types/offer-types';
-import { ReviewOffer } from '../../types/review-offer';
-import { PayloadAction } from '@reduxjs/toolkit';
-import { createSlice } from '@reduxjs/toolkit';
+import { CityName } from '../../const';
+import { OfferPreview } from '../../types/offer-types';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { getFilteredByCityOffers, SortingOptions } from '../../util';
 import {
   fetchOffersPreviewAction,
-  fetchDetailedOfferAction,
-  fetchOffersNearbyAction,
-  fetchReviewsOfferAction,
-  reviewPostAction,
-} from '../api-actions';
-import browserHistory from '../../browser-history';
+  fetchFavoriteOffersAction,
+} from './api-actions/offers';
+import { setFavoriteOfferAction } from './api-actions/offer';
+import { logoutAction } from './api-actions/authorization';
+import { createSelector } from '@reduxjs/toolkit';
 
 type InitialState = {
   city: CityName;
   offersPreview: OfferPreview[];
-  reviewsOffer: ReviewOffer[];
-  detailedOffer: DetailedOffer | null;
-  offersNearby: OfferPreview[];
-  isLoading: boolean;
+  favoritesOffers: OfferPreview[];
+  isLoadingOffers: boolean;
   sortingName: string;
 };
 
 const initialState: InitialState = {
   city: 'Paris',
   offersPreview: [],
-  reviewsOffer: [],
-  detailedOffer: null,
-  offersNearby: [],
-  isLoading: false,
+  favoritesOffers: [],
+  isLoadingOffers: false,
   sortingName: SortingOptions[0].name,
 };
 
@@ -47,47 +40,54 @@ export const offersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchOffersPreviewAction.pending, (state) => {
-        state.isLoading = true;
+        state.isLoadingOffers = true;
       })
       .addCase(fetchOffersPreviewAction.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.isLoadingOffers = false;
         state.offersPreview = action.payload;
       })
-      .addCase(fetchDetailedOfferAction.pending, (state) => {
-        state.isLoading = true;
+      .addCase(fetchFavoriteOffersAction.pending, (state) => {
+        state.isLoadingOffers = true;
       })
-      .addCase(fetchDetailedOfferAction.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.detailedOffer = action.payload;
+      .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
+        state.isLoadingOffers = false;
+        state.favoritesOffers = action.payload;
       })
-      .addCase(fetchDetailedOfferAction.rejected, () => {
-        browserHistory.push(AppRoute.Error);
+      .addCase(setFavoriteOfferAction.fulfilled, (state, action) => {
+        if (action.payload.offerIsFavorite) {
+          state.favoritesOffers.push(action.payload.offer);
+        } else {
+          state.favoritesOffers = state.favoritesOffers.filter((favoritesOffer) => favoritesOffer.id !== action.payload.offer.id);
+        }
       })
-      .addCase(fetchOffersNearbyAction.fulfilled, (state, action) => {
-        state.offersNearby = action.payload;
-      })
-      .addCase(fetchReviewsOfferAction.fulfilled, (state, action) => {
-        state.reviewsOffer = action.payload;
-      })
-      .addCase(reviewPostAction.fulfilled, (state, action) => {
-        state.reviewsOffer.push(action.payload);
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.favoritesOffers = [];
       });
   },
   selectors: {
     city: (state) => state.city,
     offersPreview: (state) => state.offersPreview,
-    reviewsOffer: (state) => state.reviewsOffer,
-    detailedOffer: (state) => state.detailedOffer,
-    offersNearby: (state) => state.offersNearby,
-    isLoading: (state) => state.isLoading,
-    showOffers: (state): OfferPreview[] => {
-      const filteredOffers = getFilteredByCityOffers(state.offersPreview, state.city);
-      const sortingFunction = SortingOptions.find(({ name }) => name === state.sortingName)?.functionSorting;
-
-      return sortingFunction ? sortingFunction(filteredOffers) : filteredOffers;
-    }
+    favoritesOffers: (state) => state.favoritesOffers,
+    favoritesOffersCount: (state) => state.favoritesOffers.length,
+    isLoadingOffers: (state) => state.isLoadingOffers,
+    showOffers: createSelector(
+      [
+        (state: InitialState) => state.offersPreview,
+        (state: InitialState) => state.city,
+        (state: InitialState) => state.sortingName
+      ],
+      (offersPreview, city, sortingName): OfferPreview[] => {
+        const filteredOffers = getFilteredByCityOffers(offersPreview, city);
+        const sortingFunction = SortingOptions.find(({ name }) => name === sortingName)?.functionSorting;
+        return sortingFunction ? sortingFunction(filteredOffers) : filteredOffers;
+      }
+    )
   }
 });
 
 export const offersSelectors = offersSlice.selectors;
-export const offersActions = offersSlice.actions;
+export const offersActions = {
+  ...offersSlice.actions,
+  fetchOffersPreviewAction,
+  fetchFavoriteOffersAction,
+};

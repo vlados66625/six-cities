@@ -1,8 +1,10 @@
+import { memo } from 'react';
+
 type PremiumMarkProps = {
   isPremium: boolean;
 }
 
-export default function PremiumMark({ isPremium }: PremiumMarkProps): JSX.Element | null {
+function PremiumMark({ isPremium }: PremiumMarkProps): JSX.Element | null {
   if (isPremium) {
     return (
       <div className="offer__mark">
@@ -12,3 +14,7 @@ export default function PremiumMark({ isPremium }: PremiumMarkProps): JSX.Elemen
   }
   return null;
 }
+
+const PremiumMarkMemo = memo(PremiumMark);
+
+export default PremiumMarkMemo;

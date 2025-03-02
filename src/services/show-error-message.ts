@@ -1,5 +1,5 @@
 import { store } from '../store';
-import { deleteErrorAction } from '../store/api-actions';
+import { deleteErrorAction } from '../store/slices/api-actions/error';
 import { errorActions } from '../store/slices/error';
 
 export function showErrorMessage(errorMessage: string) {

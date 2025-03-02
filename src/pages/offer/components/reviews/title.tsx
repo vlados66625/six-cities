@@ -1,4 +1,6 @@
 
+import { useAppSelector } from '../../../../hooks';
+import { authorizationSelectors } from '../../../../store/slices/authorization';
 import { getPluralForm } from '../../../../util';
 
 type TitleReviewsProps = {
@@ -6,9 +8,11 @@ type TitleReviewsProps = {
 }
 
 export default function TitleReviews({ сountReviews }: TitleReviewsProps): JSX.Element {
+  const isAuth = useAppSelector(authorizationSelectors.isAuth);
+
   return (
     <h2 className="reviews__title">
-      {сountReviews === 0 ? (
+      {сountReviews === 0 && isAuth ? (
         'There are no reviews, be the first'
       ) : (
         <>

@@ -1,5 +1,5 @@
 enum KeyName {
-  AUTH_TOKEN_KEY_NAME = 'six-cities-auth-token',
+  AUTH_TOKEN_KEY_NAME = 'six-cities-token',
   USER_NAME_KEY_NAME = 'six-cities-user-name',
   AVATAR_URL_KEY_NAME = 'six-cities-avatar-url',
 }

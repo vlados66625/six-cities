@@ -28,7 +28,7 @@ describe('offers selectors', () => {
   it('should return city from state', () => {
     const { city } = state[offersSlice.name];
     const result = offersSelectors.city(state);
-    expect(result).toEqual(city);
+    expect(result).toBe(city);
   });
 
   it('should return offersPreview from state', () => {
@@ -46,13 +46,13 @@ describe('offers selectors', () => {
   it('should return favoritesOffersCount from state', () => {
     const { favoritesOffers } = state[offersSlice.name];
     const result = offersSelectors.favoritesOffersCount(state);
-    expect(result).toEqual(favoritesOffers.length);
+    expect(result).toBe(favoritesOffers.length);
   });
 
   it('should return isLoadingOffers from state', () => {
     const { isLoadingOffers } = state[offersSlice.name];
     const result = offersSelectors.isLoadingOffers(state);
-    expect(result).toEqual(isLoadingOffers);
+    expect(result).toBe(isLoadingOffers);
   });
 
   describe('showOffers selector', () => {

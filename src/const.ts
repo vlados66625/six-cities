@@ -7,7 +7,7 @@ export enum AppRoute {
   Offer = '/offer',
   OfferId = '/offer/:id',
   Login = '/login',
-  Error = '*'
+  Error = '/*'
 }
 
 export enum AuthorizationStatus {

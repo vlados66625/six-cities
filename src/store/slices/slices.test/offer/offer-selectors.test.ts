@@ -43,18 +43,18 @@ describe('offer selectors', () => {
   it('should return isLoadingOffer from state', () => {
     const { isLoadingOffer } = state[offerSlice.name];
     const result = offerSelectors.isLoadingOffer(state);
-    expect(result).toEqual(isLoadingOffer);
+    expect(result).toBe(isLoadingOffer);
   });
 
   it('should return idFocusCard from state', () => {
     const { idFocusCard } = state[offerSlice.name];
     const result = offerSelectors.idFocusCard(state);
-    expect(result).toEqual(idFocusCard);
+    expect(result).toBe(idFocusCard);
   });
 
   it('should return isFavoriteBtnDisabled from state', () => {
     const { isFavoriteBtnDisabled } = state[offerSlice.name];
     const result = offerSelectors.isFavoriteBtnDisabled(state);
-    expect(result).toEqual(isFavoriteBtnDisabled);
+    expect(result).toBe(isFavoriteBtnDisabled);
   });
 });

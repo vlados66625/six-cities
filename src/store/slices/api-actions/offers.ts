@@ -28,4 +28,3 @@ export const fetchFavoriteOffersAction = createAsyncThunk<OfferPreview[], undefi
     return data;
   },
 );
-

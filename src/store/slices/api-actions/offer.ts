@@ -59,7 +59,7 @@ export const setFavoriteOfferAction = createAsyncThunk<{ offer: OfferPreview; of
   state: State;
   extra: AxiosInstance;
 }>(
-  'offers/setFavoriteOffer',
+  'offer/setFavoriteOffer',
   async ({ offerId, offerIsFavorite }, { extra: api }) => {
     const { data: offer } = await api.post<OfferPreview>(`${APIRoute.Favorite}/${offerId}/${Number(offerIsFavorite)}`);
     return { offer, offerIsFavorite };

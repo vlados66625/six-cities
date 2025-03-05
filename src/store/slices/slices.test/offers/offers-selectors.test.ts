@@ -3,27 +3,34 @@ import { offersSelectors } from '../../offers';
 import { createFakeOffersPreview } from '../../../../test-utils/factories/offers';
 import { getFilteredByCityOffers, SortingOptions } from '../../../../util';
 import { getRandomItemArray } from '../../../../util';
-import { sixCities } from '../../../../const';
+import { sixCities, CityName } from '../../../../const';
+import { OfferPreview } from '../../../../types/offer-types';
+import { State } from '../../../../types/state';
 
 describe('offers selectors', () => {
-  const fakeOffersPreview = createFakeOffersPreview(3);
-  const fakeFavoritesOffers = createFakeOffersPreview(3).map((offer) => (
-    {
+  let fakeOffersPreview: OfferPreview[];
+  let fakeFavoritesOffers: OfferPreview[];
+  let fakeCity: CityName;
+  let state: Pick<State, 'offers'>;
+
+  beforeEach(() => {
+    fakeOffersPreview = createFakeOffersPreview(3);
+    fakeFavoritesOffers = createFakeOffersPreview(3).map((offer) => ({
       ...offer,
       isFavorite: true
-    }
-  ));
-  const fakeCity = getRandomItemArray(sixCities);
+    }));
+    fakeCity = getRandomItemArray(sixCities);
 
-  const state = {
-    [offersSlice.name]: {
-      city: fakeCity,
-      offersPreview: fakeOffersPreview,
-      favoritesOffers: fakeFavoritesOffers,
-      isLoadingOffers: false,
-      sortingName: SortingOptions[0].name,
-    }
-  };
+    state = {
+      [offersSlice.name]: {
+        city: fakeCity,
+        offersPreview: fakeOffersPreview,
+        favoritesOffers: fakeFavoritesOffers,
+        isLoadingOffers: false,
+        sortingName: SortingOptions[0].name,
+      }
+    };
+  });
 
   it('should return city from state', () => {
     const { city } = state[offersSlice.name];

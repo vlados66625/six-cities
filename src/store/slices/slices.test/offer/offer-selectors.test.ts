@@ -4,23 +4,34 @@ import { createFakeReviewOffers } from '../../../../test-utils/factories/review-
 import { createFakeDetailedOffer } from '../../../../test-utils/factories/detailed-offer';
 import { createFakeOffersPreview } from '../../../../test-utils/factories/offers';
 import { faker } from '@faker-js/faker';
+import { ReviewOffer } from '../../../../types/review-offer';
+import { DetailedOffer, OfferPreview } from '../../../../types/offer-types';
+import { State } from '../../../../types/state';
 
 describe('offer selectors', () => {
-  const fakeReviewOffers = createFakeReviewOffers(3);
-  const fakeDetailedOffer = createFakeDetailedOffer();
-  const fakeOffersNearby = createFakeOffersPreview(3);
-  const fakeIdFocusCard = faker.string.uuid();
+  let fakeReviewOffers: ReviewOffer[];
+  let fakeDetailedOffer: DetailedOffer;
+  let fakeOffersNearby: OfferPreview[];
+  let fakeIdFocusCard: string;
+  let state: Pick<State, 'offer'>;
 
-  const state = {
-    [offerSlice.name]: {
-      reviewsOffer: fakeReviewOffers,
-      detailedOffer: fakeDetailedOffer,
-      offersNearby: fakeOffersNearby,
-      isLoadingOffer: false,
-      idFocusCard: fakeIdFocusCard,
-      isFavoriteBtnDisabled: false,
-    }
-  };
+  beforeEach(() => {
+    fakeReviewOffers = createFakeReviewOffers(3);
+    fakeDetailedOffer = createFakeDetailedOffer();
+    fakeOffersNearby = createFakeOffersPreview(3);
+    fakeIdFocusCard = faker.string.uuid();
+
+    state = {
+      [offerSlice.name]: {
+        reviewsOffer: fakeReviewOffers,
+        detailedOffer: fakeDetailedOffer,
+        offersNearby: fakeOffersNearby,
+        isLoadingOffer: false,
+        idFocusCard: fakeIdFocusCard,
+        isFavoriteBtnDisabled: false,
+      }
+    };
+  });
 
   it('should return reviewsOffer from state ', () => {
     const { reviewsOffer } = state[offerSlice.name];

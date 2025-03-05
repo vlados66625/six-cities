@@ -31,3 +31,15 @@ export function createFakeOfferPreview(): OfferPreview {
 export function createFakeOffersPreview(count: number): OfferPreview[] {
   return Array.from({ length: count }, () => createFakeOfferPreview());
 }
+
+export function createFakeFavoriteOffer(): OfferPreview {
+  const fakeOfferPreview = createFakeOfferPreview();
+  return {
+    ...fakeOfferPreview,
+    isFavorite: true,
+  };
+}
+
+export function createFakeFavoritesOffers(count: number): OfferPreview[] {
+  return Array.from({ length: count }, () => createFakeFavoriteOffer());
+}

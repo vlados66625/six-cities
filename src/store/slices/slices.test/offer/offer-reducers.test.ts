@@ -6,21 +6,16 @@ import { offerSlice } from '../../offer';
 import { offerActions } from '../../offer';
 import browserHistory from '../../../../browser-history';
 import { AppRoute } from '../../../../const';
+import { ReviewOffer } from '../../../../types/review-offer';
+import { DetailedOffer, OfferPreview } from '../../../../types/offer-types';
+import { State } from '../../../../types/state';
 
 describe('offer reducers', () => {
-  const fakeReviewOffers = createFakeReviewOffers(3);
-  const fakeDetailedOffer = createFakeDetailedOffer();
-  const fakeOffersNearby = createFakeOffersPreview(3);
-  const fakeIdFocusCard = faker.string.uuid();
-
-  const initialState = {
-    reviewsOffer: [],
-    detailedOffer: null,
-    offersNearby: [],
-    isLoadingOffer: false,
-    idFocusCard: null,
-    isFavoriteBtnDisabled: false,
-  };
+  let fakeReviewOffers: ReviewOffer[];
+  let fakeDetailedOffer: DetailedOffer;
+  let fakeOffersNearby: OfferPreview[];
+  let fakeIdFocusCard: string;
+  let initialState: State['offer'];
 
   vi.mock('../../browser-history', () => ({
     default: {
@@ -33,6 +28,19 @@ describe('offer reducers', () => {
 
   beforeEach(() => {
     browserHistory.push('');
+    fakeReviewOffers = createFakeReviewOffers(3);
+    fakeDetailedOffer = createFakeDetailedOffer();
+    fakeOffersNearby = createFakeOffersPreview(3);
+    fakeIdFocusCard = faker.string.uuid();
+
+    initialState = {
+      reviewsOffer: [],
+      detailedOffer: null,
+      offersNearby: [],
+      isLoadingOffer: false,
+      idFocusCard: null,
+      isFavoriteBtnDisabled: false,
+    };
   });
 
   it('должен вернуть initial state с пустым action', () => {

@@ -1,5 +1,7 @@
 import { sixCities } from '../../../../const';
-import { createFakeOffersPreview, createFakeOfferPreview } from '../../../../test-utils/factories/offers';
+import { createFakeOffersPreview, createFakeFavoritesOffers, createFakeFavoriteOffer } from '../../../../test-utils/factories/offers';
+import { OfferPreview } from '../../../../types/offer-types';
+import { State } from '../../../../types/state';
 import { SortingOptions } from '../../../../util';
 import { logoutAction } from '../../api-actions/authorization';
 import { setFavoriteOfferAction } from '../../api-actions/offer';
@@ -7,21 +9,22 @@ import { offersSlice } from '../../offers';
 import { offersActions } from '../../offers';
 
 describe('offers reducers', () => {
-  const fakeOffersPreview = createFakeOffersPreview(3);
-  const fakeFavoritesOffers = createFakeOffersPreview(3).map((offer) => (
-    {
-      ...offer,
-      isFavorite: true
-    }
-  ));
+  let fakeOffersPreview: OfferPreview[];
+  let fakeFavoritesOffers: OfferPreview[];
+  let initialState: State['offers'];
 
-  const initialState = {
-    city: sixCities[0],
-    offersPreview: [],
-    favoritesOffers: [],
-    isLoadingOffers: false,
-    sortingName: SortingOptions[0].name,
-  };
+  beforeEach(() => {
+    fakeOffersPreview = createFakeOffersPreview(6);
+    fakeFavoritesOffers = createFakeFavoritesOffers(3);
+
+    initialState = {
+      city: sixCities[0],
+      offersPreview: [],
+      favoritesOffers: [],
+      isLoadingOffers: false,
+      sortingName: SortingOptions[0].name,
+    };
+  });
 
   it('должен вернуть initial state с пустым action', () => {
     const emptyAction = { type: '' };
@@ -133,11 +136,7 @@ describe('offers reducers', () => {
   });
 
   it('при "offerIsFavorite = true" должен вернуть state с добавлением переданного "offer" в "favoritesOffers" при action "setFavoriteOfferAction.fulfilled"', () => {
-    const fakeOffer = createFakeOfferPreview();
-    const fakeFavoriteOffer = {
-      ...fakeOffer,
-      isFavorite: true
-    };
+    const fakeFavoriteOffer = createFakeFavoriteOffer();
 
     const prevState = {
       ...initialState,
@@ -149,17 +148,13 @@ describe('offers reducers', () => {
       favoritesOffers: [...fakeFavoritesOffers, fakeFavoriteOffer],
     };
 
-    const result = offersSlice.reducer(prevState, setFavoriteOfferAction.fulfilled({ offerIsFavorite: true, offer: fakeFavoriteOffer }, '', { offerId: '', offerIsFavorite: true }));
+    const result = offersSlice.reducer(prevState, setFavoriteOfferAction.fulfilled({ offerIsFavorite: true, offer: fakeFavoriteOffer }, '', { offerId: fakeFavoriteOffer.id, offerIsFavorite: true }));
 
     expect(result).toEqual(expectedState);
   });
 
   it('при "offerIsFavorite = false" должен вернуть state с удаленным из "favoritesOffers" переданного "offer"  при action "setFavoriteOfferAction.fulfilled"', () => {
-    const fakeOffer = createFakeOfferPreview();
-    const fakeFavoriteOffer = {
-      ...fakeOffer,
-      isFavorite: true
-    };
+    const fakeFavoriteOffer = createFakeFavoriteOffer();
     const expectedFavoritesOffers = fakeFavoritesOffers.filter((favoritesOffer) => favoritesOffer.id !== fakeFavoriteOffer.id);
 
     const prevState = {
@@ -172,7 +167,7 @@ describe('offers reducers', () => {
       favoritesOffers: expectedFavoritesOffers,
     };
 
-    const result = offersSlice.reducer(prevState, setFavoriteOfferAction.fulfilled({ offerIsFavorite: false, offer: fakeFavoriteOffer }, '', { offerId: fakeOffer.id, offerIsFavorite: true }));
+    const result = offersSlice.reducer(prevState, setFavoriteOfferAction.fulfilled({ offerIsFavorite: false, offer: fakeFavoriteOffer }, '', { offerId: fakeFavoriteOffer.id, offerIsFavorite: true }));
 
     expect(result).toEqual(expectedState);
   });

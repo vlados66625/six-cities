@@ -9,7 +9,7 @@ export default function OffersNearby({ offersNearby }: OffersNearbyProps): JSX.E
 
   if (offersNearby.length !== 0) {
     return (
-      <div className="container">
+      <div className="container" data-testid="offers-nearby-container">
         <section className="near-places places">
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">

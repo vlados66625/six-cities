@@ -15,6 +15,6 @@ export function createFakeReviewOffer(): ReviewOffer {
   });
 }
 
-export function createFakeReviewOffers(count: number): ReviewOffer[] {
+export function createFakeReviewsOffer(count: number): ReviewOffer[] {
   return Array.from({ length: count }, () => createFakeReviewOffer());
 }

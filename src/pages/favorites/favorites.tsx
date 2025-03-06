@@ -31,6 +31,7 @@ export default function Favorites(): JSX.Element {
         <Header />
         <main className={cn('page__main page__main--favorites',
           { 'page__main--favorites-empty': isEmpty })}
+        data-testid="favorites"
         >
           <div className="page__favorites-container container">
             {isEmpty ?

@@ -11,7 +11,7 @@ type PlaceCardsProps = {
   isSupportsHover?: boolean;
 }
 
-function PlaceCards({ offersPreview, placeCard, isSupportsHover }: PlaceCardsProps) {
+function PlaceCardsContent({ offersPreview, placeCard, isSupportsHover }: PlaceCardsProps) {
   const PlaceCard = useMemo(() => {
     switch (placeCard) {
       case 'favorite':
@@ -29,6 +29,6 @@ function PlaceCards({ offersPreview, placeCard, isSupportsHover }: PlaceCardsPro
   return PlaceCardmemo;
 }
 
-const PlaceCardsMemo = memo(PlaceCards);
+const PlaceCards = memo(PlaceCardsContent);
 
-export default PlaceCardsMemo;
+export default PlaceCards;

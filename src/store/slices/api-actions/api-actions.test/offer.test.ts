@@ -17,7 +17,7 @@ import {
 } from '../offer';
 import { createFakeDetailedOffer } from '../../../../test-utils/mock/detailed-offer';
 import { createFakeOfferPreview, createFakeOffersPreview } from '../../../../test-utils/mock/offers';
-import { createFakeReviewOffer, createFakeReviewOffers } from '../../../../test-utils/mock/review-offer';
+import { createFakeReviewOffer, createFakeReviewsOffer } from '../../../../test-utils/mock/review-offer';
 
 describe('Async actions', () => {
   const api = createAPI();
@@ -105,7 +105,7 @@ describe('Async actions', () => {
 
   describe('fetchReviewsOfferAction', () => {
     it('должен вернуть значение "reviewsOffer" и вызвать dispatch с "fetchReviewsOfferAction.pending" и "fetchReviewsOfferAction.fulfilled" при ответе от сервера со статусом 200', async () => {
-      const fakeReviewsOffer = createFakeReviewOffers(3);
+      const fakeReviewsOffer = createFakeReviewsOffer(3);
 
       mockApiAdapter.onGet(`${APIRoute.Comments}/${offerId}`).reply(200, fakeReviewsOffer);
 

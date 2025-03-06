@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { createFakeDetailedOffer } from '../../../../test-utils/mock/detailed-offer';
 import { createFakeOffersPreview, createFakeOfferPreview } from '../../../../test-utils/mock/offers';
-import { createFakeReviewOffer, createFakeReviewOffers } from '../../../../test-utils/mock/review-offer';
+import { createFakeReviewOffer, createFakeReviewsOffer } from '../../../../test-utils/mock/review-offer';
 import { offerSlice } from '../../offer';
 import { offerActions } from '../../offer';
 import browserHistory from '../../../../browser-history';
@@ -28,7 +28,7 @@ describe('offer reducers', () => {
 
   beforeEach(() => {
     browserHistory.push('');
-    fakeReviewOffers = createFakeReviewOffers(3);
+    fakeReviewOffers = createFakeReviewsOffer(3);
     fakeDetailedOffer = createFakeDetailedOffer();
     fakeOffersNearby = createFakeOffersPreview(3);
     fakeIdFocusCard = faker.string.uuid();

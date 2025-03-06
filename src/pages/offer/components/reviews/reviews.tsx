@@ -10,19 +10,19 @@ type ReviewsProps = {
   idDetailedOffer: string;
 }
 
-function Reviews({ idDetailedOffer }: ReviewsProps): JSX.Element {
+function Reviewscomponent({ idDetailedOffer }: ReviewsProps): JSX.Element {
   const isAuth = useAppSelector(authorizationSelectors.isAuth);
   const reviewsOffer = useAppSelector(offerSelectors.reviewsOffer);
 
   return (
-    <section className="offer__reviews reviews">
-      <TitleReviews сountReviews={reviewsOffer.length} />
+    <section className="offer__reviews reviews" data-testid="reviews-section">
+      <TitleReviews countReviews={reviewsOffer.length} />
       <ReviewsList reviewsOffer={reviewsOffer} />
       {isAuth && <ReviewsForm offerId={idDetailedOffer} />}
     </section>
   );
 }
 
-const ReviewsMemo = memo(Reviews);
+const Reviews = memo(Reviewscomponent);
 
-export default ReviewsMemo;
+export default Reviews;

@@ -1,6 +1,6 @@
 import { offerSlice } from '../../offer';
 import { offerSelectors } from '../../offer';
-import { createFakeReviewOffers } from '../../../../test-utils/mock/review-offer';
+import { createFakeReviewsOffer } from '../../../../test-utils/mock/review-offer';
 import { createFakeDetailedOffer } from '../../../../test-utils/mock/detailed-offer';
 import { createFakeOffersPreview } from '../../../../test-utils/mock/offers';
 import { faker } from '@faker-js/faker';
@@ -16,7 +16,7 @@ describe('offer selectors', () => {
   let state: Pick<State, 'offer'>;
 
   beforeEach(() => {
-    fakeReviewOffers = createFakeReviewOffers(3);
+    fakeReviewOffers = createFakeReviewsOffer(3);
     fakeDetailedOffer = createFakeDetailedOffer();
     fakeOffersNearby = createFakeOffersPreview(3);
     fakeIdFocusCard = faker.string.uuid();

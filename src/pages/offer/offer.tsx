@@ -54,7 +54,7 @@ export default function Offer(): JSX.Element | null {
 
       <div className="page">
         <Header />
-        <main className="page__main page__main--offer">
+        <main className="page__main page__main--offer" data-testid="offer">
           <section className="offer">
             <Gallery images={detailedOffer.images} />
             <div className="offer__container container">

@@ -11,7 +11,7 @@ import {
   fetchFavoriteOffersAction,
   fetchOffersPreviewAction,
 } from '../offers';
-import { createFakeOffersPreview, createFakeFavoritesOffers } from '../../../../test-utils/factories/offers';
+import { createFakeOffersPreview, createFakeFavoritesOffers } from '../../../../test-utils/mock/offers';
 import { SortingOptions } from '../../../../util';
 
 describe('Async actions (offers)', () => {

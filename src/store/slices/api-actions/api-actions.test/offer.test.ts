@@ -15,9 +15,9 @@ import {
   reviewPostAction,
   setFavoriteOfferAction
 } from '../offer';
-import { createFakeDetailedOffer } from '../../../../test-utils/factories/detailed-offer';
-import { createFakeOfferPreview, createFakeOffersPreview } from '../../../../test-utils/factories/offers';
-import { createFakeReviewOffer, createFakeReviewOffers } from '../../../../test-utils/factories/review-offer';
+import { createFakeDetailedOffer } from '../../../../test-utils/mock/detailed-offer';
+import { createFakeOfferPreview, createFakeOffersPreview } from '../../../../test-utils/mock/offers';
+import { createFakeReviewOffer, createFakeReviewOffers } from '../../../../test-utils/mock/review-offer';
 
 describe('Async actions', () => {
   const api = createAPI();

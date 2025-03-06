@@ -1,8 +1,8 @@
 import { offerSlice } from '../../offer';
 import { offerSelectors } from '../../offer';
-import { createFakeReviewOffers } from '../../../../test-utils/factories/review-offer';
-import { createFakeDetailedOffer } from '../../../../test-utils/factories/detailed-offer';
-import { createFakeOffersPreview } from '../../../../test-utils/factories/offers';
+import { createFakeReviewOffers } from '../../../../test-utils/mock/review-offer';
+import { createFakeDetailedOffer } from '../../../../test-utils/mock/detailed-offer';
+import { createFakeOffersPreview } from '../../../../test-utils/mock/offers';
 import { faker } from '@faker-js/faker';
 import { ReviewOffer } from '../../../../types/review-offer';
 import { DetailedOffer, OfferPreview } from '../../../../types/offer-types';

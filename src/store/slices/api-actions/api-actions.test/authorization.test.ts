@@ -10,7 +10,7 @@ import { fetchAuthorizationStatusAction, loginAction, logoutAction } from '../au
 import { APIRoute, AuthorizationStatus } from '../../../../const';
 import * as tokenStorage from '../../../../services/user-data';
 import { UserAuth } from '../../../../types/user-auth';
-import { createFakeResponseAuth } from '../../../../test-utils/mock';
+import { createFakeResponseAuth } from '../../../../test-utils/mock/response-auth';
 import { ResponseAuth } from '../../../../types/response-auth';
 
 describe('Async actions', () => {

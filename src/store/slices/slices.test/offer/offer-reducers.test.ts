@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
-import { createFakeDetailedOffer } from '../../../../test-utils/factories/detailed-offer';
-import { createFakeOffersPreview, createFakeOfferPreview } from '../../../../test-utils/factories/offers';
-import { createFakeReviewOffer, createFakeReviewOffers } from '../../../../test-utils/factories/review-offer';
+import { createFakeDetailedOffer } from '../../../../test-utils/mock/detailed-offer';
+import { createFakeOffersPreview, createFakeOfferPreview } from '../../../../test-utils/mock/offers';
+import { createFakeReviewOffer, createFakeReviewOffers } from '../../../../test-utils/mock/review-offer';
 import { offerSlice } from '../../offer';
 import { offerActions } from '../../offer';
 import browserHistory from '../../../../browser-history';

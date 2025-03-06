@@ -1,6 +1,6 @@
 import { offersSlice } from '../../offers';
 import { offersSelectors } from '../../offers';
-import { createFakeOffersPreview } from '../../../../test-utils/factories/offers';
+import { createFakeOffersPreview } from '../../../../test-utils/mock/offers';
 import { getFilteredByCityOffers, SortingOptions } from '../../../../util';
 import { getRandomItemArray } from '../../../../util';
 import { sixCities, CityName } from '../../../../const';

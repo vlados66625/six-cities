@@ -2,7 +2,7 @@ import { authorizationSlice } from '../../authorization';
 import { AuthorizationStatus } from '../../../../const';
 import { authorizationActions } from '../../authorization';
 import { State } from '../../../../types/state';
-import { createFakeResponseAuth } from '../../../../test-utils/mock';
+import { createFakeResponseAuth } from '../../../../test-utils/mock/response-auth';
 
 describe('authorization reducers', () => {
   let initialState: State['authorization'];

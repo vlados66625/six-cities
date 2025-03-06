@@ -1,5 +1,5 @@
 import { sixCities } from '../../../../const';
-import { createFakeOffersPreview, createFakeFavoritesOffers, createFakeFavoriteOffer } from '../../../../test-utils/factories/offers';
+import { createFakeOffersPreview, createFakeFavoritesOffers, createFakeFavoriteOffer } from '../../../../test-utils/mock/offers';
 import { OfferPreview } from '../../../../types/offer-types';
 import { State } from '../../../../types/state';
 import { SortingOptions } from '../../../../util';

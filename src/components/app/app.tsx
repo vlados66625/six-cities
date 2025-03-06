@@ -1,8 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import browserHistory from '../../browser-history';
-import HistoryRouter from '../history-route/history-route';
 import ScrollToTop from '../scroll-to-top';
 
 import Main from '../../pages/main/main';
@@ -36,28 +34,26 @@ export default function App(): JSX.Element {
 
   return (
     <HelmetProvider>
-      <HistoryRouter history={browserHistory}>
-        <ScrollToTop />
-        <Routes>
-          <Route path={AppRoute.Root}>
-            <Route index element={<Main />} />
-            <Route path={AppRoute.Favorites} element={
-              <PrivateRoute requireAuth >
-                <Favorites />
-              </PrivateRoute>
-            }
-            />
-            <Route path={AppRoute.OfferId} element={<Offer />} />
-            <Route path={AppRoute.Login} element={
-              <PrivateRoute requireAuth={false}>
-                <Login />
-              </PrivateRoute>
-            }
-            />
-          </Route>
-          <Route path={AppRoute.Error} element={<Error404 />} />
-        </Routes>
-      </HistoryRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route path={AppRoute.Root}>
+          <Route index element={<Main />} />
+          <Route path={AppRoute.Favorites} element={
+            <PrivateRoute requireAuth >
+              <Favorites />
+            </PrivateRoute>
+          }
+          />
+          <Route path={AppRoute.OfferId} element={<Offer />} />
+          <Route path={AppRoute.Login} element={
+            <PrivateRoute requireAuth={false}>
+              <Login />
+            </PrivateRoute>
+          }
+          />
+        </Route>
+        <Route path={AppRoute.Error} element={<Error404 />} />
+      </Routes>
     </HelmetProvider>
   );
 }

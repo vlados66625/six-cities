@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryHistory, createMemoryHistory } from 'history';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { withRouter, withStore } from '../../test-utils/mock-component';
 import App from './app';
 import { createFakeStore } from '../../test-utils/mock/store';
@@ -23,6 +23,25 @@ describe('Application Routing', () => {
     render(withStoreComponent);
 
     expect(screen.getByText('Cities')).toBeInTheDocument();
+  });
+
+  it('должен отрисовать компонент, находящийся по роуту AppRoute.Favorites', () => {
+    const fakeStore = createFakeStore({
+      authorization: {
+        authorizationStatus: AuthorizationStatus.Auth,
+        userName: '',
+        avatarUrl: '',
+      }
+    });
+    const componentWithRouter = withRouter(<App />, mockHistory);
+    const componentWithStore = withStore(componentWithRouter, fakeStore);
+    const { withStoreComponent } = componentWithStore;
+
+    mockHistory.push(AppRoute.Favorites);
+
+    render(withStoreComponent);
+
+    expect(screen.getByTestId('favorites')).toBeInTheDocument();
   });
 
   it('должен отрисовать компонент, находящийся по роуту AppRoute.OfferId', () => {
@@ -52,6 +71,18 @@ describe('Application Routing', () => {
 
     expect(screen.getByText(expectedText)).toBeInTheDocument();
     expect(screen.getByText('Rating')).toBeInTheDocument();
+  });
+
+  it('должен отрисовать компонент, находящийся по роуту AppRoute.Login', () => {
+    const componentWithRouter = withRouter(<App />, mockHistory);
+    const componentWithStore = withStore(componentWithRouter, createFakeStore());
+    const { withStoreComponent } = componentWithStore;
+
+    mockHistory.push(AppRoute.Login);
+
+    render(withStoreComponent);
+
+    expect(screen.getByTestId('login')).toBeInTheDocument();
   });
 
   it('должен отрисовать компонент, находящийся по роуту AppRoute.Error', () => {

@@ -1,7 +1,7 @@
-import { PlaceCardContainerProps } from './type-props-place-card-container';
-import PlaceCardContent from './place-card-content/place-card-content';
-import PlaceCardLink from './place-card-components/place-card-link';
-import { useHoverCard } from '../../hooks/use-hover-card';
+import { PlaceCardContainerProps } from '../type-props-place-card-container';
+import PlaceCardContent from '../place-card-content/place-card-content';
+import PlaceCardLink from '../place-card-components/place-card-link';
+import { useHoverCard } from '../../../hooks/use-hover-card';
 import { memo } from 'react';
 
 function PlaceCardCities({ offerPreview, isSupportsHover }: PlaceCardContainerProps): JSX.Element {
@@ -14,6 +14,7 @@ function PlaceCardCities({ offerPreview, isSupportsHover }: PlaceCardContainerPr
         onMouseLeave: () => handleMouseLeave(),
       })}
       className="cities__card place-card"
+      data-testid="city-card"
     >
       {offerPreview.isPremium &&
         <div className="place-card__mark">

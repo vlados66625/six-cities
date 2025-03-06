@@ -1,8 +1,8 @@
-import { PlaceCardContainerProps } from './type-props-place-card-container';
-import PlaceCardLink from './place-card-components/place-card-link';
-import PlaceCardContent from './place-card-content/place-card-content';
+import { PlaceCardContainerProps } from '../type-props-place-card-container';
+import PlaceCardLink from '../place-card-components/place-card-link';
+import PlaceCardContent from '../place-card-content/place-card-content';
 import { memo } from 'react';
-import { useHoverCard } from '../../hooks/use-hover-card';
+import { useHoverCard } from '../../../hooks/use-hover-card';
 
 function PlaceCardNearPlaces({ offerPreview, isSupportsHover }: PlaceCardContainerProps): JSX.Element {
   const { handleMouseEnter, handleMouseLeave } = useHoverCard(offerPreview.id, isSupportsHover);
@@ -14,6 +14,7 @@ function PlaceCardNearPlaces({ offerPreview, isSupportsHover }: PlaceCardContain
         onMouseLeave: () => handleMouseLeave(),
       })}
       className="near-places__card place-card"
+      data-testid="near-card"
     >
       {offerPreview.isPremium &&
         <div className="place-card__mark">

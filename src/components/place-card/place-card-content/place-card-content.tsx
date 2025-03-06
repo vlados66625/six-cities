@@ -11,7 +11,7 @@ type PlaceCardContentProps = {
 function PlaceCardContent({ offerPreview }: PlaceCardContentProps): JSX.Element {
   return (
     <>
-      <div className="place-card__price-wrapper">
+      <div className="place-card__price-wrapper" data-testid="place-card-content">
         <div className="place-card__price">
           <b className="place-card__price-value">&euro;{offerPreview.price}</b>
           <span className="place-card__price-text">&#47;&nbsp;night</span>

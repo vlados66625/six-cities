@@ -1,7 +1,7 @@
 import { OfferPreview } from '../../types/offer-types';
-import PlaceCardFavorites from '../place-card/place-card-favorites';
-import PlaceCardNearPlaces from '../place-card/place-card-near-places';
-import PlaceCardCities from '../place-card/place-card-cities';
+import PlaceCardFavorites from '../place-card/place-card-favorites/place-card-favorites';
+import PlaceCardNearPlaces from '../place-card/place-card-near-places/place-card-near-places';
+import PlaceCardCities from '../place-card/place-card-cities/place-card-cities';
 import { memo, useMemo } from 'react';
 
 

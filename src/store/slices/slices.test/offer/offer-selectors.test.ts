@@ -86,7 +86,7 @@ describe('offer selectors', () => {
         reviewsOffer: fakeReviews,
       },
     };
-    const expected = [...fakeReviews].sort((a, b) => dayjs(a.date).valueOf() - dayjs(b.date).valueOf());
+    const expected = [...fakeReviews].sort((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf());
     const result = offerSelectors.sortedByDateReviewsOffer(testState);
     expect(result).toEqual(expected);
   });

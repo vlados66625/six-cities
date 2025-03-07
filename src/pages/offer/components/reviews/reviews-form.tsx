@@ -13,8 +13,12 @@ export default function ReviewsForm({ offerId }: ReviewsFormProps): JSX.Element 
   const { reviewPostAction } = useActionCreators(offerActions);
 
   const [review, setReview] = useState({ rating: 0, review: '' });
-  function clearReviewForm() {
-    setReview({ rating: 0, review: '' });
+  const [btnSubmitDiabled, setBtnSubmitDiabled] = useState(false);
+  function unlocksBtnSubmitAndResetForm({ isResetForm }: { isResetForm: boolean }) {
+    if (isResetForm) {
+      setReview({ rating: 0, review: '' });
+    }
+    setBtnSubmitDiabled(false);
   }
 
   function handleChange(evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void {
@@ -24,11 +28,12 @@ export default function ReviewsForm({ offerId }: ReviewsFormProps): JSX.Element 
 
   function handleReviewFormSubmit(evt: FormEvent<HTMLFormElement>) {
     evt.preventDefault();
+    setBtnSubmitDiabled(true);
     reviewPostAction({
       offerId,
       comment: review.review,
       rating: Number(review.rating),
-      cb: clearReviewForm,
+      unlocksBtnSubmitAndResetForm: unlocksBtnSubmitAndResetForm,
     });
   }
 
@@ -71,7 +76,7 @@ export default function ReviewsForm({ offerId }: ReviewsFormProps): JSX.Element 
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={review.review.length < 50 || review.review.length > 300 || review.rating === 0}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={review.review.length < 50 || review.review.length > 300 || review.rating === 0 || btnSubmitDiabled}>Submit</button>
       </div>
     </form>
   );

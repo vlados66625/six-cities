@@ -69,7 +69,7 @@ export const offerSlice = createSlice({
   selectors: {
     reviewsOffer: (state) => state.reviewsOffer,
     sortedByDateReviewsOffer: createSelector([(state: InitialState) => state.reviewsOffer],
-      (reviewsOffer): ReviewOffer[] => [...reviewsOffer].sort((a, b) => dayjs(a.date).valueOf() - dayjs(b.date).valueOf())
+      (reviewsOffer): ReviewOffer[] => [...reviewsOffer].sort((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf())
     ),
     detailedOffer: (state) => state.detailedOffer,
     offersNearby: (state) => state.offersNearby,

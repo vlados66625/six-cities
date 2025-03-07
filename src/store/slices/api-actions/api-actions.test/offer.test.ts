@@ -135,11 +135,11 @@ describe('Async actions', () => {
   describe('reviewPostAction', () => {
     it('должен вернуть значение "review" и вызвать dispatch с "reviewPostAction.pending" и "reviewPostAction.fulfilled" при ответе от сервера со статусом 200', async () => {
       const fakeReviewOffer = createFakeReviewOffer();
-      const cb = vi.fn();
+      const unlocksBtnSubmitAndResetForm = vi.fn();
 
       mockApiAdapter.onPost(`${APIRoute.Comments}/${offerId}`).reply(200, fakeReviewOffer);
 
-      const result = (await store.dispatch(reviewPostAction({ offerId, comment: fakeReviewOffer.comment, rating: fakeReviewOffer.rating, cb }))).payload;
+      const result = (await store.dispatch(reviewPostAction({ offerId, comment: fakeReviewOffer.comment, rating: fakeReviewOffer.rating, unlocksBtnSubmitAndResetForm }))).payload;
       const actions = extractActionsTypes(store.getActions());
 
       expect(actions).toEqual([
@@ -147,22 +147,20 @@ describe('Async actions', () => {
         reviewPostAction.fulfilled.type,
       ]);
       expect(result).toEqual(fakeReviewOffer);
-      expect(cb).toHaveBeenCalledTimes(1);
+      expect(unlocksBtnSubmitAndResetForm).toHaveBeenCalledTimes(1);
     });
 
     it('должен вызвать dispatch с "reviewPostAction.pending" и "reviewPostAction.rejected" при ответе от сервера со статусом 400', async () => {
-      const cb = vi.fn();
-
       mockApiAdapter.onPost(`${APIRoute.Comments}/${offerId}`).reply(400);
+      const unlocksBtnSubmitAndResetForm = vi.fn();
 
-      await store.dispatch(reviewPostAction({ offerId, comment: 'test', rating: 5, cb }));
+      await store.dispatch(reviewPostAction({ offerId, comment: 'test', rating: 5, unlocksBtnSubmitAndResetForm }));
       const actions = extractActionsTypes(store.getActions());
 
       expect(actions).toEqual([
         reviewPostAction.pending.type,
         reviewPostAction.rejected.type,
       ]);
-      expect(cb).not.toHaveBeenCalled();
     });
   });
 

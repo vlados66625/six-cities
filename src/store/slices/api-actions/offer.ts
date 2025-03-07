@@ -42,16 +42,21 @@ export const fetchReviewsOfferAction = createAsyncThunk<ReviewOffer[], string, {
   },
 );
 
-export const reviewPostAction = createAsyncThunk<ReviewOffer, ReviewForm & { offerId: string; cb: () => void }, {
+export const reviewPostAction = createAsyncThunk<ReviewOffer, ReviewForm & { offerId: string; unlocksBtnSubmitAndResetForm: ({ isResetForm }: { isResetForm: boolean }) => void }, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'offer/reviewPost',
-  async ({ offerId, comment, rating, cb }, { extra: api }) => {
-    const { data } = await api.post<ReviewOffer>(`${APIRoute.Comments}/${offerId}`, { comment, rating: rating });
-    cb();
-    return data;
+  async ({ offerId, comment, rating, unlocksBtnSubmitAndResetForm }, { extra: api }) => {
+    try {
+      const { data } = await api.post<ReviewOffer>(`${APIRoute.Comments}/${offerId}`, { comment, rating: rating });
+      unlocksBtnSubmitAndResetForm({ isResetForm: true });
+      return data;
+    } catch (error) {
+      unlocksBtnSubmitAndResetForm({ isResetForm: false });
+      throw error;
+    }
   },);
 
 export const setFavoriteOfferAction = createAsyncThunk<{ offer: OfferPreview; offerIsFavorite: boolean }, { offerId: string; offerIsFavorite: boolean }, {

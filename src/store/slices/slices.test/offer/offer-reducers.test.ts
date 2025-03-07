@@ -149,7 +149,7 @@ describe('offer reducers', () => {
       ...prevState,
       reviewsOffer: [...fakeReviewOffers, fakeReviewOffer],
     };
-    const result = offerSlice.reducer(prevState, offerActions.reviewPostAction.fulfilled(fakeReviewOffer, '', { offerId: 'id', comment: 'comment', rating: 3, cb: () => { } }));
+    const result = offerSlice.reducer(prevState, offerActions.reviewPostAction.fulfilled(fakeReviewOffer, '', { offerId: 'id', comment: 'comment', rating: 3, unlocksBtnSubmitAndResetForm: () => { } }));
 
     expect(result).toEqual(expectedState);
   });

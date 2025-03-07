@@ -1,12 +1,13 @@
 import { offerSlice } from '../../offer';
 import { offerSelectors } from '../../offer';
-import { createFakeReviewsOffer } from '../../../../test-utils/mock/review-offer';
+import { createFakeReviewOffer, createFakeReviewsOffer } from '../../../../test-utils/mock/review-offer';
 import { createFakeDetailedOffer } from '../../../../test-utils/mock/detailed-offer';
 import { createFakeOffersPreview } from '../../../../test-utils/mock/offers';
 import { faker } from '@faker-js/faker';
 import { ReviewOffer } from '../../../../types/review-offer';
 import { DetailedOffer, OfferPreview } from '../../../../types/offer-types';
 import { State } from '../../../../types/state';
+import dayjs from 'dayjs';
 
 describe('offer selectors', () => {
   let fakeReviewOffers: ReviewOffer[];
@@ -67,5 +68,24 @@ describe('offer selectors', () => {
     const { isFavoriteBtnDisabled } = state[offerSlice.name];
     const result = offerSelectors.isFavoriteBtnDisabled(state);
     expect(result).toBe(isFavoriteBtnDisabled);
+  });
+
+  it('should return sorted reviews by date from old to new', () => {
+    const fakeReviews = [
+      { ...createFakeReviewOffer(), date: '2023-10-20T12:00:00.000Z' },
+      { ...createFakeReviewOffer(), date: '2023-10-22T12:00:00.000Z' },
+      { ...createFakeReviewOffer(), date: '2023-10-21T12:00:00.000Z' },
+      { ...createFakeReviewOffer(), date: '2023-10-21T13:00:00.000Z' },
+      { ...createFakeReviewOffer(), date: '2023-10-21T14:00:00.000Z' },
+    ];
+    const testState = {
+      [offerSlice.name]: {
+        ...state[offerSlice.name],
+        reviewsOffer: fakeReviews,
+      },
+    };
+    const expected = [...fakeReviews].sort((a, b) => dayjs(a.date).valueOf() - dayjs(b.date).valueOf());
+    const result = offerSelectors.sortedByDateReviewsOffer(testState);
+    expect(result).toEqual(expected);
   });
 });

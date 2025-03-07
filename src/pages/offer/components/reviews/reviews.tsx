@@ -12,7 +12,7 @@ type ReviewsProps = {
 
 function Reviewscomponent({ idDetailedOffer }: ReviewsProps): JSX.Element {
   const isAuth = useAppSelector(authorizationSelectors.isAuth);
-  const reviewsOffer = useAppSelector(offerSelectors.reviewsOffer);
+  const reviewsOffer = useAppSelector(offerSelectors.sortedByDateReviewsOffer);
 
   return (
     <section className="offer__reviews reviews" data-testid="reviews-section">

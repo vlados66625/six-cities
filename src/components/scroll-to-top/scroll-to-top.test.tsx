@@ -34,10 +34,12 @@ describe('Component: ScrollToTop', () => {
     render(componentWithRouter);
 
     act(() => mockHistory.push('/page1'));
-    act(() => mockHistory.push('/page2'));
-    act(() => mockHistory.push('/'));
-
     expect(window.scrollTo).toHaveBeenLastCalledWith(0, 0);
+    act(() => mockHistory.push('/page2'));
+    expect(window.scrollTo).toHaveBeenLastCalledWith(0, 0);
+    act(() => mockHistory.push('/'));
+    expect(window.scrollTo).toHaveBeenLastCalledWith(0, 0);
+
     expect(window.scrollTo).toHaveBeenCalledTimes(4);
   });
 });

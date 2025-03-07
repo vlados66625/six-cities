@@ -72,11 +72,13 @@ describe('offer selectors', () => {
 
   it('should return sorted reviews by date from old to new', () => {
     const fakeReviews = [
+      { ...createFakeReviewOffer(), date: '2023-10-24T12:00:00.000Z' },
       { ...createFakeReviewOffer(), date: '2023-10-20T12:00:00.000Z' },
       { ...createFakeReviewOffer(), date: '2023-10-22T12:00:00.000Z' },
+      { ...createFakeReviewOffer(), date: '2023-10-29T12:00:00.000Z' },
+      { ...createFakeReviewOffer(), date: '2023-10-23T12:00:00.000Z' },
       { ...createFakeReviewOffer(), date: '2023-10-21T12:00:00.000Z' },
-      { ...createFakeReviewOffer(), date: '2023-10-21T13:00:00.000Z' },
-      { ...createFakeReviewOffer(), date: '2023-10-21T14:00:00.000Z' },
+      { ...createFakeReviewOffer(), date: '2023-10-27T12:00:00.000Z' },
     ];
     const testState = {
       [offerSlice.name]: {

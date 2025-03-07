@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import ScrollToTop from '../scroll-to-top';
+import ScrollToTop from '../scroll-to-top/scroll-to-top';
 
 import Main from '../../pages/main/main';
 import Favorites from '../../pages/favorites/favorites';

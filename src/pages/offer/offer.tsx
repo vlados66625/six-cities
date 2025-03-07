@@ -66,7 +66,7 @@ export default function Offer(): JSX.Element | null {
                 <Reviews idDetailedOffer={detailedOffer.id} />
               </div>
             </div>
-            <section ref={mapRef} className="offer__map map" >
+            <section ref={mapRef} className="offer__map map" data-testid="map">
               <Map mapRef={mapRef} currentOffer={detailedOffer} offersPreview={limitedOffersNearby} />
             </section>
           </section>

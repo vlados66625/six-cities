@@ -7,14 +7,17 @@ import { SortingOptions } from '../../util';
 import { createFakeFavoritesOffers } from '../../test-utils/mock/offers';
 
 describe('Component: Favorites', () => {
-  it('должен рендериться корректно при isLoadingOffers = false', () => {
+  it('должен рендериться корректно при isLoadingOffers = false и с пустым favoritesOffers', () => {
     const componentWithRouter = withRouter(<Favorites />);
     const componentWithStore = withStore(componentWithRouter, createFakeStore());
     const { withStoreComponent } = componentWithStore;
 
     render(withStoreComponent);
 
+    expect(screen.getByTestId('header')).toBeInTheDocument();
     expect(screen.getByTestId('favorites')).toBeInTheDocument();
+    expect(screen.getByText('Favorites (empty)')).toBeInTheDocument();
+    expect(screen.getByTestId('footer')).toBeInTheDocument();
   });
 
   it('должен рендериться Loading при isLoadingOffers = true', () => {
@@ -45,11 +48,13 @@ describe('Component: Favorites', () => {
 
     render(withStoreComponent);
 
+    expect(screen.getByTestId('header')).toBeInTheDocument();
     expect(screen.getByTestId('favorites')).toBeInTheDocument();
     expect(screen.getByText('Favorites (empty)')).toBeInTheDocument();
+    expect(screen.getByTestId('footer')).toBeInTheDocument();
   });
 
-  it('не должен рендериться NoFavorites при favoritesOffers.length !== 0', () => {
+  it('должен рендериться корректно при favoritesOffers.length !== 0', () => {
     const fakeFavoritesOffers = createFakeFavoritesOffers(5);
     const fakeStore = createFakeStore({
       offers: {
@@ -67,7 +72,11 @@ describe('Component: Favorites', () => {
 
     render(withStoreComponent);
 
+    expect(screen.getByTestId('header')).toBeInTheDocument();
     expect(screen.getByTestId('favorites')).toBeInTheDocument();
+    expect(screen.getByTestId('favorites-section')).toBeInTheDocument();
+    expect(screen.getByTestId('favorites-list')).toBeInTheDocument();
+    expect(screen.getByTestId('footer')).toBeInTheDocument();
     expect(screen.queryByText('Favorites (empty)')).not.toBeInTheDocument();
   });
 });

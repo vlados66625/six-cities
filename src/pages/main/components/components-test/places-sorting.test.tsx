@@ -10,6 +10,7 @@ describe('Component: PlacesSorting', () => {
 
     render(withStoreComponent);
 
+    expect(screen.getByTestId('sorting-form')).toBeInTheDocument();
     expect(screen.getByText('Sort by')).toBeInTheDocument();
   });
 });

@@ -27,17 +27,17 @@ export default function Favorites(): JSX.Element {
 
       <div className={cn('page',
         { 'page--favorites-empty': isEmpty })}
+      data-testid="favorites"
       >
         <Header />
         <main className={cn('page__main page__main--favorites',
           { 'page__main--favorites-empty': isEmpty })}
-        data-testid="favorites"
         >
           <div className="page__favorites-container container">
             {isEmpty ?
               <NoFavorites />
               :
-              <section className="favorites">
+              <section className="favorites" data-testid="favorites-section">
                 <h1 className="favorites__title">Saved listing</h1>
                 <FavoritesList favoritesOffers={favoritesOffers} />
               </section>}

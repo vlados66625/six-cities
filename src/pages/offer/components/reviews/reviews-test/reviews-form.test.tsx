@@ -10,6 +10,7 @@ describe('Component: ReviewsForm', () => {
 
     render(withStoreComponent);
 
+    expect(screen.getByTestId('reviews-form')).toBeInTheDocument();
     expect(screen.getByText('Your review')).toBeInTheDocument();
   });
 });

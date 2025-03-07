@@ -33,7 +33,7 @@ export default function ReviewsForm({ offerId }: ReviewsFormProps): JSX.Element 
   }
 
   return (
-    <form onSubmit={handleReviewFormSubmit} className="reviews__form form" action="#" method="post">
+    <form onSubmit={handleReviewFormSubmit} className="reviews__form form" action="#" method="post" data-testid="reviews-form">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {rating.map(({ value, label }) => (

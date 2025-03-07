@@ -11,6 +11,7 @@ describe('Component: Login', () => {
 
     render(withStoreComponent);
 
+    expect(screen.getByTestId('header')).toBeInTheDocument();
     expect(screen.getByTestId('login')).toBeInTheDocument();
   });
 });

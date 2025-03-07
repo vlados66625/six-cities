@@ -11,6 +11,7 @@ describe('Component: Bookmarks', () => {
 
     render(withStoreComponent);
 
+    expect(screen.getByRole('button')).toBeInTheDocument();
     expect(screen.getByText('To bookmarks')).toBeInTheDocument();
   });
 });

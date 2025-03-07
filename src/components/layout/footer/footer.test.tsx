@@ -9,5 +9,6 @@ describe('Component: Footer', () => {
     render(componentWithRouter);
 
     expect(screen.getByTestId('footer')).toBeInTheDocument();
+    expect(screen.getByAltText('6 cities logo')).toBeInTheDocument();
   });
 });

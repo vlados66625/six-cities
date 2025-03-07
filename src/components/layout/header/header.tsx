@@ -48,7 +48,7 @@ export default function Header({ isHiddenNav, isLogoActive }: HeaderProps): JSX.
                   </Link>
                 </li>
                 {isAuth &&
-                  <li className="header__nav-item">
+                  <li className="header__nav-item" data-testid="sign-out">
                     <a onClick={(evt) => handleNavLinkClick(evt)} className="header__nav-link" href="#">
                       <span className="header__signout">
                         Sign out

@@ -27,7 +27,7 @@ export default function PlacesSorting(): JSX.Element {
   }, [selectedCity, setSorting]);
 
   return (
-    <form className="places__sorting" action="#" method="get">
+    <form className="places__sorting" action="#" method="get" data-testid="sorting-form">
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" onClick={() => setIsSortingOpened(!isSortingOpened)} tabIndex={0}>
         {optionActive}

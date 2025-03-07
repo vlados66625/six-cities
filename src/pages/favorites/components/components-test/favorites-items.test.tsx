@@ -8,13 +8,16 @@ import { createFakeFavoritesOffers } from '../../../../test-utils/mock/offers';
 
 describe('Component: FavoritesItems', () => {
   it('должен рендериться корректно', () => {
-    const fakeFavoritesOffers = createFakeFavoritesOffers(5);
+    const favoritesOffersCount = 5;
+    const fakeFavoritesOffers = createFakeFavoritesOffers(favoritesOffersCount);
     const componentWithRouter = withRouter(<FavoritesItems city={sixCities[0]} filteredByCityOffers={fakeFavoritesOffers} />);
     const componentWithStore = withStore(componentWithRouter, createFakeStore());
     const { withStoreComponent } = componentWithStore;
 
     render(withStoreComponent);
+    const cardsLength = screen.getAllByTestId('favorites-card').length;
 
     expect(screen.getByText(sixCities[0])).toBeInTheDocument();
+    expect(cardsLength).toBe(favoritesOffersCount);
   });
 });

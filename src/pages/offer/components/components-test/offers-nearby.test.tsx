@@ -6,13 +6,17 @@ import { createFakeStore } from '../../../../test-utils/mock/store';
 
 describe('Component: OffersNearby', () => {
   it('должен рендериться корректно при offersNearby.length > 0', () => {
-    const fakeOffersPreview = createFakeOffersPreview(3);
+    const offersCount = 5;
+    const fakeOffersPreview = createFakeOffersPreview(offersCount);
     const componentWithRouter = withRouter(<OffersNearby offersNearby={fakeOffersPreview} />);
     const componentWithStore = withStore(componentWithRouter, createFakeStore());
     const { withStoreComponent } = componentWithStore;
 
     render(withStoreComponent);
 
+    const cardsLength = screen.getAllByTestId('near-card').length;
+
+    expect(cardsLength).toBe(offersCount);
     expect(screen.getByText('Other places in the neighbourhood')).toBeInTheDocument();
   });
 

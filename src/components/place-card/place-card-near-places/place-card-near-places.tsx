@@ -1,5 +1,5 @@
 import { PlaceCardContainerProps } from '../type-props-place-card-container';
-import PlaceCardLink from '../place-card-components/place-card-link';
+import PlaceCardLink from '../place-card-components/place-card-link/place-card-link';
 import PlaceCardContent from '../place-card-content/place-card-content';
 import { memo } from 'react';
 import { useHoverCard } from '../../../hooks/use-hover-card';

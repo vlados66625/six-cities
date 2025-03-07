@@ -14,5 +14,7 @@ describe('Component: Bookmarks', () => {
     render(withStoreComponent);
 
     expect(screen.getByTestId('near-card')).toBeInTheDocument();
+    expect(screen.getByTestId('place-card-link')).toBeInTheDocument();
+    expect(screen.getByTestId('place-card-content')).toBeInTheDocument();
   });
 });

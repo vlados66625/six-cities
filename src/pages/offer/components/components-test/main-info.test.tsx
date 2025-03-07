@@ -23,6 +23,7 @@ describe('Component: MainInfo', () => {
     render(withStoreComponent);
 
     expect(screen.getByText(fakeDetailedOffer.title)).toBeInTheDocument();
+    expect(screen.getByRole('button')).toBeInTheDocument();
   });
 
   it('не должен рендериться, когда detailedOffer равен null', () => {
@@ -43,5 +44,6 @@ describe('Component: MainInfo', () => {
     render(withStoreComponent);
 
     expect(screen.queryByTestId('main-info-container')).toBeNull();
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
   });
 });

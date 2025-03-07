@@ -63,7 +63,7 @@ export default function Main(): JSX.Element {
                 </section>}
               <div className="cities__right-section">
                 {!empty &&
-                  <section className="cities__map map" ref={mapRef} >
+                  <section className="cities__map map" ref={mapRef} data-testid="map">
                     <Map mapRef={mapRef} offersPreview={offers} />
                   </section>}
               </div>

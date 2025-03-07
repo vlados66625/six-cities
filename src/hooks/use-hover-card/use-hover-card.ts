@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-import { useActionCreators } from '.';
-import { offerActions } from '../store/slices/offer';
+import { useActionCreators } from '..';
+import { offerActions } from '../../store/slices/offer';
 
 export function useHoverCard(offerId: string, isSupportsHover: boolean | undefined) {
   const { setidFocusCard } = useActionCreators(offerActions);

@@ -5,7 +5,7 @@ import { UserAuth } from '../../types/user-auth';
 import { useActionCreators } from '../../hooks';
 import { authorizationActions } from '../../store/slices/authorization';
 import { getRandomItemArray } from '../../util';
-import { useCityLinkClick } from '../../hooks/use-city-link-click';
+import { useCityLinkClick } from '../../hooks/use-city-link-click/use-city-link-click';
 import { sixCities } from '../../const';
 
 export default function Login(): JSX.Element {

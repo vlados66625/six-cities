@@ -2,7 +2,7 @@ import { PlaceCardContainerProps } from '../type-props-place-card-container';
 import PlaceCardLink from '../place-card-components/place-card-link/place-card-link';
 import PlaceCardContent from '../place-card-content/place-card-content';
 import { memo } from 'react';
-import { useHoverCard } from '../../../hooks/use-hover-card';
+import { useHoverCard } from '../../../hooks/use-hover-card/use-hover-card';
 
 function PlaceCardFavorites({ offerPreview, isSupportsHover }: PlaceCardContainerProps): JSX.Element {
   const { handleMouseEnter, handleMouseLeave } = useHoverCard(offerPreview.id, isSupportsHover);

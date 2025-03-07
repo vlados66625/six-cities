@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { useActionCreators } from '.';
-import { offersActions } from '../store/slices/offers';
-import { AppRoute, CityName } from '../const';
+import { useActionCreators } from '..';
+import { offersActions } from '../../store/slices/offers';
+import { AppRoute, CityName } from '../../const';
 import { MouseEvent } from 'react';
 
 export function useCityLinkClick(city: CityName) {

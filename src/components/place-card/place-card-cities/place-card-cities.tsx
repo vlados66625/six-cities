@@ -1,7 +1,7 @@
 import { PlaceCardContainerProps } from '../type-props-place-card-container';
 import PlaceCardContent from '../place-card-content/place-card-content';
 import PlaceCardLink from '../place-card-components/place-card-link/place-card-link';
-import { useHoverCard } from '../../../hooks/use-hover-card';
+import { useHoverCard } from '../../../hooks/use-hover-card/use-hover-card';
 import { memo } from 'react';
 
 function PlaceCardCities({ offerPreview, isSupportsHover }: PlaceCardContainerProps): JSX.Element {

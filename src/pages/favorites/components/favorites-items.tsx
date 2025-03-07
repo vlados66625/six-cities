@@ -2,7 +2,7 @@ import { OfferPreview } from '../../../types/offer-types';
 import { CityName } from '../../../const';
 import PlaceCards from '../../../components/place-cards/place-cards';
 
-import { useCityLinkClick } from '../../../hooks/use-city-link-click';
+import { useCityLinkClick } from '../../../hooks/use-city-link-click/use-city-link-click';
 
 type FavoritesItemsProps = {
   city: CityName;

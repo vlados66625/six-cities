@@ -6,7 +6,6 @@ import { sixCities } from '../../const';
 import { createFakeOffersPreview } from '../../test-utils/mock/offers';
 import { SortingOptions } from '../../util';
 
-
 describe('Component: Main', () => {
   it('должен рендериться корректно когда есть предложения', () => {
     const fakeOffersPreview = createFakeOffersPreview(7);

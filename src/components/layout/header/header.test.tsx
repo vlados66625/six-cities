@@ -3,8 +3,27 @@ import Header from './header';
 import { withRouter, withStore } from '../../../test-utils/mock-component';
 import { createFakeStore } from '../../../test-utils/mock/store';
 import { AuthorizationStatus } from '../../../const';
+import { useActionCreators } from '../../../hooks';
+import { Mock } from 'vitest';
+import userEvent from '@testing-library/user-event';
+
+vi.mock('../../../hooks', async () => {
+  const original = await vi.importActual('../../../hooks');
+  return {
+    ...original,
+    useActionCreators: vi.fn(),
+  };
+});
 
 describe('Component: Header', () => {
+  const logoutAction = vi.fn();
+  beforeEach(() => {
+    vi.clearAllMocks();
+    (useActionCreators as Mock).mockReturnValue({
+      logoutAction,
+    });
+  });
+
   it('должен рендериться корректно при isHiddenNav === false и с AuthorizationStatus.Unknown', () => {
     const componentWithRouter = withRouter(<Header />);
     const componentWithStore = withStore(componentWithRouter, createFakeStore());
@@ -126,5 +145,25 @@ describe('Component: Header', () => {
     expect(screen.queryByTestId('user-name')).not.toBeInTheDocument();
     expect(screen.queryByTestId('favorite-count')).not.toBeInTheDocument();
     expect(screen.queryByTestId('sign-out')).not.toBeInTheDocument();
+  });
+
+  it('должен вызвать logoutAction при клике на кнопку sign out, пользватель авторизован', async () => {
+    const fakeStore = createFakeStore({
+      authorization: {
+        authorizationStatus: AuthorizationStatus.Auth,
+        userName: '',
+        avatarUrl: '',
+      }
+    });
+    const componentWithRouter = withRouter(<Header />);
+    const componentWithStore = withStore(componentWithRouter, fakeStore);
+    const { withStoreComponent } = componentWithStore;
+
+    render(withStoreComponent);
+
+    const signOutLink = screen.getByTestId('sign-out-link');
+    await userEvent.click(signOutLink);
+
+    expect(logoutAction).toHaveBeenCalledTimes(1);
   });
 });

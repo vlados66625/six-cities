@@ -1,7 +1,6 @@
 import { OfferPreview } from '../../../types/offer-types';
 import { CityName } from '../../../const';
 import PlaceCards from '../../../components/place-cards/place-cards';
-
 import { useCityLinkClick } from '../../../hooks/use-city-link-click/use-city-link-click';
 
 type FavoritesItemsProps = {
@@ -16,7 +15,7 @@ export default function FavoritesItems({ city, filteredByCityOffers }: Favorites
     <li className="favorites__locations-items">
       <div className="favorites__locations locations locations--current">
         <div className="locations__item">
-          <a onClick={handleCityLinkClick} className="locations__item-link" href="#">
+          <a onClick={handleCityLinkClick} className="locations__item-link" href="#" data-testid="city-link">
             <span>{city}</span>
           </a>
         </div>

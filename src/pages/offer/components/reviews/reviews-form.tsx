@@ -50,12 +50,14 @@ export default function ReviewsForm({ offerId }: ReviewsFormProps): JSX.Element 
               id={`${value}-${getPluralForm('star', value)}`}
               type="radio"
               onChange={handleChange}
-              checked={value === review.rating}
+              checked={value === Number(review.rating)}
+              data-testid={`radio-${label}`}
             />
             <label
               htmlFor={`${value}-${getPluralForm('star', value)}`}
               className="reviews__rating-label form__rating-label"
               title={label}
+              data-testid={`label-${label}`}
             >
               <svg className="form__star-image" width={37} height={33}>
                 <use xlinkHref="#icon-star" />
@@ -71,12 +73,20 @@ export default function ReviewsForm({ offerId }: ReviewsFormProps): JSX.Element 
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={review.review}
         onChange={handleChange}
+        data-testid="reviews-textarea"
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={review.review.length < 50 || review.review.length > 300 || review.rating === 0 || btnSubmitDiabled}>Submit</button>
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled={review.review.length < 50 || review.review.length > 300 || review.rating === 0 || btnSubmitDiabled}
+          data-testid="button-submit"
+        >
+          Submit
+        </button>
       </div>
     </form>
   );

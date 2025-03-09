@@ -43,3 +43,10 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
 }
+
+export const MAX_GALLERY_IMAGES = 6;
+
+export const ReviewLenght = {
+  Min: 50,
+  Max: 300,
+} as const;

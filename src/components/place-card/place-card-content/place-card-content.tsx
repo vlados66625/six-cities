@@ -8,7 +8,7 @@ type PlaceCardContentProps = {
   offerPreview: OfferPreview;
 };
 
-function PlaceCardContent({ offerPreview }: PlaceCardContentProps): JSX.Element {
+function PlaceCardContentContent({ offerPreview }: PlaceCardContentProps): JSX.Element {
   return (
     <>
       <div className="place-card__price-wrapper" data-testid="place-card-content">
@@ -34,6 +34,7 @@ function PlaceCardContent({ offerPreview }: PlaceCardContentProps): JSX.Element 
   );
 }
 
-const PlaceCardContentMemo = memo(PlaceCardContent);
 
-export default PlaceCardContentMemo;
+const PlaceCardContent = memo(PlaceCardContentContent);
+
+export default PlaceCardContent;

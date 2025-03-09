@@ -1,4 +1,4 @@
-import { rating } from '../../../../const';
+import { rating, ReviewLenght } from '../../../../const';
 import { Fragment, useState, ChangeEvent } from 'react';
 import { getPluralForm } from '../../../../util';
 import { FormEvent } from 'react';
@@ -82,7 +82,7 @@ export default function ReviewsForm({ offerId }: ReviewsFormProps): JSX.Element 
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={review.review.length < 50 || review.review.length > 300 || review.rating === 0 || btnSubmitDiabled}
+          disabled={review.review.length < ReviewLenght.Min || review.review.length > ReviewLenght.Max || review.rating === 0 || btnSubmitDiabled}
           data-testid="button-submit"
         >
           Submit

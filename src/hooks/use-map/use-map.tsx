@@ -1,6 +1,6 @@
 import leaflet from 'leaflet';
 import { useEffect, useState, useRef, MutableRefObject } from 'react';
-import { City } from '../types/city';
+import { City } from '../../types/city';
 import { Map } from 'leaflet';
 
 export default function useMap(
@@ -28,7 +28,7 @@ export default function useMap(
       isRenderedRef.current = true;
     }
 
-    if (isRenderedRef.current) {
+    if (isRenderedRef.current && map) {
       map?.setView([city.location.latitude, city.location.longitude], city.location.zoom);
     }
 

@@ -4,7 +4,7 @@ import leaflet from 'leaflet';
 import Map from './map';
 import { createFakeOffersPreview } from '../../test-utils/mock/offers';
 import { useAppSelector } from '../../hooks';
-import useMap from '../../hooks/use-map';
+import useMap from '../../hooks/use-map/use-map';
 import { MutableRefObject } from 'react';
 
 vi.mock('../../hooks/use-map');

@@ -2,13 +2,13 @@ import { memo } from 'react';
 import { useAppSelector } from '../../../hooks';
 import { offerSelectors } from '../../../store/slices/offer';
 
-function Host(): JSX.Element | null {
+function HostContent(): JSX.Element | null {
   const detailedOffer = useAppSelector(offerSelectors.detailedOffer);
   if (!detailedOffer) {
     return null;
   }
   return (
-    <div className="offer__host">
+    <div className="offer__host" data-testid="host-container">
       <h2 className="offer__host-title">Meet the host</h2>
       <div className="offer__host-user user">
         <div className={`offer__avatar-wrapper${detailedOffer.host.isPro ? ' offer__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
@@ -31,7 +31,7 @@ function Host(): JSX.Element | null {
   );
 }
 
-const HostMemo = memo(Host);
+const Host = memo(HostContent);
 
-export default HostMemo;
+export default Host;
 

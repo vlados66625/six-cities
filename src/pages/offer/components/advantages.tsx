@@ -4,7 +4,7 @@ type AdvantagesProps = {
   advantages: string[];
 }
 
-function Advantages({ advantages }: AdvantagesProps): JSX.Element {
+function AdvantagesContent({ advantages }: AdvantagesProps): JSX.Element {
   return (
     <div className="offer__inside">
       <h2 className="offer__inside-title">What&apos;s inside</h2>
@@ -19,6 +19,6 @@ function Advantages({ advantages }: AdvantagesProps): JSX.Element {
   );
 }
 
-const AdvantagesMemo = memo(Advantages);
+const Advantages = memo(AdvantagesContent);
 
-export default AdvantagesMemo;
+export default Advantages;

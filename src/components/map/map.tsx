@@ -1,5 +1,5 @@
 import { MutableRefObject } from 'react';
-import useMap from '../../hooks/use-map';
+import useMap from '../../hooks/use-map/use-map';
 import leaflet from 'leaflet';
 import { useEffect } from 'react';
 import { OfferPreview, DetailedOffer } from '../../types/offer-types';

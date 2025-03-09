@@ -7,6 +7,6 @@ export default function UserName(): JSX.Element {
   const userName = useAppSelector(authorizationSelectors.userName);
 
   return (
-    <span className="header__user-name user__name">{userName}</span>
+    <span className="header__user-name user__name" data-testid="user-name">{userName}</span>
   );
 }

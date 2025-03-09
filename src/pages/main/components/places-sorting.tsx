@@ -27,9 +27,14 @@ export default function PlacesSorting(): JSX.Element {
   }, [selectedCity, setSorting]);
 
   return (
-    <form className="places__sorting" action="#" method="get">
+    <form className="places__sorting" action="#" method="get" data-testid="sorting-form">
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" onClick={() => setIsSortingOpened(!isSortingOpened)} tabIndex={0}>
+      <span
+        className="places__sorting-type"
+        onClick={() => setIsSortingOpened(!isSortingOpened)}
+        tabIndex={0}
+        data-testid="sorting-type"
+      >
         {optionActive}
         <svg className="places__sorting-arrow" width={7} height={4}>
           <use xlinkHref="#icon-arrow-select" />
@@ -38,6 +43,7 @@ export default function PlacesSorting(): JSX.Element {
       <ul className={cn(
         'places__options places__options--custom',
         { 'places__options--opened': isSortingOpened })}
+      data-testid="sorting-options"
       >
         {SortingOptions.map(({ name }) => (
           <li

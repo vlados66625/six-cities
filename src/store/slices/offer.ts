@@ -2,7 +2,7 @@ import browserHistory from '../../browser-history';
 import { AppRoute } from '../../const';
 import { OfferPreview, DetailedOffer } from '../../types/offer-types';
 import { ReviewOffer } from '../../types/review-offer';
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSelector, createSlice } from '@reduxjs/toolkit';
 import {
   fetchDetailedOfferAction,
   fetchOffersNearbyAction,
@@ -10,6 +10,7 @@ import {
   reviewPostAction,
   setFavoriteOfferAction
 } from './api-actions/offer';
+import dayjs from 'dayjs';
 
 type InitialState = {
   reviewsOffer: ReviewOffer[];
@@ -67,6 +68,9 @@ export const offerSlice = createSlice({
   },
   selectors: {
     reviewsOffer: (state) => state.reviewsOffer,
+    sortedByDateReviewsOffer: createSelector([(state: InitialState) => state.reviewsOffer],
+      (reviewsOffer): ReviewOffer[] => [...reviewsOffer].sort((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf())
+    ),
     detailedOffer: (state) => state.detailedOffer,
     offersNearby: (state) => state.offersNearby,
     isLoadingOffer: (state) => state.isLoadingOffer,

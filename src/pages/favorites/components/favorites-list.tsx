@@ -8,7 +8,7 @@ type FavoritesListProps = {
 
 export default function FavoritesList({ favoritesOffers }: FavoritesListProps): JSX.Element {
   return (
-    <ul className="favorites__list">
+    <ul className="favorites__list" data-testid="favorites-list">
       {sixCities.map((city) => {
         const filteredByCityOffers = getFilteredByCityOffers(favoritesOffers, city);
         if (filteredByCityOffers.length > 0) {

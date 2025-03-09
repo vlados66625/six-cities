@@ -9,7 +9,7 @@ type LocationsProps = {
   selectedCity: CityName;
 }
 
-function Locations({ selectedCity }: LocationsProps): JSX.Element {
+function LocationsContent({ selectedCity }: LocationsProps): JSX.Element {
   const { setCity } = useActionCreators(offersActions);
   function handleLocationLinkClick(evt: MouseEvent<HTMLAnchorElement>, city: CityName): void {
     evt.preventDefault();
@@ -38,6 +38,6 @@ function Locations({ selectedCity }: LocationsProps): JSX.Element {
   );
 }
 
-const LocationsMemo = memo(Locations);
+const Locations = memo(LocationsContent);
 
-export default LocationsMemo;
+export default Locations;

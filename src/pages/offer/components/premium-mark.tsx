@@ -4,10 +4,10 @@ type PremiumMarkProps = {
   isPremium: boolean;
 }
 
-function PremiumMark({ isPremium }: PremiumMarkProps): JSX.Element | null {
+function PremiumMarkContent({ isPremium }: PremiumMarkProps): JSX.Element | null {
   if (isPremium) {
     return (
-      <div className="offer__mark">
+      <div className="offer__mark" data-testid="premium-mark-container">
         <span>Premium</span>
       </div>
     );
@@ -15,6 +15,6 @@ function PremiumMark({ isPremium }: PremiumMarkProps): JSX.Element | null {
   return null;
 }
 
-const PremiumMarkMemo = memo(PremiumMark);
+const PremiumMark = memo(PremiumMarkContent);
 
-export default PremiumMarkMemo;
+export default PremiumMark;

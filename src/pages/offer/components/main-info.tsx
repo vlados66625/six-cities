@@ -4,7 +4,7 @@ import { getPluralForm, getRoundedRatingInPercentage } from '../../../util';
 import { memo } from 'react';
 import Bookmarks from '../../../components/common/bookmarks/bookmarks';
 
-function MainInfo(): JSX.Element | null {
+function MainInfoContent(): JSX.Element | null {
   const detailedOffer = useAppSelector(offerSelectors.detailedOffer);
 
   if (!detailedOffer) {
@@ -13,7 +13,7 @@ function MainInfo(): JSX.Element | null {
 
   return (
     <>
-      <div className="offer__name-wrapper">
+      <div className="offer__name-wrapper" data-testid="main-info-container">
         <h1 className="offer__name">
           {detailedOffer.title}
         </h1>
@@ -45,6 +45,6 @@ function MainInfo(): JSX.Element | null {
   );
 }
 
-const MainInfoMemo = memo(MainInfo);
+const MainInfo = memo(MainInfoContent);
 
-export default MainInfoMemo;
+export default MainInfo ;

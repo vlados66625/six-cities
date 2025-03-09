@@ -1,7 +1,7 @@
 import { OfferPreview } from '../../types/offer-types';
-import PlaceCardFavorites from '../place-card/place-card-favorites';
-import PlaceCardNearPlaces from '../place-card/place-card-near-places';
-import PlaceCardCities from '../place-card/place-card-cities';
+import PlaceCardFavorites from '../place-card/place-card-favorites/place-card-favorites';
+import PlaceCardNearPlaces from '../place-card/place-card-near-places/place-card-near-places';
+import PlaceCardCities from '../place-card/place-card-cities/place-card-cities';
 import { memo, useMemo } from 'react';
 
 
@@ -11,7 +11,7 @@ type PlaceCardsProps = {
   isSupportsHover?: boolean;
 }
 
-function PlaceCards({ offersPreview, placeCard, isSupportsHover }: PlaceCardsProps) {
+function PlaceCardsContent({ offersPreview, placeCard, isSupportsHover }: PlaceCardsProps) {
   const PlaceCard = useMemo(() => {
     switch (placeCard) {
       case 'favorite':
@@ -29,6 +29,6 @@ function PlaceCards({ offersPreview, placeCard, isSupportsHover }: PlaceCardsPro
   return PlaceCardmemo;
 }
 
-const PlaceCardsMemo = memo(PlaceCards);
+const PlaceCards = memo(PlaceCardsContent);
 
-export default PlaceCardsMemo;
+export default PlaceCards;

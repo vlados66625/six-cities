@@ -38,6 +38,7 @@ export default function Main(): JSX.Element {
         <Header isLogoActive />
         <main className={cn('page__main page__main--index',
           { 'page__main--index-empty': empty })}
+        data-testid="main"
         >
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
@@ -62,7 +63,7 @@ export default function Main(): JSX.Element {
                 </section>}
               <div className="cities__right-section">
                 {!empty &&
-                  <section className="cities__map map" ref={mapRef} >
+                  <section className="cities__map map" ref={mapRef} data-testid="map">
                     <Map mapRef={mapRef} offersPreview={offers} />
                   </section>}
               </div>

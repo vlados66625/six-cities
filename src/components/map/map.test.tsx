@@ -7,19 +7,10 @@ import { useAppSelector } from '../../hooks';
 import useMap from '../../hooks/use-map/use-map';
 import { MutableRefObject } from 'react';
 
-vi.mock('../../hooks/use-map');
+vi.mock('../../hooks/use-map/use-map');
 vi.mock('../../hooks', () => ({
   useAppSelector: vi.fn()
 }));
-
-vi.mock('leaflet', async () => {
-  const actual = await vi.importActual<typeof import('leaflet')>('leaflet');
-  return {
-    ...actual,
-    marker: vi.fn(() => ({ addTo: vi.fn() })),
-    layerGroup: vi.fn(() => ({ addTo: vi.fn(), clearLayers: vi.fn() })),
-  };
-});
 
 describe('Map component', () => {
   let mapRef: MutableRefObject<HTMLElement | null>;

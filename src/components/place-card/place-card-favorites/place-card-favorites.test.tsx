@@ -23,15 +23,17 @@ describe('Component: Bookmarks', () => {
   });
 
   it('должен рендериться корректно', () => {
+    const countLinksInCards = 2;
     const fakeOffer = createFakeOfferPreview();
     const componentWithRouter = withRouter(<PlaceCardFavorites offerPreview={fakeOffer} />);
     const componentWithStore = withStore(componentWithRouter, createFakeStore());
     const { withStoreComponent } = componentWithStore;
 
     render(withStoreComponent);
+    const links = screen.getAllByTestId('place-card-link');
 
     expect(screen.getByTestId('favorites-card')).toBeInTheDocument();
-    expect(screen.getByTestId('place-card-link')).toBeInTheDocument();
+    expect(links.length).toBe(countLinksInCards);
     expect(screen.getByTestId('place-card-content')).toBeInTheDocument();
   });
 

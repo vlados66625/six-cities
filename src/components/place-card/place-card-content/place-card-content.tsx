@@ -1,7 +1,7 @@
 import { OfferPreview } from '../../../types/offer-types';
-import { Link } from 'react-router-dom';
 import { getRoundedRatingInPercentage } from '../../../util';
 import Bookmarks from '../../common/bookmarks/bookmarks';
+import PlaceCardLink from '../place-card-components/place-card-link/place-card-link';
 import { memo } from 'react';
 
 type PlaceCardContentProps = {
@@ -25,9 +25,9 @@ function PlaceCardContentContent({ offerPreview }: PlaceCardContentProps): JSX.E
         </div>
       </div>
       <h2 className="place-card__name">
-        <Link to={`/offer/${offerPreview.id}`}>
+        <PlaceCardLink offerId={offerPreview.id}>
           {offerPreview.title}
-        </Link>
+        </PlaceCardLink>
       </h2>
       <p className="place-card__type">{offerPreview.type}</p>
     </>
